@@ -22,12 +22,12 @@ test_dataset_dir=$8
 mkdir -p ~/tmp
 
 config_file=~/tmp/config.ini
-machines=1
+machines=2
 log_level=INFO
 
 ip_machines=$(pwd)/ip.json
 
-m="0"
+m="1"
 
 echo -e $procs_per_machine
 
