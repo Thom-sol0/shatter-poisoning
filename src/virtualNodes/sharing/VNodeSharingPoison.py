@@ -114,7 +114,10 @@ class VNodeSharingPoison(VNodeSharing):
             # do_poison = np.random.random() < self.poison_probability
             
             # if do_poison:
+            print(f"Checking if node {self.uid} is adversarial")
+            print(f"Adversarial nodes: {self.adversarial_nodes}")
             if self.uid in self.adversarial_nodes:
+                print(f"Node {self.uid} sending poisoned data")
                 data['params'] = self._apply_poison(data['params'])
                 # data['poisoned'] = True
                 # self.poison_metrics["poisoned_messages"] += 1
@@ -127,6 +130,8 @@ class VNodeSharingPoison(VNodeSharing):
         
         # if self.log_poisoning_metrics and self.poison_metrics["rounds_poisoned"] % 10 == 0:
         #     self._log_poison_metrics()
+
+        print(f"Node {self.uid} sending data: {data_list}")
             
         return data_list
     
