@@ -28,9 +28,7 @@ class VNodeSharingPoison(VNodeSharing):
         float_precision=None,
         attack_type='zero',
         adversarial_nodes=None,   # List of uids of adversarial nodes
-        # poison_strength=1.0,
-        # poison_probability=1.0,
-        # targeted_nodes=None,
+        poison_after=None,
         # log_poisoning_metrics=True,
     ):
         """
@@ -41,12 +39,10 @@ class VNodeSharingPoison(VNodeSharing):
         rank, machine_id, etc. : same as parent class
         attack_type : str
             Poisoning strategy ('zero', 'flip', 'noise', 'scale')
-        poison_strength : float
-            Strength of the poisoning attack (scaling factor for flip/noise)
-        poison_probability : float
-            Probability of poisoning a message (0.0-1.0)
-        targeted_nodes : list
-            List of specific node UIDs to target (None = attack all)
+        adversarial_nodes : list
+            List of node IDs that will perform the attack
+        poison_period : int
+            Number of rounds between poisonings
         log_poisoning_metrics : bool
             Whether to log poisoning metrics
         """
@@ -66,39 +62,33 @@ class VNodeSharingPoison(VNodeSharing):
         )
         
         self.attack_type = attack_type
+        self.poison_after = int(poison_after) if poison_after is not None else 1
         
         if isinstance(adversarial_nodes, str) and adversarial_nodes:
-            # Convert comma-separated string to list of integers
             self.adversarial_nodes = [int(node_id.strip()) for node_id in adversarial_nodes.split(',')]
         else:
             self.adversarial_nodes = [] if adversarial_nodes is None else adversarial_nodes
 
-        # self.poison_strength = float(poison_strength)
-        # self.poison_probability = float(poison_probability)
-        # self.targeted_nodes = [] if targeted_nodes is None else targeted_nodes
+        for node_id in self.adversarial_nodes:
+            if node_id >= self.graph.num_nodes:
+                raise ValueError(f"Adversarial node ID {node_id} exceeds number of nodes in the graph.")
+
         # self.log_poisoning_metrics = bool(log_poisoning_metrics)
         
         # self.poison_metrics = {
         #     "rounds_poisoned": 0,
         #     "total_messages": 0,
-        #     "poisoned_messages": 0,
-        #     "targeted_nodes": []
+        #     "poisoned_messages": 0
         # }
         
-        # logging.info(f"Node {rank} initialized with {attack_type} poisoning attack (strength={poison_strength})")
+        # logging.info(f"Node {rank} initialized with {attack_type} poisoning attack")
     
     def _apply_poison(self, params):
         """Apply poisoning strategy to sent data (gradients)"""
         with torch.no_grad():
             if self.attack_type == 'zero':
                 params.zero_()
-            # elif self.attack_type == 'flip':
-            #     params.mul_(-self.poison_strength)
-            # elif self.attack_type == 'noise':
-            #     noise = torch.randn_like(params) * self.poison_strength
-            #     params.add_(noise)
-            # elif self.attack_type == 'scale':
-            #     params.mul_(self.poison_strength)
+        # TODO: Implement other poisoning strategies
         return params
     
     def get_data_to_send(self, vnodes_per_node=1, sparsity=0.0, degree=None):
@@ -111,13 +101,9 @@ class VNodeSharingPoison(VNodeSharing):
         # self.poison_metrics["total_messages"] += len(data_list)
         
         for data in data_list:
-            # do_poison = np.random.random() < self.poison_probability
             
             # if do_poison:
-            print(f"Checking if node {self.uid} is adversarial")
-            print(f"Adversarial nodes: {self.adversarial_nodes}")
-            if self.uid in self.adversarial_nodes:
-                print(f"Node {self.uid} sending poisoned data")
+            if self.uid in self.adversarial_nodes and self.round % self.poison_after == 0:
                 data['params'] = self._apply_poison(data['params'])
                 # data['poisoned'] = True
                 # self.poison_metrics["poisoned_messages"] += 1
@@ -130,8 +116,6 @@ class VNodeSharingPoison(VNodeSharing):
         
         # if self.log_poisoning_metrics and self.poison_metrics["rounds_poisoned"] % 10 == 0:
         #     self._log_poison_metrics()
-
-        print(f"Node {self.uid} sending data: {data_list}")
             
         return data_list
     
