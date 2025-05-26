@@ -96,32 +96,13 @@ class VNodeSharingPoison(VNodeSharing):
         # TODO: Implement other poisoning strategies
         return params
     
-    def get_data_to_send(self, vnodes_per_node=1, sparsity=0.0, degree=None):
-        """Override get_data_to_send to apply poisoning to outgoing data"""
+    def get_data_to_send(self, vnodes_per_node=1, degree=None, sparsity=0.0):
         self._pre_step()
         data_list = self.serialized_models(
-            vnodes_per_node=vnodes_per_node, sparsity=sparsity
+            vnodes_per_node=vnodes_per_node
         )
-        
-        # self.poison_metrics["total_messages"] += len(data_list)
-        
         for data in data_list:
-            
-            # if do_poison:
-            if self.uid in self.adversarial_nodes:# and self.round % self.poison_after == 0:
-                data['params'] = self._apply_poison(data['params'])
-                # data['poisoned'] = True
-                # self.poison_metrics["poisoned_messages"] += 1
-            # else:
-            #     data['poisoned'] = False
-                
             data["real_node"] = self.uid
-        
-        # self.poison_metrics["rounds_poisoned"] += 1
-        
-        # if self.log_poisoning_metrics and self.poison_metrics["rounds_poisoned"] % 10 == 0:
-        #     self._log_poison_metrics()
-            
         return data_list
     
     # def _log_poison_metrics(self):
@@ -159,60 +140,7 @@ class VNodeSharingPoison(VNodeSharing):
     
         return poisonedT
     
-    def serialized_models(self, vnodes_per_node=1):
-        """
-        Convert model to a dictionary. Here we can choose how much to share
 
-        Returns
-        -------
-        list(dict)
-            Model converted to dict
-
-        """
-        to_cat = []
-        with torch.no_grad():
-            for _, v in self.model.state_dict().items():
-                t = v.flatten()
-                to_cat.append(t)
-        flat = torch.cat(to_cat)
-        sizes = flat.shape[0] // vnodes_per_node
-        index = 0
-        to_return = []
-        for _ in range(vnodes_per_node - 1):
-            data = dict()
-            data["params"] = flat[index : index + sizes]
-            data["start_index"] = index
-            index += sizes
-            to_return.append(self.compress_data(data))
-
-        # Add the last part
-        data = dict()
-        data["params"] = flat[index:]
-        data["start_index"] = index
-        to_return.append(self.compress_data(data))
-        return to_return
-
-    def deserialized_model(self, m):
-        """
-        Convert received dict to a model vector.
-
-        Parameters
-        ----------
-        m : dict
-            received dict
-
-        Returns
-        -------
-        state_dict
-            state_dict of received
-
-        """
-        with torch.no_grad():
-            m = self.decompress_data(m)
-            start = m["start_index"]
-            end = m["start_index"] + m["params"].shape[0]
-            des = m["params"].to(torch.float32)
-            return des, start, end
 
     def _post_step(self, T):
         """
@@ -299,7 +227,7 @@ class VNodeSharingPoison(VNodeSharing):
             # it will just add to the current model
             logging.debug(f"Node {self.uid} is adversarial, applying poisoning")
 
-        if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after = 0:
+        if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
             for _, n in enumerate(peer_deques):
                 for data in peer_deques[n]:
                     # If the node is adversarial, apply poisoning
