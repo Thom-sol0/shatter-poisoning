@@ -102,6 +102,9 @@ class VNodeSharingPoison(VNodeSharing):
             vnodes_per_node=vnodes_per_node
         )
         for data in data_list:
+            # Apply poisoning if this node is adversarial
+            if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
+                data = self._apply_poison(data)
             data["real_node"] = self.uid
         return data_list
     
@@ -222,21 +225,21 @@ class VNodeSharingPoison(VNodeSharing):
 
         """
 
-        if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
-            # If the node is adversarial, instead of doing averaging aggregation,
-            # it will just add to the current model
-            logging.debug(f"Node {self.uid} is adversarial, applying poisoning")
-
-        if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
-            for _, n in enumerate(peer_deques):
-                for data in peer_deques[n]:
-                    # If the node is adversarial, apply poisoning
-                    self.poison_forward_averaging(data)
-        else: 
-            for _, n in enumerate(peer_deques):
-                for data in peer_deques[n]:
-                    # Otherwise, do normal forward averaging
-                    self.forward_averaging(data)
+        # if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
+        #     # If the node is adversarial, instead of doing averaging aggregation,
+        #     # it will just add to the current model
+        #     logging.debug(f"Node {self.uid} is adversarial, applying poisoning")
+        # 
+        # if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
+        #     for _, n in enumerate(peer_deques):
+        #         for data in peer_deques[n]:
+        #             # If the node is adversarial, apply poisoning
+        #             self.poison_forward_averaging(data)
+        # else: 
+        for _, n in enumerate(peer_deques):
+            for data in peer_deques[n]:
+                # Otherwise, do normal forward averaging
+                self.forward_averaging(data)
 
         assert self.current_sum != None
         assert self.current_weights != None
