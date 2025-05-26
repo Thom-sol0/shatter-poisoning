@@ -144,9 +144,9 @@ class VNodeSharingPoison(VNodeSharing):
         return poisonedT
     
 
-
+""""
     def _post_step(self, T):
-        """
+        
         Return state_dict of model.
 
         Parameters
@@ -159,7 +159,7 @@ class VNodeSharingPoison(VNodeSharing):
         state_dict
             state_dict of model
 
-        """
+        
         state_dict = self.model.state_dict()
         start_index = 0
         for i, key in enumerate(state_dict):
@@ -167,9 +167,11 @@ class VNodeSharingPoison(VNodeSharing):
             state_dict[key] = T[start_index:end_index].reshape(self.shapes[i])
             start_index = end_index
         return state_dict
+"""
 
+"""
     def poison_forward_averaging(self, data):
-        """
+        
         Computes the poisoned sum for the average in a state based manner.
 
         Parameters
@@ -181,7 +183,7 @@ class VNodeSharingPoison(VNodeSharing):
         -------
         None
 
-        """
+        
         if self.current_sum == None:
             # First time take model of self
             self.current_weights = torch.zeros(
@@ -216,14 +218,14 @@ class VNodeSharingPoison(VNodeSharing):
         self.current_sum[start:end] += poisonedT.to(self.device)
         self.current_weights[start] += 1
         self.current_weights[end] -= 1
-    
+"""
 
-
+"""
     def finish_forward_averaging(self, peer_deques):
-        """
+        
         Finishes the forward averaging.
 
-        """
+        
 
         # if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
         #     # If the node is adversarial, instead of doing averaging aggregation,
@@ -254,3 +256,4 @@ class VNodeSharingPoison(VNodeSharing):
         self.communication_round += 1
         self.current_weights = None
         self.current_sum = None
+"""
