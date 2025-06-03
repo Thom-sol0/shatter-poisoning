@@ -100,6 +100,21 @@ def replace_dict_key(d_org: dict, d_other: dict):
 def create_list_of_metrics(results, metric):
     return [x[metric][x[metric].notna()] for x in results if metric in x]
 
+def get_min_max_test_acc(results):
+    """Get the minimum of the maximum test accuracy across all dataframes"""
+    assert 'test_acc' in results[0].columns
+    min_of_maxes_acc = float('inf')
+    min_of_maxes_df_idx = 0
+    min_of_maxes_row_idx = 0
+    for df_idx, df in enumerate(results):
+        max_acc = df['test_acc'].max()
+        max_acc_row_idx = df['test_acc'].idxmax()
+        if max_acc < min_of_maxes_acc:
+            min_of_maxes_acc = max_acc
+            min_of_maxes_df_idx = df_idx
+            min_of_maxes_row_idx = max_acc_row_idx 
+    return min_of_maxes_row_idx, min_of_maxes_acc
+
 
 def extract_node_ids(filepaths):
     """Extract node IDs from CSV filenames"""
@@ -207,6 +222,8 @@ def plot_results(results_path, config_path=None):
         df.to_csv(os.path.join(results_path, f"{folder}_test_loss.csv"), index_label="rounds")
 
         plt.figure(3)
+        min_of_maxes_row_idx, min_of_maxes_acc = get_min_max_test_acc(results)
+        print(f"Minimum of maximum test accuracy: {min_of_maxes_acc} at row {min_of_maxes_row_idx} for folder {folder}")
         means, stdevs, mins, maxs, counts = get_stats(
             create_list_of_metrics(results, "test_acc")
         )

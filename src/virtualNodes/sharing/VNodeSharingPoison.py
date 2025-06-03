@@ -29,6 +29,7 @@ class VNodeSharingPoison(VNodeSharing):
         attack_type='zero',
         adversarial_nodes=None,   # List of uids of adversarial nodes
         poison_after=None,
+        sigma=0.1,  # Standard deviation for random noise
         # log_poisoning_metrics=True,
     ):
         """
@@ -62,6 +63,10 @@ class VNodeSharingPoison(VNodeSharing):
         )
         
         self.attack_type = attack_type
+        if attack_type not in ['zero', 'random']:
+            raise ValueError(f"Unsupported attack type: {attack_type}. Supported types: ['zero', 'random']")
+        if attack_type == 'random':
+            self.sigma = sigma
         self.poison_after = int(poison_after) if poison_after is not None else 1
         
         if isinstance(adversarial_nodes, str) and adversarial_nodes:
@@ -69,9 +74,9 @@ class VNodeSharingPoison(VNodeSharing):
         else:
             self.adversarial_nodes = [] if adversarial_nodes is None else adversarial_nodes
 
-        for node_id in self.adversarial_nodes:
-            if node_id >= self.graph.num_nodes:
-                raise ValueError(f"Adversarial node ID {node_id} exceeds number of nodes in the graph.")
+        #for node_id in self.adversarial_nodes:
+        #    if node_id >= self.graph.num_nodes:
+        #        raise ValueError(f"Adversarial node ID {node_id} exceeds number of nodes in the graph.")
 
         # self.log_poisoning_metrics = bool(log_poisoning_metrics)
         
@@ -91,32 +96,16 @@ class VNodeSharingPoison(VNodeSharing):
         # TODO: Implement other poisoning strategies
         return params
     
-    def get_data_to_send(self, vnodes_per_node=1, sparsity=0.0, degree=None):
-        """Override get_data_to_send to apply poisoning to outgoing data"""
+    def get_data_to_send(self, vnodes_per_node=1, degree=None, sparsity=0.0):
         self._pre_step()
         data_list = self.serialized_models(
-            vnodes_per_node=vnodes_per_node, sparsity=sparsity
+            vnodes_per_node=vnodes_per_node
         )
-        
-        # self.poison_metrics["total_messages"] += len(data_list)
-        
         for data in data_list:
-            
-            # if do_poison:
-            if self.uid in self.adversarial_nodes and self.round % self.poison_after == 0:
-                data['params'] = self._apply_poison(data['params'])
-                # data['poisoned'] = True
-                # self.poison_metrics["poisoned_messages"] += 1
-            # else:
-            #     data['poisoned'] = False
-                
+            # Apply poisoning if this node is adversarial
+            if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
+                data = self._apply_poison(data)
             data["real_node"] = self.uid
-        
-        # self.poison_metrics["rounds_poisoned"] += 1
-        
-        # if self.log_poisoning_metrics and self.poison_metrics["rounds_poisoned"] % 10 == 0:
-        #     self._log_poison_metrics()
-            
         return data_list
     
     # def _log_poison_metrics(self):
@@ -134,3 +123,137 @@ class VNodeSharingPoison(VNodeSharing):
     #     """Save final metrics before destruction"""
     #     if self.log_poisoning_metrics:
     #         self._log_poison_metrics()
+
+    def _get_poisoned_model(self, deserializedT):
+        """
+        Applies the poisoning
+        """
+        poisonedT = copy.deepcopy(deserializedT)
+    
+        if self.attack_type == 'zero':
+            # Zero out all parameters
+            for key in poisonedT:
+                poisonedT[key].zero_()
+            
+        elif self.attack_type == 'random':
+            # Add normalized random noise
+            for key in poisonedT:
+                noise = torch.randn_like(poisonedT[key])
+                poisonedT[key] += 0.1 * noise / torch.norm(noise)
+    
+        return poisonedT
+    
+
+""""
+    def _post_step(self, T):
+        
+        Return state_dict of model.
+
+        Parameters
+        ----------
+        T : torch.Tensor
+            Flat model vector
+
+        Returns
+        -------
+        state_dict
+            state_dict of model
+
+        
+        state_dict = self.model.state_dict()
+        start_index = 0
+        for i, key in enumerate(state_dict):
+            end_index = start_index + self.lens[i]
+            state_dict[key] = T[start_index:end_index].reshape(self.shapes[i])
+            start_index = end_index
+        return state_dict
+"""
+
+"""
+    def poison_forward_averaging(self, data):
+        
+        Computes the poisoned sum for the average in a state based manner.
+
+        Parameters
+        ----------
+        data : dict
+            Received data
+
+        Returns
+        -------
+        None
+
+        
+        if self.current_sum == None:
+            # First time take model of self
+            self.current_weights = torch.zeros(
+                self.total_length + 1, dtype=torch.float32, device=self.device
+            )
+            self.current_weights[0] = 1
+            self.current_weights[-1] = -1
+
+            tensors_to_cat = []
+            for _, v in self.model.state_dict().items():
+                t = v.flatten()
+                tensors_to_cat.append(t)
+            self.current_sum = torch.cat(tensors_to_cat, dim=0).to(self.device)
+
+        iteration = data["iteration"]
+        if "degree" in data:
+            del data["degree"]
+        del data["iteration"]
+        del data["CHANNEL"]
+        logging.debug(
+            "Forward Averaging model from neighbor {} of iteration {}".format(
+                data["vSource"], iteration
+            )
+        )
+        try:
+            deserializedT, start, end = self.deserialized_model(data)
+        except Exception as e:
+            print("uid: {} | Exception: {}".format(self.uid, e))
+            raise e
+        logging.debug("Deserialized model from neighbor {}".format(data["vSource"]))
+        poisonedT = self._get_poisoned_model(deserializedT)
+        self.current_sum[start:end] += poisonedT.to(self.device)
+        self.current_weights[start] += 1
+        self.current_weights[end] -= 1
+"""
+
+"""
+    def finish_forward_averaging(self, peer_deques):
+        
+        Finishes the forward averaging.
+
+        
+
+        # if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
+        #     # If the node is adversarial, instead of doing averaging aggregation,
+        #     # it will just add to the current model
+        #     logging.debug(f"Node {self.uid} is adversarial, applying poisoning")
+        # 
+        # if self.uid in self.adversarial_nodes and self.communication_round % self.poison_after == 0:
+        #     for _, n in enumerate(peer_deques):
+        #         for data in peer_deques[n]:
+        #             # If the node is adversarial, apply poisoning
+        #             self.poison_forward_averaging(data)
+        # else: 
+        for _, n in enumerate(peer_deques):
+            for data in peer_deques[n]:
+                # Otherwise, do normal forward averaging
+                self.forward_averaging(data)
+
+        assert self.current_sum != None
+        assert self.current_weights != None
+
+        self.current_weights = torch.cumsum(self.current_weights, dim=0)[:-1]
+        self.current_weights = self.current_weights.type(torch.float32)
+        self.current_weights = 1.0 / self.current_weights
+        self.current_sum = self.current_sum * self.current_weights
+        logging.debug("Finished averaging")
+        self.current_sum = self.current_sum.cpu()
+        self.model.load_state_dict(self._post_step(self.current_sum))
+        self.communication_round += 1
+        self.current_weights = None
+        self.current_sum = None
+"""
