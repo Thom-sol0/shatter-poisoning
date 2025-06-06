@@ -65,13 +65,17 @@ class VNodeSharingPoison(VNodeSharing):
         self.poison_after = int(poison_after) if poison_after is not None else 1
         
         if isinstance(adversarial_nodes, str) and adversarial_nodes:
-            self.adversarial_nodes = [int(node_id.strip()) for node_id in adversarial_nodes.split(',')]
+            # Parse string representation
+            self.adversarial_nodes = [int(node_id.strip()) for node_id in adversarial_nodes.split(',') if node_id.strip()]
+        elif adversarial_nodes is None:
+            # No adversarial nodes
+            self.adversarial_nodes = []
+        elif not isinstance(adversarial_nodes, list):
+            # Single integer or other non-list type
+            self.adversarial_nodes = [adversarial_nodes]
         else:
-            self.adversarial_nodes = [] if adversarial_nodes is None else adversarial_nodes
-
-        for node_id in self.adversarial_nodes:
-            if node_id >= self.graph.num_nodes:
-                raise ValueError(f"Adversarial node ID {node_id} exceeds number of nodes in the graph.")
+            # Already a list
+            self.adversarial_nodes = adversarial_nodes
 
         # self.log_poisoning_metrics = bool(log_poisoning_metrics)
         
@@ -103,7 +107,7 @@ class VNodeSharingPoison(VNodeSharing):
         for data in data_list:
             
             # if do_poison:
-            if self.uid in self.adversarial_nodes and self.round % self.poison_after == 0:
+            if self.uid in self.adversarial_nodes:# and self.round % self.poison_after == 0:
                 data['params'] = self._apply_poison(data['params'])
                 # data['poisoned'] = True
                 # self.poison_metrics["poisoned_messages"] += 1

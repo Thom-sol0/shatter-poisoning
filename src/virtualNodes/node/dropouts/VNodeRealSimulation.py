@@ -188,7 +188,21 @@ class VNodeReal(VNode):
                             )
                         )
                 for deq in averaging_deque[neighbor]:
-                    self.peer_deques[neighbor].remove(deq)
+                    # Create a new deque without the matching item
+                    new_deque = deque()
+                    found_match = False
+    
+                    for item in self.peer_deques[neighbor]:
+                        # Only add items that don't match our criteria
+                        if (not found_match and
+                            item['iteration'] == deq['iteration'] and 
+                            item['vSource'] == deq['vSource'] and 
+                            torch.equal(item['params'], deq['params'])):
+                            found_match = True  # Skip this item
+                        else:
+                            new_deque.append(item)
+            
+                    self.peer_deques[neighbor] = new_deque
 
             if received_at_least_once and to_participate:
                 self.sharing.finish_forward_averaging(averaging_deque)
