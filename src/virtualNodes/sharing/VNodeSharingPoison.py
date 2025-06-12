@@ -93,10 +93,7 @@ class VNodeSharingPoison(VNodeSharing):
             if self.attack_type == 'zero':
                 params.zero_()
             if self.attack_type == 'flip':
-                # Flip the sign of the gradients
-                for key in params.keys():
-                    if isinstance(params[key], torch.Tensor):
-                        params[key] = -params[key]
+                params = -params
         # TODO: Implement other poisoning strategies
         return params
     
