@@ -3,6 +3,8 @@ import sys
 from pathlib import Path
 import configparser
 
+from decentralizepy.graphs.Regular import Regular
+
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -123,6 +125,44 @@ def get_list_of_max_test_acc(results):
         max_acc = df['test_acc'].max()
         maxes.append(max_acc)
     return maxes
+
+def get_distance(graph, node1, node2):
+    """
+    Returns the distance between two nodes in the graph.
+    """
+    
+    if node1 == node2:
+        return 0
+    visited = set()
+    queue = [(node1, 0)]  # (current_node, current_distance)
+    
+    while queue:
+        current_node, current_distance = queue.pop(0)
+        if current_node == node2:
+            return current_distance
+        
+        if current_node not in visited:
+            visited.add(current_node)
+            for neighbour in graph.neighbors(current_node):
+                if neighbour not in visited:
+                    queue.append((neighbour, current_distance + 1))
+
+def get_distance_to_special_nodes(graph, node, special_nodes):
+    """
+    Returns the distance from a node to the nearest special node.
+    """
+    distances = [get_distance(graph, node, special_node) for special_node in special_nodes]
+    return min(distances)
+
+def get_list_of_distances_to_special_nodes(graph, special_nodes):
+    """
+    Returns a list of distances from each node in the graph to the nearest special node.
+    """
+    distances = []
+    for node in range(graph.n_procs):
+        distance = get_distance_to_special_nodes(graph, node, special_nodes)
+        distances.append(distance)
+    return distances
 
 def create_max_accuracy_box_plot(results_path, folder_data):
     """
@@ -248,6 +288,10 @@ def plot_results(results_path, config_path=None):
                 print(f"Max test accuracies for defenders in {folder}: {all_max_accuracies[folder]}")
             else:
                 all_max_accuracies[folder] = get_list_of_max_test_acc(results)
+                graph = Regular(32, 4, seed=90)
+                adversarial_nodes=[0, 8, 16, 24]  # Example adversarial nodes
+                dist_list = get_list_of_distances_to_special_nodes(graph, adversarial_nodes)
+                print(f"Distances to special nodes for folder {folder}: {dist_list}")
                 print(f"Max test accuracies for folder {folder}: {all_max_accuracies[folder]}")
         
         # Plot normal statistics (all nodes)
