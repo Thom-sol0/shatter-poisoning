@@ -202,6 +202,14 @@ class VNodePeerSampler(PeerSamplerDynamic):
             self.graph_degree,
             seed=self.random_seed,
         )
+        # For test purposes, save the graph to a file
+        # print(
+        #     f"Graph with {self.n_procs_real * self.vnodes_per_node} nodes and degree {self.graph_degree} created."
+        # )
+        # print("Saved to file: ", f"{log_dir}/graph_{self.rank}.txt")
+        # self.graph.write_graph_to_file(
+        #     f"{log_dir}/graph_{self.rank}.txt", type="edges"
+        # )
 
         self.n_procs_real = self.mapping.get_n_procs()
         self.messages_received = [0 for _ in range(iterations)]

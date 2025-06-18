@@ -3,10 +3,13 @@ from decentralizepy.graphs.Regular import Regular
 random_seed = 90
 
 graph = Regular(
-            32,
+            16,
             4,
             seed=random_seed,
         )
+graph.read_graph_from_file("./c1_a1_k3_sta-2025-06-16T13:10/machine0/graph_-1.txt")
+
+graph.write_graph_to_file("./graph_test.txt", type="edges")
 
 def get_distance(graph, node1, node2):
     """
@@ -32,7 +35,7 @@ def get_distance(graph, node1, node2):
     
 print(get_distance(graph, 0, 2))
 
-special_nodes = [0, 8, 16, 24]
+special_nodes = [2]
 
 def get_distance_to_special_nodes(graph, node):
     """
