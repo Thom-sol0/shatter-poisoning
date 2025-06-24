@@ -31,35 +31,47 @@ def extract_adversarial_nodes(config_path):
 
 
 def get_stats(l, adversarial_nodes=None, node_ids=None):
-    """Calculate statistics excluding adversarial nodes"""
+    """Calculate statistics excluding adversarial nodes and properly handling NaN values"""
     assert len(l) > 0
     mean_dict, stdev_dict, min_dict, max_dict, counts_dict = {}, {}, {}, {}, {}
     
-    for key in l[0].index:
+    # Find all unique keys across all dataframes
+    all_keys = set()
+    for df in l:
+        all_keys.update(df.index.tolist())
+    
+    for key in all_keys:
         if MAX_ITERATION is not None and key >= MAX_ITERATION:
             continue
             
         # Filter to include only defender nodes if node_ids are provided
         if node_ids and adversarial_nodes:
-            all_nodes = [i[key] for i, node_id in zip(l, node_ids) if node_id not in adversarial_nodes]
+            # Only include values for dataframes that have this key
+            all_nodes = []
+            for i, node_id in zip(l, node_ids):
+                if node_id not in adversarial_nodes and key in i.index:
+                    all_nodes.append(i[key])
         else:
-            all_nodes = [i[key] for i in l]
+            # Only include values for dataframes that have this key
+            all_nodes = [i[key] for i in l if key in i.index]
             
-        if not all_nodes:  # Skip if no defender nodes found
+        if not all_nodes:  # Skip if no valid values found
             continue
             
         all_nodes = np.array(all_nodes)
-        mean = np.mean(all_nodes)
-        std = np.std(all_nodes)
-        min = np.min(all_nodes)
-        max = np.max(all_nodes)
-        count = np.count_nonzero(~np.isnan(all_nodes))
+        non_nan_count = np.count_nonzero(~np.isnan(all_nodes))
+        
+        # Even if values are all NaN, still record the statistics
+        mean = np.nanmean(all_nodes) if non_nan_count > 0 else float('nan')
+        std = np.nanstd(all_nodes) if non_nan_count > 0 else float('nan')
+        min_val = np.nanmin(all_nodes) if non_nan_count > 0 else float('nan')
+        max_val = np.nanmax(all_nodes) if non_nan_count > 0 else float('nan')
         
         mean_dict[int(key)] = mean
         stdev_dict[int(key)] = std
-        min_dict[int(key)] = min
-        max_dict[int(key)] = max
-        counts_dict[int(key)] = count
+        min_dict[int(key)] = min_val
+        max_dict[int(key)] = max_val
+        counts_dict[int(key)] = non_nan_count
         
     return mean_dict, stdev_dict, min_dict, max_dict, counts_dict
 
@@ -82,9 +94,32 @@ def plot(
         x_axis = x_axis // MUFFLIATO_ROUNDS
     y_axis = np.array(list(means.values()))
     err = np.array(list(stdevs.values()))
-    plt.plot(x_axis, y_axis, label=label)
-    plt.ylabel(ylabel)
-    plt.fill_between(x_axis, y_axis - err, y_axis + err, alpha=0.4)
+    
+    # Create masks for NaN values
+    mask = ~np.isnan(y_axis)
+    
+    # Only plot non-NaN values
+    if np.any(mask):
+        plt.plot(x_axis[mask], y_axis[mask], label=label)
+        plt.ylabel(ylabel)
+        
+        # Only fill between for non-NaN values where both upper and lower bounds are valid
+        err_mask = mask & ~np.isnan(err)
+        if np.any(err_mask):
+            lower_bound = y_axis - err
+            upper_bound = y_axis + err
+            bound_mask = err_mask & ~np.isnan(lower_bound) & ~np.isnan(upper_bound)
+            
+            if np.any(bound_mask):
+                plt.fill_between(
+                    x_axis[bound_mask], 
+                    lower_bound[bound_mask], 
+                    upper_bound[bound_mask], 
+                    alpha=0.4
+                )
+    else:
+        plt.plot([], [], label=f"{label} (all NaN)")
+        
     plt.grid(True)
     plt.tight_layout()
     plt.legend(loc=loc)
@@ -101,18 +136,30 @@ def create_list_of_metrics(results, metric):
     return [x[metric][x[metric].notna()] for x in results if metric in x]
 
 def get_min_max_test_acc(results):
-    """Get the minimum of the maximum test accuracy across all dataframes"""
+    """Get the minimum of the maximum test accuracy across all dataframes, handling NaNs"""
     assert 'test_acc' in results[0].columns
     min_of_maxes_acc = float('inf')
     min_of_maxes_df_idx = 0
     min_of_maxes_row_idx = 0
+    found_valid = False
+    
     for df_idx, df in enumerate(results):
-        max_acc = df['test_acc'].max()
-        max_acc_row_idx = df['test_acc'].idxmax()
-        if max_acc < min_of_maxes_acc:
-            min_of_maxes_acc = max_acc
-            min_of_maxes_df_idx = df_idx
-            min_of_maxes_row_idx = max_acc_row_idx 
+        # Filter out NaN values
+        valid_df = df['test_acc'].dropna()
+        
+        if not valid_df.empty:
+            max_acc = valid_df.max()
+            max_acc_row_idx = valid_df.idxmax()
+            
+            if not found_valid or max_acc < min_of_maxes_acc:
+                min_of_maxes_acc = max_acc
+                min_of_maxes_df_idx = df_idx
+                min_of_maxes_row_idx = max_acc_row_idx
+                found_valid = True
+    
+    if not found_valid:
+        return None, float('nan')  # Return appropriate values if all data is NaN
+        
     return min_of_maxes_row_idx, min_of_maxes_acc
 
 
