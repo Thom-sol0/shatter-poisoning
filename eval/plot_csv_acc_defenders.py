@@ -40,7 +40,10 @@ def get_stats(l, adversarial_nodes=None, node_ids=None):
     for df in l:
         all_keys.update(df.index.tolist())
     
-    for key in all_keys:
+    # Filter out outlier keys
+    filtered_keys = filter_outlier_keys(all_keys)
+    
+    for key in sorted(filtered_keys):  # Process keys in order
         if MAX_ITERATION is not None and key >= MAX_ITERATION:
             continue
             
@@ -74,6 +77,42 @@ def get_stats(l, adversarial_nodes=None, node_ids=None):
         counts_dict[int(key)] = non_nan_count
         
     return mean_dict, stdev_dict, min_dict, max_dict, counts_dict
+
+def filter_outlier_keys(keys):
+    """Filter out outlier indices that could mess up the graph"""
+    if not keys:
+        return keys
+        
+    keys = sorted(keys)
+    
+    # If we have a reasonable number of keys, check if they follow a sequence
+    if len(keys) > 3:
+        # Calculate the median difference between consecutive keys
+        diffs = [keys[i+1] - keys[i] for i in range(len(keys)-1)]
+        median_diff = np.median(diffs)
+        
+        if median_diff > 0:
+            # Find keys that have abnormally large gaps
+            filtered_keys = [keys[0]]  # Always include the first key
+            for i in range(1, len(keys)):
+                # If this key is within a reasonable distance of the previous one
+                if keys[i] - filtered_keys[-1] <= 3 * median_diff:
+                    filtered_keys.append(keys[i])
+                else:
+                    # Only include the gap key if at least 50% of dataframes have it
+                    # (This logic would need to be implemented separately)
+                    pass
+                    
+            return filtered_keys
+    
+    # Default case: if we can't reasonably filter, return all keys
+    # But exclude any extreme outliers (e.g., keys that are 10x larger than the median)
+    if len(keys) > 5:
+        median_key = keys[len(keys) // 2]
+        max_reasonable_key = 5 * median_key
+        return [k for k in keys if k <= max_reasonable_key]
+    
+    return keys
 
 
 def plot(
