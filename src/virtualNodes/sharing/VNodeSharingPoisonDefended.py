@@ -85,6 +85,10 @@ class VNodeSharingPoison(VNodeSharing):
         self.adversarial_nodes = self._parse_adversarial_nodes(adversarial_nodes)
 
         self.param_values = None
+        # Track adversarial influence for defender nodes
+        self.adversarial_weights_count = 0  # Count of weights received from adversarial nodes
+        self.total_weights_count = 0        # Total count of weights received
+        self.adversarial_proportion_history = []  # Track proportion over time
 
     
     def _apply_model_poisoning(self):
@@ -110,7 +114,16 @@ class VNodeSharingPoison(VNodeSharing):
             init_state_dict = copy.deepcopy(self.model.state_dict())
             final_state_dict = {}
             for key in init_state_dict:
-                final_state_dict[key] = 2 * init_state_dict[key] - mean_state_dict[key]
+                flipped_update = 2 * init_state_dict[key] - mean_state_dict[key]    
+                if torch.any(torch.isnan(flipped_update)) or torch.any(torch.isinf(flipped_update)):
+                    logging.warning(f"Node {self.uid}: NaN/Inf detected in {key} during flip_grad, using mean state instead")
+                    final_state_dict[key] = mean_state_dict[key]
+                else:
+                    final_state_dict[key] = flipped_update
+            
+            
+            
+            
             self.model.load_state_dict(final_state_dict)
         
         else:
@@ -199,16 +212,26 @@ class VNodeSharingPoison(VNodeSharing):
             # Add own weights to param_values
             for i in range(len(own_weights)):
                 self.param_values[i].append(own_weights[i].item())
+            
+            # Count own weights (not adversarial since we're in defender mode)
+            self.total_weights_count += len(own_weights)
 
         # Process received model data
         iteration = data["iteration"]
+        sender_node = data.get("real_node", data.get("vSource", "unknown"))  # Get sender info
+        
         if "degree" in data:
             del data["degree"]
         del data["iteration"]
         del data["CHANNEL"]
+        
+        # Remove real_node from data if it exists (after extracting it)
+        if "real_node" in data:
+            del data["real_node"]
+            
         logging.debug(
             "Forward Averaging model from neighbor {} of iteration {}".format(
-                data["vSource"], iteration
+                sender_node, iteration
             )
         )
     
@@ -219,11 +242,22 @@ class VNodeSharingPoison(VNodeSharing):
             print("uid: {} | Exception: {}".format(self.uid, e))
             raise e
     
-        logging.debug("Deserialized model from neighbor {}".format(data["vSource"]))
+        logging.debug("Deserialized model from neighbor {}".format(sender_node))
     
         # Add the received weights to the param_values dictionary
         for idx, value in zip(indices.tolist(), deserializedT.tolist()):
             self.param_values[idx].append(value)
+        
+        # Track adversarial influence
+        num_weights_received = len(deserializedT)
+        self.total_weights_count += num_weights_received
+        
+        # Check if sender is adversarial
+        if sender_node in self.adversarial_nodes:
+            self.adversarial_weights_count += num_weights_received
+            logging.debug(f"Received {num_weights_received} weights from adversarial node {sender_node}")
+        else:
+            logging.debug(f"Received {num_weights_received} weights from honest node {sender_node}")
         
     
     def adversarial_finish_forward_averaging(self, peer_deques):
@@ -283,15 +317,33 @@ class VNodeSharingPoison(VNodeSharing):
             for data in peer_deques[n]:
                 self.forward_averaging(data)
 
+        # Calculate and log adversarial influence proportion
+        if self.total_weights_count > 0:
+            adversarial_proportion = self.adversarial_weights_count / self.total_weights_count
+            self.adversarial_proportion_history.append(adversarial_proportion)
+            
+            logging.info(f"Node {self.uid} Round {self.communication_round}: "
+                        f"Received {self.adversarial_weights_count}/{self.total_weights_count} weights from adversarial nodes "
+                        f"(proportion: {adversarial_proportion:.3f})")
+        else:
+            adversarial_proportion = 0.0
+            self.adversarial_proportion_history.append(adversarial_proportion)
+
         # Calculate the weight-wise median and update model
         medgrad_model = self.get_medgrad_model()
         self.model.load_state_dict(medgrad_model)
     
         logging.debug("Finished median-based averaging")
     
+        # Save adversarial influence metrics to file
+        self._save_adversarial_metrics()
+    
         # Clean up for the next round
         self.communication_round += 1
         self.param_values = None
+        # Reset counters for next round
+        self.adversarial_weights_count = 0
+        self.total_weights_count = 0
 
     def finish_forward_averaging(self, peer_deques):
         """
@@ -302,10 +354,30 @@ class VNodeSharingPoison(VNodeSharing):
             self.adversarial_finish_forward_averaging(peer_deques)
         else:
             self.defender_finish_forward_averaging(peer_deques)
+    
+    def _save_adversarial_metrics(self):
+        """
+        Save adversarial influence metrics to a JSON file for analysis.
+        """
+        try:
+            metrics = {
+                "node_id": self.uid,
+                "current_round": self.communication_round,
+                "current_adversarial_proportion": self.adversarial_proportion_history[-1] if self.adversarial_proportion_history else 0.0,
+                "adversarial_proportion_history": self.adversarial_proportion_history,
+                "total_rounds": len(self.adversarial_proportion_history)
+            }
+            
+            metrics_file = os.path.join(self.log_dir, f"adversarial_influence_{self.uid}.json")
+            with open(metrics_file, 'w') as f:
+                json.dump(metrics, f, indent=2)
+                
+        except Exception as e:
+            logging.warning(f"Failed to save adversarial metrics for node {self.uid}: {e}")
 
 
 
 
 
-        
+
 

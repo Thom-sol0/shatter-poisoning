@@ -125,14 +125,71 @@ def plot(
     loc,
     xlabel="Training Epochs",
     ylabel="Top-1 Test Accuracy (%)",
+    use_log=False,
 ):
     plt.title(title)
     plt.xlabel(xlabel)
-    x_axis = np.array(list(means.keys()))
+    
+    # Get keys and values as arrays
+    x_keys = np.array(list(means.keys()))
+    y_vals = np.array(list(means.values()))
+    err = np.array([stdevs.get(k, float('nan')) for k in x_keys])
+    
+    # Apply logarithm transformation for loss plots if requested
+    if use_log and "Loss" in title:
+        # For log scale, filter out non-positive values first
+        positive_mask = y_vals > 0
+        
+        # Create log-transformed values
+        log_y_vals = np.full_like(y_vals, np.nan)
+        log_y_vals[positive_mask] = np.log10(y_vals[positive_mask])
+        
+        # For error bars in log space, we need to transform the confidence bounds
+        # Calculate lower and upper bounds in original space
+        lower_bounds = y_vals - err
+        upper_bounds = y_vals + err
+        
+        # Transform bounds to log space (only for positive values)
+        log_lower = np.full_like(lower_bounds, np.nan)
+        log_upper = np.full_like(upper_bounds, np.nan)
+        
+        # Only transform positive bounds
+        positive_lower_mask = lower_bounds > 0
+        positive_upper_mask = upper_bounds > 0
+        
+        log_lower[positive_lower_mask] = np.log10(lower_bounds[positive_lower_mask])
+        log_upper[positive_upper_mask] = np.log10(upper_bounds[positive_upper_mask])
+        
+        # Calculate new error bars in log space
+        # Use asymmetric error bars if bounds are different
+        lower_err = log_y_vals - log_lower
+        upper_err = log_upper - log_y_vals
+        
+        # Use the larger of the two errors for symmetric error bars
+        # or handle NaN values gracefully
+        err = np.nanmax([lower_err, upper_err], axis=0)
+        
+        # If we have NaN values, try to use at least one side
+        nan_mask = np.isnan(err)
+        err[nan_mask] = np.nanmax([lower_err[nan_mask], upper_err[nan_mask]], axis=0)
+        
+        # Update values
+        y_vals = log_y_vals
+        
+        # Update ylabel to indicate logarithmic scale
+        if "Cross Entropy Loss" in ylabel:
+            ylabel = "log10(Cross Entropy Loss)"
+        else:
+            ylabel = "log10(Loss)"
+    
+    # Sort by x values to ensure correct plotting order
+    sort_idx = np.argsort(x_keys)
+    x_axis = x_keys[sort_idx]
+    y_axis = y_vals[sort_idx]
+    err = err[sort_idx]
+    
     if "Muffliato" in label:
         x_axis = x_axis // MUFFLIATO_ROUNDS
-    y_axis = np.array(list(means.values()))
-    err = np.array(list(stdevs.values()))
     
     # Create masks for NaN values
     mask = ~np.isnan(y_axis)
@@ -142,20 +199,18 @@ def plot(
         plt.plot(x_axis[mask], y_axis[mask], label=label)
         plt.ylabel(ylabel)
         
-        # Only fill between for non-NaN values where both upper and lower bounds are valid
+        # Only fill between for non-NaN values where error is also valid
         err_mask = mask & ~np.isnan(err)
         if np.any(err_mask):
             lower_bound = y_axis - err
             upper_bound = y_axis + err
-            bound_mask = err_mask & ~np.isnan(lower_bound) & ~np.isnan(upper_bound)
             
-            if np.any(bound_mask):
-                plt.fill_between(
-                    x_axis[bound_mask], 
-                    lower_bound[bound_mask], 
-                    upper_bound[bound_mask], 
-                    alpha=0.4
-                )
+            plt.fill_between(
+                x_axis[err_mask], 
+                lower_bound[err_mask], 
+                upper_bound[err_mask], 
+                alpha=0.4
+            )
     else:
         plt.plot([], [], label=f"{label} (all NaN)")
         
@@ -270,7 +325,7 @@ def plot_results(results_path, config_path=None):
         means, stdevs, mins, maxs, counts = get_stats(
             create_list_of_metrics(results, "train_loss")
         )
-        plot(means, stdevs, mins, maxs, "Training Loss", folder, "upper right")
+        plot(means, stdevs, mins, maxs, "Training Loss", folder, "upper right", use_log=True)
         df = pd.DataFrame(
             {
                 "mean": list(means.values()),
@@ -295,6 +350,7 @@ def plot_results(results_path, config_path=None):
             folder,
             "upper right",
             ylabel="Cross Entropy Loss",
+            use_log=True
         )
         df = pd.DataFrame(
             {
@@ -340,7 +396,7 @@ def plot_results(results_path, config_path=None):
             means, stdevs, mins, maxs, counts = get_stats(
                 create_list_of_metrics(results, "train_loss"), adversarial_nodes, node_ids
             )
-            plot(means, stdevs, mins, maxs, "Training Loss (Defenders Only)", folder, "upper right")
+            plot(means, stdevs, mins, maxs, "Training Loss (Defenders Only)", folder, "upper right", use_log=True)
             df = pd.DataFrame(
                 {
                     "mean": list(means.values()),
@@ -366,6 +422,7 @@ def plot_results(results_path, config_path=None):
                 folder,
                 "upper right",
                 ylabel="Cross Entropy Loss",
+                use_log=True
             )
             df = pd.DataFrame(
                 {

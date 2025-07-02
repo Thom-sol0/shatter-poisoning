@@ -64,6 +64,9 @@ class VNodeSharingPoison(VNodeSharing):
         self.attack_type = attack_type
         self.poison_after = int(poison_after) if poison_after is not None else 1
         
+        # Safety parameters for preventing crashes
+        self.eps = 1e-8  # Small epsilon for numerical stability
+        
         if isinstance(adversarial_nodes, str) and adversarial_nodes:
             # Parse string representation
             self.adversarial_nodes = [int(node_id.strip()) for node_id in adversarial_nodes.split(',') if node_id.strip()]
@@ -115,8 +118,18 @@ class VNodeSharingPoison(VNodeSharing):
             mean_state_dict = self._post_step(self.current_sum)
             init_state_dict = copy.deepcopy(self.model.state_dict())
             final_state_dict = {}
+            
             for key in init_state_dict.keys():
-                final_state_dict[key] = 2 * init_state_dict[key] - mean_state_dict[key]
+                # Calculate the flipped update: 2 * init - mean
+                flipped_update = 2 * init_state_dict[key] - mean_state_dict[key]
+                
+                # Check for and fix numerical issues
+                if torch.any(torch.isnan(flipped_update)) or torch.any(torch.isinf(flipped_update)):
+                    logging.warning(f"Node {self.uid}: NaN/Inf detected in {key} during flip_grad, using mean state instead")
+                    final_state_dict[key] = mean_state_dict[key]
+                else:
+                    final_state_dict[key] = flipped_update
+            
             self.model.load_state_dict(final_state_dict)
 
         self.communication_round += 1
@@ -126,5 +139,5 @@ class VNodeSharingPoison(VNodeSharing):
 
 
 
-        
+
 
