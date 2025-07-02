@@ -1,16 +1,25 @@
 import copy
 import logging
-import os
 import torch
 import numpy as np
-import json
 from virtualNodes.sharing.VNodeSharingRandom import VNodeSharing
+from collections import defaultdict
 
 class VNodeSharingPoison(VNodeSharing):
     """
-    Poisoned model sharing class that sends malicious gradients
-    Implements various poisoning strategies for adversarial attacks
+    A unified poisoning class that supports both attacks and defenses.
+    
+    This class implements:
+    - For adversarial nodes: Various poisoning strategies
+    - For defender nodes: Optional defense mechanisms
+    
+    It can be configured to run with or without defenses, allowing for
+    direct comparison between defended and undefended scenarios.
     """
+    
+    # Available attack and defense strategies
+    ATTACK_TYPES = ['none', 'zero', 'flip_grad']
+    DEFENSE_TYPES = ['none', 'median']
     
     def __init__(
         self,
