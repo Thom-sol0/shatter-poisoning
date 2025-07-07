@@ -1,0 +1,738 @@
+[2025-07-06 22:24:22,751][VNodeRealSimulation][INFO] Started process.
+[2025-07-06 22:24:24,330][CIFAR10][INFO] Loading training set.
+[2025-07-06 22:24:25,894][CIFAR10][INFO] Data: 1562
+[2025-07-06 22:24:25,894][CIFAR10][INFO] Index: 1562
+[2025-07-06 22:24:25,894][CIFAR10][INFO] [47063, 23031, 14699, 35368, 26725, 44573, 7453, 23139, 4215, 12760, 43507, 154, 3537, 26389, 27135, 1423, 37458, 12065, 37022, 21855, 7499, 28672, 33898, 13214, 39638, 39469, 32488, 19679, 13960, 36567, 33322, 13891, 27236, 8769, 7679, 4094, 26620, 29579, 34013, 41587, 34597, 41423, 5236, 49162, 31018, 31294, 31997, 22818, 16272, 10459, 7718, 34243, 19486, 32323, 5120, 4862, 15303, 43627, 12331, 32743, 48180, 21315, 32613, 10306, 28219, 13290, 2165, 14942, 7888, 48934, 49219, 43370, 19225, 45096, 42120, 22842, 6385, 1656, 21092, 41340, 21232, 42389, 6497, 39634, 47270, 41781, 35398, 17743, 24131, 13200, 28679, 3032, 42235, 22564, 32839, 27983, 35097, 20819, 4546, 14022, 10249, 9509, 9817, 21306, 4837, 27461, 48734, 32220, 1025, 43954, 34876, 34728, 1180, 44151, 11438, 46988, 32683, 27503, 8267, 13413, 30303, 22760, 17333, 24977, 35617, 22953, 39654, 34594, 6746, 43354, 2126, 16720, 14487, 1460, 32465, 20803, 22964, 45728, 25913, 5175, 38628, 41570, 8951, 35856, 5764, 27602, 48085, 16444, 20186, 37386, 20750, 8717, 45125, 7821, 35294, 27943, 23388, 22914, 26639, 19960, 26449, 24678, 17854, 34329, 28062, 25205, 24782, 23763, 422, 46812, 31815, 17649, 14217, 11162, 47730, 23069, 49089, 48631, 16869, 26543, 46668, 6857, 19450, 18071, 25784, 31228, 36448, 6212, 5086, 44763, 48960, 24140, 31619, 22607, 20867, 48360, 35231, 30676, 15649, 39975, 25309, 4477, 14309, 7198, 30548, 24659, 14431, 30991, 3128, 35357, 15629, 5531, 22440, 48693, 1185, 14767, 29205, 40811, 34872, 33054, 30560, 22418, 36787, 34755, 35822, 41157, 7336, 42164, 24633, 9229, 3758, 25836, 22416, 33943, 30635, 15599, 13995, 17826, 46301, 22716, 48259, 27923, 29337, 10218, 45740, 19160, 16399, 23478, 25569, 34364, 44366, 10547, 18946, 28756, 24552, 44699, 23263, 32409, 37576, 24788, 41717, 3076, 49533, 25489, 4080, 13837, 45336, 47508, 33032, 20953, 43803, 12667, 11465, 49944, 29966, 1326, 34378, 15400, 37667, 45761, 11183, 22534, 44174, 33324, 25988, 49616, 6077, 42744, 23545, 31818, 23060, 595, 25777, 22262, 12719, 748, 44794, 5217, 47220, 31236, 28647, 21095, 32548, 6323, 33458, 29854, 23631, 31637, 18512, 41509, 22208, 47819, 1320, 6220, 45746, 42782, 48251, 23985, 42633, 29965, 33320, 32188, 19961, 37554, 48309, 6747, 34934, 38500, 37708, 6467, 33784, 12337, 6902, 33407, 7808, 32926, 47424, 11982, 28033, 29888, 45800, 44734, 34857, 10187, 32559, 43530, 48936, 219, 42206, 42368, 10312, 36958, 20949, 16304, 210, 9069, 27418, 241, 44228, 45754, 26523, 35823, 36464, 27555, 12210, 18703, 14528, 45703, 27105, 28204, 23776, 48243, 38865, 26571, 25934, 9133, 48927, 49317, 34684, 21473, 28549, 5845, 8635, 18302, 44747, 40758, 40, 44121, 36321, 44800, 8206, 49012, 6883, 9384, 44342, 46917, 34143, 48033, 42685, 13725, 3788, 37173, 6684, 10263, 3055, 21585, 5518, 8446, 5993, 37776, 49575, 11343, 27864, 18281, 20441, 30571, 35427, 20890, 29239, 45853, 5246, 3930, 44803, 47110, 27544, 45939, 29870, 29988, 1421, 19247, 10068, 3646, 35243, 10895, 18788, 27465, 28590, 47847, 21828, 43556, 43208, 32045, 33360, 45937, 5195, 36388, 18682, 1299, 34915, 751, 35297, 16878, 38330, 14082, 30957, 34245, 40517, 22764, 20929, 25059, 6834, 32546, 37435, 27431, 46951, 13110, 41263, 35725, 9356, 34121, 19170, 24992, 21431, 15035, 49348, 11375, 38786, 33976, 49689, 1291, 21010, 12847, 803, 29891, 48768, 9558, 21245, 13800, 46398, 16822, 48209, 36316, 32486, 12824, 46100, 17569, 1850, 21882, 20138, 35017, 45528, 8118, 1362, 32716, 15604, 17337, 20042, 7775, 30924, 39377, 23562, 33699, 38929, 23935, 11335, 42651, 9498, 16291, 12931, 15135, 45797, 40725, 36522, 19425, 27385, 38076, 33406, 22519, 32710, 37106, 6168, 5899, 1980, 28903, 13833, 18763, 44709, 4631, 37455, 1044, 7180, 17026, 30898, 25472, 18660, 270, 16180, 7563, 34079, 37669, 9753, 37317, 34944, 8461, 43377, 13690, 34242, 15568, 3282, 16746, 45434, 24592, 35744, 28557, 40100, 3476, 43900, 33167, 19184, 32863, 36446, 6250, 22325, 46922, 14811, 41870, 38898, 36102, 36552, 36111, 350, 4617, 45504, 37265, 34049, 11353, 11602, 38329, 28453, 28282, 45766, 24041, 374, 1234, 21663, 13419, 23175, 9778, 23341, 25103, 3242, 48725, 38595, 2796, 31103, 22198, 12312, 28972, 40543, 41244, 29662, 36225, 11636, 16083, 43792, 29075, 6263, 47226, 27952, 47088, 19726, 47941, 24892, 10420, 2381, 34821, 5179, 25563, 46412, 7727, 2556, 32621, 22188, 1275, 45589, 45419, 37307, 17934, 44162, 32080, 6199, 35676, 45887, 15168, 10761, 17302, 46263, 29507, 13547, 29380, 33944, 20320, 8281, 9612, 32243, 19277, 19610, 37380, 8263, 21905, 15288, 26383, 48829, 39177, 38795, 29999, 8569, 25277, 10970, 39223, 38390, 16018, 25982, 14136, 22855, 16840, 23647, 21119, 1479, 38847, 20589, 39407, 15946, 9444, 1854, 37676, 24397, 33612, 15100, 32690, 37572, 34331, 29882, 34316, 22902, 8688, 311, 40450, 27614, 608, 30028, 2330, 39920, 31242, 28308, 18681, 15899, 26468, 27984, 45243, 30586, 39825, 35652, 44224, 2933, 46437, 7530, 25870, 17138, 37282, 25139, 34507, 844, 2998, 40070, 9496, 26049, 47152, 15787, 36728, 12633, 25336, 48067, 44307, 47387, 11937, 27278, 32955, 40204, 4758, 37342, 29643, 16576, 8030, 11120, 30950, 35415, 37979, 6875, 13193, 32194, 5848, 16192, 32390, 43105, 10340, 21058, 25327, 37124, 27612, 7298, 21545, 33911, 45794, 36592, 40856, 324, 37828, 29993, 29444, 40512, 18374, 26085, 26344, 1940, 5866, 21741, 15091, 46419, 29543, 35880, 48781, 33591, 25515, 49351, 16030, 22172, 18781, 4649, 34358, 14376, 22378, 10127, 35041, 21, 38535, 9389, 7137, 21842, 27038, 30934, 26330, 32315, 32930, 35277, 33808, 6674, 19026, 18942, 46265, 32048, 4712, 23546, 22813, 25080, 39015, 24210, 15187, 20165, 41772, 45359, 906, 37884, 24219, 44069, 24427, 37574, 1783, 31588, 3198, 47973, 14223, 38930, 11502, 37184, 18502, 17870, 32232, 38449, 44778, 43344, 31756, 47280, 41461, 13955, 38927, 14709, 41805, 10027, 17619, 23530, 29848, 11799, 18766, 25148, 46124, 35565, 6050, 38353, 20475, 21492, 29057, 12677, 19986, 49578, 10023, 4953, 21844, 49292, 19033, 1730, 49668, 47325, 38735, 45581, 12841, 42031, 14227, 46647, 13402, 46769, 3424, 22320, 15708, 11987, 30553, 30209, 36394, 511, 41473, 18503, 28395, 18863, 27953, 26488, 14373, 40222, 21825, 24202, 13092, 24276, 11086, 1825, 29139, 30390, 11648, 25362, 35587, 36044, 13925, 14940, 25003, 32454, 42146, 25507, 26519, 24251, 44529, 38630, 23698, 46875, 4759, 8230, 32392, 33019, 20048, 26947, 8556, 9872, 45080, 45326, 22693, 36744, 48891, 28826, 47777, 18065, 36550, 33635, 44116, 47515, 9774, 5717, 1598, 43567, 38713, 49015, 48496, 15598, 41865, 42855, 48432, 45968, 559, 2828, 14738, 35665, 26239, 30428, 47770, 13520, 6918, 4995, 49671, 3976, 28220, 38993, 41329, 25608, 43990, 24858, 36905, 35794, 6937, 46118, 39515, 49695, 37524, 8341, 5560, 43724, 1176, 10986, 26338, 35275, 42511, 37090, 49106, 38731, 1724, 4508, 9511, 1201, 14105, 11936, 2777, 16395, 34327, 15396, 42615, 21427, 15706, 20606, 42625, 24880, 34431, 33124, 48541, 13507, 37495, 1530, 24302, 41402, 21502, 49359, 23851, 39110, 43148, 46145, 37748, 15914, 18611, 34792, 16090, 9867, 38739, 18218, 32115, 12601, 7307, 35531, 42884, 30926, 40579, 47670, 29649, 2824, 24642, 38070, 13812, 18494, 27368, 42665, 45532, 8778, 43228, 27834, 8472, 35789, 27383, 28437, 34191, 43686, 11954, 8463, 45202, 30101, 12618, 48648, 43502, 40671, 19122, 44128, 29049, 15045, 33422, 14923, 10776, 15351, 13695, 7011, 13158, 21529, 16505, 27570, 31924, 24420, 15016, 5016, 19680, 21883, 27306, 33247, 46566, 40947, 49465, 48450, 37740, 20153, 40314, 48171, 16823, 34516, 23095, 24964, 43158, 42983, 14814, 36444, 12690, 44835, 49240, 21355, 10772, 29100, 20527, 19767, 47208, 25735, 35083, 41670, 33436, 47712, 1794, 34033, 14130, 21419, 15006, 21620, 43003, 34125, 47534, 16842, 11562, 10534, 23277, 45734, 12960, 27150, 31387, 20842, 9756, 8774, 19965, 7774, 29651, 33214, 42966, 7968, 25473, 21122, 12319, 13484, 18436, 27115, 8551, 12570, 15876, 25646, 49392, 17583, 34332, 46727, 18158, 49723, 10539, 7643, 22745, 12559, 22425, 39832, 39824, 25196, 16012, 2614, 23111, 3080, 2543, 32255, 40436, 41999, 48644, 19154, 47357, 9139, 37233, 18312, 6515, 29883, 27533, 18568, 25188, 24177, 27220, 28244, 14880, 34967, 15828, 31586, 49075, 14970, 36101, 40814, 517, 3737, 5357, 2917, 3948, 7436, 46859, 21735, 33873, 9143, 26861, 30128, 34927, 25138, 18410, 14985, 21926, 1662, 19933, 19564, 7638, 15964, 21120, 25284, 34014, 45459, 39412, 23353, 38011, 41323, 33878, 25170, 12908, 45912, 19945, 15110, 6758, 41642, 35733, 46458, 33301, 22800, 11814, 21312, 3898, 48017, 4613, 49878, 15854, 29542, 30519, 42278, 30176, 14426, 18319, 42675, 46831, 41257, 21706, 43072, 17197, 30202, 27382, 37064, 48440, 33327, 44542, 38368, 10369, 44094, 26464, 8353, 39498, 577, 21211, 22579, 11726, 37362, 42707, 35055, 25577, 32938, 4808, 38107, 29269, 25566, 33392, 49764, 5588, 9199, 26608, 49698, 45952, 3228, 28052, 48505, 1536, 4585, 19029, 21541, 3063, 7037, 6815, 8575, 32275, 19326, 32483, 7132, 1804, 12455, 34353, 14595, 26021, 115, 7323, 48037, 24764, 15094, 44681, 16365, 33979, 18120, 26787, 23281, 6755, 16372, 36359, 39352, 31530, 31173, 26297, 44354, 28145, 20649, 6750, 38231, 31499, 21596, 31608, 21644, 9648, 12013, 2634, 20403, 16905, 46289, 43817, 4333, 2114, 38382, 7990, 18169, 766, 34655, 1664, 11366, 35648, 21862, 6583, 561, 6026, 26738, 43917, 36930, 26803, 9702, 19792, 7502, 26420, 10376, 44253, 17668, 42287, 48786, 49930, 37579, 22676, 6624, 30472, 21389, 19695, 40834, 23304, 11002, 37592, 43301, 41935, 35935, 14134, 48480, 9804, 17711, 43689, 15962, 17205, 34723, 47389, 8434, 15307, 35263, 8561, 24015, 24752, 5221, 31254, 21787, 7737, 24415, 37875, 23415, 7253, 30593, 47179, 7159, 45651, 19660, 12967, 15125, 14307, 38869, 20952, 6514, 43112, 49220, 28341, 18684, 19583, 39155, 12881, 41517, 21559, 36935, 12329, 43832, 2294, 19860, 29208, 30736, 47499, 16431, 39928, 20270, 22941, 12093, 14132, 17152, 40527, 8943, 30658, 38450, 13197, 25074, 37426, 49004, 33475, 35870, 26107, 18869, 11412, 26636, 6001, 16659, 25010, 16707, 35683, 33722, 17821, 18109, 46086, 27345, 48857, 37937, 14076, 43375, 29383, 3583, 34719, 23083, 49730, 25124, 463, 45990, 15260, 43012, 46471, 19524, 27338, 17265, 47719, 319, 23354, 30181, 26817, 2439, 10839, 11287, 24543, 31923, 11878, 23588, 44167, 3391, 21152, 15429, 12243, 34349, 49053, 45662, 20642, 47014, 14686, 35747, 2522, 15849, 48424, 8292, 36265, 36060, 21491, 34816, 4, 47835, 7457, 18746, 44340, 15107, 38486, 41465, 47248, 37447, 30998, 48066, 1741, 39714, 34338, 49483, 14511, 34246, 17511, 8775, 16681, 30644, 20081, 22593, 32462, 18306, 38483, 9146, 31598, 4790, 45216, 15579, 35911, 11589, 18890, 32772, 17847, 1475, 49125, 2513, 34630, 39011, 27511, 34505, 7532, 18601, 10281, 48528, 9110]
+[2025-07-06 22:24:25,894][CIFAR10][INFO] Trainset Loaded
+[2025-07-06 22:24:25,894][CIFAR10][INFO] Loading testing set.
+[2025-07-06 22:24:26,731][Node][INFO] Dataset instantiation complete.
+[2025-07-06 22:24:28,047][VNodeRealSimulation][INFO] Perturbing model
+[2025-07-06 22:24:28,056][VNodeRealSimulation][INFO] Starting training iteration: 0
+[2025-07-06 22:24:28,058][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:24:41,287][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:24:42,565][Training][INFO] Loss after iteration: 2.033267021179199
+[2025-07-06 22:24:42,566][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:24:53,153][CIFAR10][INFO] Overall test accuracy is: 27.8 %
+[2025-07-06 22:24:53,160][VNodeRealSimulation][INFO] Starting training iteration: 1
+[2025-07-06 22:24:53,162][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:25:06,999][VNodeRealSimulation][INFO] Starting training iteration: 2
+[2025-07-06 22:25:07,001][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:25:21,369][VNodeRealSimulation][INFO] Starting training iteration: 3
+[2025-07-06 22:25:21,371][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:25:34,208][VNodeRealSimulation][INFO] Starting training iteration: 4
+[2025-07-06 22:25:34,209][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:25:47,276][VNodeRealSimulation][INFO] Starting training iteration: 5
+[2025-07-06 22:25:47,277][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:26:01,958][VNodeRealSimulation][INFO] Starting training iteration: 6
+[2025-07-06 22:26:01,960][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:26:15,495][VNodeRealSimulation][INFO] Starting training iteration: 7
+[2025-07-06 22:26:15,497][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:26:29,237][VNodeRealSimulation][INFO] Starting training iteration: 8
+[2025-07-06 22:26:29,239][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:26:42,679][VNodeRealSimulation][INFO] Starting training iteration: 9
+[2025-07-06 22:26:42,680][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:26:57,574][VNodeRealSimulation][INFO] Starting training iteration: 10
+[2025-07-06 22:26:57,575][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:27:10,332][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:27:11,574][Training][INFO] Loss after iteration: 1.2373974323272705
+[2025-07-06 22:27:11,575][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:27:22,117][CIFAR10][INFO] Overall test accuracy is: 51.2 %
+[2025-07-06 22:27:22,120][VNodeRealSimulation][INFO] Starting training iteration: 11
+[2025-07-06 22:27:22,122][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:27:36,857][VNodeRealSimulation][INFO] Starting training iteration: 12
+[2025-07-06 22:27:36,859][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:27:50,300][VNodeRealSimulation][INFO] Starting training iteration: 13
+[2025-07-06 22:27:50,302][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:28:04,676][VNodeRealSimulation][INFO] Starting training iteration: 14
+[2025-07-06 22:28:04,678][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:28:17,343][VNodeRealSimulation][INFO] Starting training iteration: 15
+[2025-07-06 22:28:17,344][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:28:33,098][VNodeRealSimulation][INFO] Starting training iteration: 16
+[2025-07-06 22:28:33,100][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:28:45,770][VNodeRealSimulation][INFO] Starting training iteration: 17
+[2025-07-06 22:28:45,772][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:29:01,654][VNodeRealSimulation][INFO] Starting training iteration: 18
+[2025-07-06 22:29:01,656][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:29:14,270][VNodeRealSimulation][INFO] Starting training iteration: 19
+[2025-07-06 22:29:14,272][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:29:26,826][VNodeRealSimulation][INFO] Starting training iteration: 20
+[2025-07-06 22:29:26,827][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:29:41,705][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:29:42,967][Training][INFO] Loss after iteration: 1.0140479803085327
+[2025-07-06 22:29:42,968][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:29:53,554][CIFAR10][INFO] Overall test accuracy is: 58.9 %
+[2025-07-06 22:29:53,556][VNodeRealSimulation][INFO] Starting training iteration: 21
+[2025-07-06 22:29:53,558][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:30:08,501][VNodeRealSimulation][INFO] Starting training iteration: 22
+[2025-07-06 22:30:08,503][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:30:21,348][VNodeRealSimulation][INFO] Starting training iteration: 23
+[2025-07-06 22:30:21,349][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:30:35,503][VNodeRealSimulation][INFO] Starting training iteration: 24
+[2025-07-06 22:30:35,504][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:30:49,870][VNodeRealSimulation][INFO] Starting training iteration: 25
+[2025-07-06 22:30:49,871][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:31:02,494][VNodeRealSimulation][INFO] Starting training iteration: 26
+[2025-07-06 22:31:02,495][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:31:17,211][VNodeRealSimulation][INFO] Starting training iteration: 27
+[2025-07-06 22:31:17,213][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:31:30,175][VNodeRealSimulation][INFO] Starting training iteration: 28
+[2025-07-06 22:31:30,176][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:31:44,825][VNodeRealSimulation][INFO] Starting training iteration: 29
+[2025-07-06 22:31:44,826][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:31:57,695][VNodeRealSimulation][INFO] Starting training iteration: 30
+[2025-07-06 22:31:57,696][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:32:10,445][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:32:11,648][Training][INFO] Loss after iteration: 0.9117944240570068
+[2025-07-06 22:32:11,648][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:32:22,229][CIFAR10][INFO] Overall test accuracy is: 62.5 %
+[2025-07-06 22:32:22,231][VNodeRealSimulation][INFO] Starting training iteration: 31
+[2025-07-06 22:32:22,233][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:32:37,157][VNodeRealSimulation][INFO] Starting training iteration: 32
+[2025-07-06 22:32:37,158][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:32:50,340][VNodeRealSimulation][INFO] Starting training iteration: 33
+[2025-07-06 22:32:50,342][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:33:06,859][VNodeRealSimulation][INFO] Starting training iteration: 34
+[2025-07-06 22:33:06,861][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:33:19,930][VNodeRealSimulation][INFO] Starting training iteration: 35
+[2025-07-06 22:33:19,931][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:33:35,003][VNodeRealSimulation][INFO] Starting training iteration: 36
+[2025-07-06 22:33:35,005][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:33:48,156][VNodeRealSimulation][INFO] Starting training iteration: 37
+[2025-07-06 22:33:48,158][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:34:01,985][VNodeRealSimulation][INFO] Starting training iteration: 38
+[2025-07-06 22:34:01,986][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:34:14,718][VNodeRealSimulation][INFO] Starting training iteration: 39
+[2025-07-06 22:34:14,720][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:34:30,695][VNodeRealSimulation][INFO] Starting training iteration: 40
+[2025-07-06 22:34:30,697][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:34:44,663][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:34:45,927][Training][INFO] Loss after iteration: 0.8403785824775696
+[2025-07-06 22:34:45,928][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:34:56,512][CIFAR10][INFO] Overall test accuracy is: 64.8 %
+[2025-07-06 22:34:56,515][VNodeRealSimulation][INFO] Starting training iteration: 41
+[2025-07-06 22:34:56,516][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:35:11,299][VNodeRealSimulation][INFO] Starting training iteration: 42
+[2025-07-06 22:35:11,300][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:35:23,771][VNodeRealSimulation][INFO] Starting training iteration: 43
+[2025-07-06 22:35:23,772][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:35:39,409][VNodeRealSimulation][INFO] Starting training iteration: 44
+[2025-07-06 22:35:39,410][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:35:53,499][VNodeRealSimulation][INFO] Starting training iteration: 45
+[2025-07-06 22:35:53,501][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:36:07,298][VNodeRealSimulation][INFO] Starting training iteration: 46
+[2025-07-06 22:36:07,300][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:36:19,943][VNodeRealSimulation][INFO] Starting training iteration: 47
+[2025-07-06 22:36:19,945][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:36:35,177][VNodeRealSimulation][INFO] Starting training iteration: 48
+[2025-07-06 22:36:35,178][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:36:47,991][VNodeRealSimulation][INFO] Starting training iteration: 49
+[2025-07-06 22:36:47,993][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:37:02,475][VNodeRealSimulation][INFO] Starting training iteration: 50
+[2025-07-06 22:37:02,477][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:37:15,071][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:37:16,267][Training][INFO] Loss after iteration: 0.7785805463790894
+[2025-07-06 22:37:16,268][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:37:26,896][CIFAR10][INFO] Overall test accuracy is: 66.6 %
+[2025-07-06 22:37:26,898][VNodeRealSimulation][INFO] Starting training iteration: 51
+[2025-07-06 22:37:26,899][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:37:43,213][VNodeRealSimulation][INFO] Starting training iteration: 52
+[2025-07-06 22:37:43,215][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:37:57,238][VNodeRealSimulation][INFO] Starting training iteration: 53
+[2025-07-06 22:37:57,240][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:38:11,016][VNodeRealSimulation][INFO] Starting training iteration: 54
+[2025-07-06 22:38:11,018][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:38:23,584][VNodeRealSimulation][INFO] Starting training iteration: 55
+[2025-07-06 22:38:23,586][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:38:39,285][VNodeRealSimulation][INFO] Starting training iteration: 56
+[2025-07-06 22:38:39,286][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:38:52,050][VNodeRealSimulation][INFO] Starting training iteration: 57
+[2025-07-06 22:38:52,051][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:39:04,947][VNodeRealSimulation][INFO] Starting training iteration: 58
+[2025-07-06 22:39:04,948][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:39:18,692][VNodeRealSimulation][INFO] Starting training iteration: 59
+[2025-07-06 22:39:18,693][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:39:33,115][VNodeRealSimulation][INFO] Starting training iteration: 60
+[2025-07-06 22:39:33,117][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:39:47,295][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:39:48,604][Training][INFO] Loss after iteration: 0.6858277320861816
+[2025-07-06 22:39:48,604][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:39:59,234][CIFAR10][INFO] Overall test accuracy is: 67.5 %
+[2025-07-06 22:39:59,236][VNodeRealSimulation][INFO] Starting training iteration: 61
+[2025-07-06 22:39:59,238][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:40:14,025][VNodeRealSimulation][INFO] Starting training iteration: 62
+[2025-07-06 22:40:14,027][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:40:27,807][VNodeRealSimulation][INFO] Starting training iteration: 63
+[2025-07-06 22:40:27,808][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:40:40,568][VNodeRealSimulation][INFO] Starting training iteration: 64
+[2025-07-06 22:40:40,570][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:40:54,385][VNodeRealSimulation][INFO] Starting training iteration: 65
+[2025-07-06 22:40:54,386][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:41:08,323][VNodeRealSimulation][INFO] Starting training iteration: 66
+[2025-07-06 22:41:08,324][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:41:22,401][VNodeRealSimulation][INFO] Starting training iteration: 67
+[2025-07-06 22:41:22,403][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:41:36,363][VNodeRealSimulation][INFO] Starting training iteration: 68
+[2025-07-06 22:41:36,364][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:41:51,103][VNodeRealSimulation][INFO] Starting training iteration: 69
+[2025-07-06 22:41:51,105][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:42:06,409][VNodeRealSimulation][INFO] Starting training iteration: 70
+[2025-07-06 22:42:06,411][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:42:19,171][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:42:20,425][Training][INFO] Loss after iteration: 0.657600998878479
+[2025-07-06 22:42:20,426][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:42:31,021][CIFAR10][INFO] Overall test accuracy is: 69.5 %
+[2025-07-06 22:42:31,023][VNodeRealSimulation][INFO] Starting training iteration: 71
+[2025-07-06 22:42:31,025][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:42:44,039][VNodeRealSimulation][INFO] Starting training iteration: 72
+[2025-07-06 22:42:44,040][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:42:57,749][VNodeRealSimulation][INFO] Starting training iteration: 73
+[2025-07-06 22:42:57,751][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:43:10,518][VNodeRealSimulation][INFO] Starting training iteration: 74
+[2025-07-06 22:43:10,520][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:43:23,781][VNodeRealSimulation][INFO] Starting training iteration: 75
+[2025-07-06 22:43:23,783][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:43:39,230][VNodeRealSimulation][INFO] Starting training iteration: 76
+[2025-07-06 22:43:39,232][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:43:54,021][VNodeRealSimulation][INFO] Starting training iteration: 77
+[2025-07-06 22:43:54,022][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:44:06,327][VNodeRealSimulation][INFO] Starting training iteration: 78
+[2025-07-06 22:44:06,329][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:44:20,781][VNodeRealSimulation][INFO] Starting training iteration: 79
+[2025-07-06 22:44:20,783][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:44:34,806][VNodeRealSimulation][INFO] Starting training iteration: 80
+[2025-07-06 22:44:34,807][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:44:47,896][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:44:49,110][Training][INFO] Loss after iteration: 0.5308955311775208
+[2025-07-06 22:44:49,110][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:44:59,750][CIFAR10][INFO] Overall test accuracy is: 69.7 %
+[2025-07-06 22:44:59,752][VNodeRealSimulation][INFO] Starting training iteration: 81
+[2025-07-06 22:44:59,753][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:45:12,979][VNodeRealSimulation][INFO] Starting training iteration: 82
+[2025-07-06 22:45:12,980][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:45:26,108][VNodeRealSimulation][INFO] Starting training iteration: 83
+[2025-07-06 22:45:26,109][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:45:39,961][VNodeRealSimulation][INFO] Starting training iteration: 84
+[2025-07-06 22:45:39,962][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:45:55,403][VNodeRealSimulation][INFO] Starting training iteration: 85
+[2025-07-06 22:45:55,404][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:46:09,812][VNodeRealSimulation][INFO] Starting training iteration: 86
+[2025-07-06 22:46:09,814][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:46:24,192][VNodeRealSimulation][INFO] Starting training iteration: 87
+[2025-07-06 22:46:24,193][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:46:36,917][VNodeRealSimulation][INFO] Starting training iteration: 88
+[2025-07-06 22:46:36,918][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:46:50,979][VNodeRealSimulation][INFO] Starting training iteration: 89
+[2025-07-06 22:46:50,980][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:47:05,296][VNodeRealSimulation][INFO] Starting training iteration: 90
+[2025-07-06 22:47:05,299][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:47:18,068][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:47:19,394][Training][INFO] Loss after iteration: 0.591701090335846
+[2025-07-06 22:47:19,395][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:47:29,988][CIFAR10][INFO] Overall test accuracy is: 70.7 %
+[2025-07-06 22:47:29,989][VNodeRealSimulation][INFO] Starting training iteration: 91
+[2025-07-06 22:47:29,991][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:47:44,799][VNodeRealSimulation][INFO] Starting training iteration: 92
+[2025-07-06 22:47:44,800][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:47:57,589][VNodeRealSimulation][INFO] Starting training iteration: 93
+[2025-07-06 22:47:57,590][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:48:10,205][VNodeRealSimulation][INFO] Starting training iteration: 94
+[2025-07-06 22:48:10,206][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:48:24,424][VNodeRealSimulation][INFO] Starting training iteration: 95
+[2025-07-06 22:48:24,425][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:48:39,680][VNodeRealSimulation][INFO] Starting training iteration: 96
+[2025-07-06 22:48:39,681][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:48:52,584][VNodeRealSimulation][INFO] Starting training iteration: 97
+[2025-07-06 22:48:52,585][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:49:05,999][VNodeRealSimulation][INFO] Starting training iteration: 98
+[2025-07-06 22:49:06,001][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:49:21,455][VNodeRealSimulation][INFO] Starting training iteration: 99
+[2025-07-06 22:49:21,456][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:49:34,034][VNodeRealSimulation][INFO] Starting training iteration: 100
+[2025-07-06 22:49:34,035][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:49:49,815][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:49:51,129][Training][INFO] Loss after iteration: 0.543275773525238
+[2025-07-06 22:49:51,130][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:50:01,728][CIFAR10][INFO] Overall test accuracy is: 71.7 %
+[2025-07-06 22:50:01,732][VNodeRealSimulation][INFO] Starting training iteration: 101
+[2025-07-06 22:50:01,733][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:50:14,473][VNodeRealSimulation][INFO] Starting training iteration: 102
+[2025-07-06 22:50:14,474][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:50:28,403][VNodeRealSimulation][INFO] Starting training iteration: 103
+[2025-07-06 22:50:28,404][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:50:41,398][VNodeRealSimulation][INFO] Starting training iteration: 104
+[2025-07-06 22:50:41,399][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:50:54,777][VNodeRealSimulation][INFO] Starting training iteration: 105
+[2025-07-06 22:50:54,778][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:51:10,416][VNodeRealSimulation][INFO] Starting training iteration: 106
+[2025-07-06 22:51:10,418][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:51:23,172][VNodeRealSimulation][INFO] Starting training iteration: 107
+[2025-07-06 22:51:23,173][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:51:37,048][VNodeRealSimulation][INFO] Starting training iteration: 108
+[2025-07-06 22:51:37,049][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:51:52,954][VNodeRealSimulation][INFO] Starting training iteration: 109
+[2025-07-06 22:51:52,956][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:52:07,096][VNodeRealSimulation][INFO] Starting training iteration: 110
+[2025-07-06 22:52:07,098][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:52:19,731][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:52:21,019][Training][INFO] Loss after iteration: 0.5106942653656006
+[2025-07-06 22:52:21,020][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:52:31,602][CIFAR10][INFO] Overall test accuracy is: 72.0 %
+[2025-07-06 22:52:31,606][VNodeRealSimulation][INFO] Starting training iteration: 111
+[2025-07-06 22:52:31,608][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:52:46,284][VNodeRealSimulation][INFO] Starting training iteration: 112
+[2025-07-06 22:52:46,286][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:52:59,291][VNodeRealSimulation][INFO] Starting training iteration: 113
+[2025-07-06 22:52:59,293][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:53:12,151][VNodeRealSimulation][INFO] Starting training iteration: 114
+[2025-07-06 22:53:12,153][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:53:25,560][VNodeRealSimulation][INFO] Starting training iteration: 115
+[2025-07-06 22:53:25,562][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:53:41,436][VNodeRealSimulation][INFO] Starting training iteration: 116
+[2025-07-06 22:53:41,438][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:53:54,164][VNodeRealSimulation][INFO] Starting training iteration: 117
+[2025-07-06 22:53:54,166][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:54:09,347][VNodeRealSimulation][INFO] Starting training iteration: 118
+[2025-07-06 22:54:09,349][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:54:23,720][VNodeRealSimulation][INFO] Starting training iteration: 119
+[2025-07-06 22:54:23,721][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:54:36,651][VNodeRealSimulation][INFO] Starting training iteration: 120
+[2025-07-06 22:54:36,652][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:54:49,507][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:54:50,750][Training][INFO] Loss after iteration: 0.4858705699443817
+[2025-07-06 22:54:50,750][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:55:01,328][CIFAR10][INFO] Overall test accuracy is: 71.9 %
+[2025-07-06 22:55:01,331][VNodeRealSimulation][INFO] Starting training iteration: 121
+[2025-07-06 22:55:01,333][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:55:16,269][VNodeRealSimulation][INFO] Starting training iteration: 122
+[2025-07-06 22:55:16,271][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:55:30,647][VNodeRealSimulation][INFO] Starting training iteration: 123
+[2025-07-06 22:55:30,648][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:55:44,431][VNodeRealSimulation][INFO] Starting training iteration: 124
+[2025-07-06 22:55:44,432][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:55:57,248][VNodeRealSimulation][INFO] Starting training iteration: 125
+[2025-07-06 22:55:57,249][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:56:10,698][VNodeRealSimulation][INFO] Starting training iteration: 126
+[2025-07-06 22:56:10,699][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:56:25,195][VNodeRealSimulation][INFO] Starting training iteration: 127
+[2025-07-06 22:56:25,197][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:56:40,270][VNodeRealSimulation][INFO] Starting training iteration: 128
+[2025-07-06 22:56:40,271][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:56:53,058][VNodeRealSimulation][INFO] Starting training iteration: 129
+[2025-07-06 22:56:53,060][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:57:08,603][VNodeRealSimulation][INFO] Starting training iteration: 130
+[2025-07-06 22:57:08,605][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:57:21,165][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:57:22,380][Training][INFO] Loss after iteration: 0.4752528667449951
+[2025-07-06 22:57:22,381][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 22:57:32,973][CIFAR10][INFO] Overall test accuracy is: 72.3 %
+[2025-07-06 22:57:32,975][VNodeRealSimulation][INFO] Starting training iteration: 131
+[2025-07-06 22:57:32,977][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:57:46,010][VNodeRealSimulation][INFO] Starting training iteration: 132
+[2025-07-06 22:57:46,011][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:58:01,658][VNodeRealSimulation][INFO] Starting training iteration: 133
+[2025-07-06 22:58:01,660][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:58:16,028][VNodeRealSimulation][INFO] Starting training iteration: 134
+[2025-07-06 22:58:16,030][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:58:28,700][VNodeRealSimulation][INFO] Starting training iteration: 135
+[2025-07-06 22:58:28,701][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:58:44,275][VNodeRealSimulation][INFO] Starting training iteration: 136
+[2025-07-06 22:58:44,277][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:58:56,750][VNodeRealSimulation][INFO] Starting training iteration: 137
+[2025-07-06 22:58:56,752][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:59:10,796][VNodeRealSimulation][INFO] Starting training iteration: 138
+[2025-07-06 22:59:10,798][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:59:23,681][VNodeRealSimulation][INFO] Starting training iteration: 139
+[2025-07-06 22:59:23,683][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:59:39,308][VNodeRealSimulation][INFO] Starting training iteration: 140
+[2025-07-06 22:59:39,310][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 22:59:51,796][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 22:59:53,030][Training][INFO] Loss after iteration: 0.3876730501651764
+[2025-07-06 22:59:53,030][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:00:03,690][CIFAR10][INFO] Overall test accuracy is: 72.0 %
+[2025-07-06 23:00:03,693][VNodeRealSimulation][INFO] Starting training iteration: 141
+[2025-07-06 23:00:03,694][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:00:19,516][VNodeRealSimulation][INFO] Starting training iteration: 142
+[2025-07-06 23:00:19,518][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:00:32,373][VNodeRealSimulation][INFO] Starting training iteration: 143
+[2025-07-06 23:00:32,375][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:00:45,637][VNodeRealSimulation][INFO] Starting training iteration: 144
+[2025-07-06 23:00:45,639][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:01:00,073][VNodeRealSimulation][INFO] Starting training iteration: 145
+[2025-07-06 23:01:00,075][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:01:14,448][VNodeRealSimulation][INFO] Starting training iteration: 146
+[2025-07-06 23:01:14,449][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:01:27,290][VNodeRealSimulation][INFO] Starting training iteration: 147
+[2025-07-06 23:01:27,291][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:01:40,350][VNodeRealSimulation][INFO] Starting training iteration: 148
+[2025-07-06 23:01:40,352][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:01:54,891][VNodeRealSimulation][INFO] Starting training iteration: 149
+[2025-07-06 23:01:54,892][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:02:08,380][VNodeRealSimulation][INFO] Starting training iteration: 150
+[2025-07-06 23:02:08,382][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:02:22,090][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:02:23,444][Training][INFO] Loss after iteration: 0.5516046285629272
+[2025-07-06 23:02:23,445][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:02:34,138][CIFAR10][INFO] Overall test accuracy is: 71.5 %
+[2025-07-06 23:02:34,141][VNodeRealSimulation][INFO] Starting training iteration: 151
+[2025-07-06 23:02:34,143][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:02:47,564][VNodeRealSimulation][INFO] Starting training iteration: 152
+[2025-07-06 23:02:47,566][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:03:02,126][VNodeRealSimulation][INFO] Starting training iteration: 153
+[2025-07-06 23:03:02,128][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:03:14,837][VNodeRealSimulation][INFO] Starting training iteration: 154
+[2025-07-06 23:03:14,839][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:03:29,025][VNodeRealSimulation][INFO] Starting training iteration: 155
+[2025-07-06 23:03:29,027][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:03:42,031][VNodeRealSimulation][INFO] Starting training iteration: 156
+[2025-07-06 23:03:42,032][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:03:55,091][VNodeRealSimulation][INFO] Starting training iteration: 157
+[2025-07-06 23:03:55,093][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:04:09,519][VNodeRealSimulation][INFO] Starting training iteration: 158
+[2025-07-06 23:04:09,521][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:04:23,883][VNodeRealSimulation][INFO] Starting training iteration: 159
+[2025-07-06 23:04:23,885][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:04:37,824][VNodeRealSimulation][INFO] Starting training iteration: 160
+[2025-07-06 23:04:37,825][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:04:52,608][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:04:53,903][Training][INFO] Loss after iteration: 0.3495759963989258
+[2025-07-06 23:04:53,903][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:05:04,532][CIFAR10][INFO] Overall test accuracy is: 72.8 %
+[2025-07-06 23:05:04,534][VNodeRealSimulation][INFO] Starting training iteration: 161
+[2025-07-06 23:05:04,536][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:05:17,904][VNodeRealSimulation][INFO] Starting training iteration: 162
+[2025-07-06 23:05:17,905][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:05:32,030][VNodeRealSimulation][INFO] Starting training iteration: 163
+[2025-07-06 23:05:32,032][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:05:46,277][VNodeRealSimulation][INFO] Starting training iteration: 164
+[2025-07-06 23:05:46,279][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:06:01,459][VNodeRealSimulation][INFO] Starting training iteration: 165
+[2025-07-06 23:06:01,461][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:06:14,350][VNodeRealSimulation][INFO] Starting training iteration: 166
+[2025-07-06 23:06:14,352][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:06:28,722][VNodeRealSimulation][INFO] Starting training iteration: 167
+[2025-07-06 23:06:28,724][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:06:41,596][VNodeRealSimulation][INFO] Starting training iteration: 168
+[2025-07-06 23:06:41,598][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:06:54,493][VNodeRealSimulation][INFO] Starting training iteration: 169
+[2025-07-06 23:06:54,495][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:07:09,118][VNodeRealSimulation][INFO] Starting training iteration: 170
+[2025-07-06 23:07:09,120][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:07:21,805][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:07:23,112][Training][INFO] Loss after iteration: 0.38648325204849243
+[2025-07-06 23:07:23,113][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:07:33,717][CIFAR10][INFO] Overall test accuracy is: 73.1 %
+[2025-07-06 23:07:33,720][VNodeRealSimulation][INFO] Starting training iteration: 171
+[2025-07-06 23:07:33,723][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:07:48,502][VNodeRealSimulation][INFO] Starting training iteration: 172
+[2025-07-06 23:07:48,503][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:08:01,272][VNodeRealSimulation][INFO] Starting training iteration: 173
+[2025-07-06 23:08:01,274][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:08:14,174][VNodeRealSimulation][INFO] Starting training iteration: 174
+[2025-07-06 23:08:14,176][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:08:30,791][VNodeRealSimulation][INFO] Starting training iteration: 175
+[2025-07-06 23:08:30,793][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:08:44,801][VNodeRealSimulation][INFO] Starting training iteration: 176
+[2025-07-06 23:08:44,803][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:08:58,741][VNodeRealSimulation][INFO] Starting training iteration: 177
+[2025-07-06 23:08:58,743][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:09:12,843][VNodeRealSimulation][INFO] Starting training iteration: 178
+[2025-07-06 23:09:12,845][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:09:26,018][VNodeRealSimulation][INFO] Starting training iteration: 179
+[2025-07-06 23:09:26,019][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:09:38,732][VNodeRealSimulation][INFO] Starting training iteration: 180
+[2025-07-06 23:09:38,734][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:09:55,127][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:09:56,391][Training][INFO] Loss after iteration: 0.3536393344402313
+[2025-07-06 23:09:56,391][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:10:07,020][CIFAR10][INFO] Overall test accuracy is: 73.2 %
+[2025-07-06 23:10:07,022][VNodeRealSimulation][INFO] Starting training iteration: 181
+[2025-07-06 23:10:07,023][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:10:19,506][VNodeRealSimulation][INFO] Starting training iteration: 182
+[2025-07-06 23:10:19,508][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:10:32,279][VNodeRealSimulation][INFO] Starting training iteration: 183
+[2025-07-06 23:10:32,281][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:10:47,308][VNodeRealSimulation][INFO] Starting training iteration: 184
+[2025-07-06 23:10:47,310][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:11:00,239][VNodeRealSimulation][INFO] Starting training iteration: 185
+[2025-07-06 23:11:00,241][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:11:13,143][VNodeRealSimulation][INFO] Starting training iteration: 186
+[2025-07-06 23:11:13,144][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:11:29,149][VNodeRealSimulation][INFO] Starting training iteration: 187
+[2025-07-06 23:11:29,150][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:11:42,237][VNodeRealSimulation][INFO] Starting training iteration: 188
+[2025-07-06 23:11:42,238][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:11:56,227][VNodeRealSimulation][INFO] Starting training iteration: 189
+[2025-07-06 23:11:56,229][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:12:10,769][VNodeRealSimulation][INFO] Starting training iteration: 190
+[2025-07-06 23:12:10,771][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:12:24,686][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:12:25,973][Training][INFO] Loss after iteration: 0.34307432174682617
+[2025-07-06 23:12:25,974][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:12:36,566][CIFAR10][INFO] Overall test accuracy is: 73.0 %
+[2025-07-06 23:12:36,569][VNodeRealSimulation][INFO] Starting training iteration: 191
+[2025-07-06 23:12:36,572][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:12:49,418][VNodeRealSimulation][INFO] Starting training iteration: 192
+[2025-07-06 23:12:49,420][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:13:05,156][VNodeRealSimulation][INFO] Starting training iteration: 193
+[2025-07-06 23:13:05,158][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:13:17,546][VNodeRealSimulation][INFO] Starting training iteration: 194
+[2025-07-06 23:13:17,547][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:13:30,847][VNodeRealSimulation][INFO] Starting training iteration: 195
+[2025-07-06 23:13:30,848][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:13:47,590][VNodeRealSimulation][INFO] Starting training iteration: 196
+[2025-07-06 23:13:47,591][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:14:00,267][VNodeRealSimulation][INFO] Starting training iteration: 197
+[2025-07-06 23:14:00,268][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:14:13,722][VNodeRealSimulation][INFO] Starting training iteration: 198
+[2025-07-06 23:14:13,724][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:14:26,795][VNodeRealSimulation][INFO] Starting training iteration: 199
+[2025-07-06 23:14:26,797][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:14:39,929][VNodeRealSimulation][INFO] Starting training iteration: 200
+[2025-07-06 23:14:39,930][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:14:53,025][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:14:54,188][Training][INFO] Loss after iteration: 0.31831157207489014
+[2025-07-06 23:14:54,188][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:15:04,981][CIFAR10][INFO] Overall test accuracy is: 72.8 %
+[2025-07-06 23:15:04,983][VNodeRealSimulation][INFO] Starting training iteration: 201
+[2025-07-06 23:15:04,984][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:15:22,442][VNodeRealSimulation][INFO] Starting training iteration: 202
+[2025-07-06 23:15:22,443][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:15:35,173][VNodeRealSimulation][INFO] Starting training iteration: 203
+[2025-07-06 23:15:35,174][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:15:49,529][VNodeRealSimulation][INFO] Starting training iteration: 204
+[2025-07-06 23:15:49,531][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:16:02,113][VNodeRealSimulation][INFO] Starting training iteration: 205
+[2025-07-06 23:16:02,114][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:16:19,773][VNodeRealSimulation][INFO] Starting training iteration: 206
+[2025-07-06 23:16:19,775][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:16:32,388][VNodeRealSimulation][INFO] Starting training iteration: 207
+[2025-07-06 23:16:32,390][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:16:46,644][VNodeRealSimulation][INFO] Starting training iteration: 208
+[2025-07-06 23:16:46,645][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:17:01,109][VNodeRealSimulation][INFO] Starting training iteration: 209
+[2025-07-06 23:17:01,111][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:17:13,716][VNodeRealSimulation][INFO] Starting training iteration: 210
+[2025-07-06 23:17:13,718][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:17:27,546][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:17:28,817][Training][INFO] Loss after iteration: 0.3122333586215973
+[2025-07-06 23:17:28,817][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:17:39,469][CIFAR10][INFO] Overall test accuracy is: 72.9 %
+[2025-07-06 23:17:39,472][VNodeRealSimulation][INFO] Starting training iteration: 211
+[2025-07-06 23:17:39,474][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:17:53,331][VNodeRealSimulation][INFO] Starting training iteration: 212
+[2025-07-06 23:17:53,333][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:18:06,294][VNodeRealSimulation][INFO] Starting training iteration: 213
+[2025-07-06 23:18:06,296][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:18:19,587][VNodeRealSimulation][INFO] Starting training iteration: 214
+[2025-07-06 23:18:19,589][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:18:33,976][VNodeRealSimulation][INFO] Starting training iteration: 215
+[2025-07-06 23:18:33,978][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:18:47,872][VNodeRealSimulation][INFO] Starting training iteration: 216
+[2025-07-06 23:18:47,874][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:19:00,706][VNodeRealSimulation][INFO] Starting training iteration: 217
+[2025-07-06 23:19:00,707][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:19:16,518][VNodeRealSimulation][INFO] Starting training iteration: 218
+[2025-07-06 23:19:16,519][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:19:29,593][VNodeRealSimulation][INFO] Starting training iteration: 219
+[2025-07-06 23:19:29,595][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:19:42,626][VNodeRealSimulation][INFO] Starting training iteration: 220
+[2025-07-06 23:19:42,628][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:19:55,724][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:19:56,924][Training][INFO] Loss after iteration: 0.28064510226249695
+[2025-07-06 23:19:56,925][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:20:07,577][CIFAR10][INFO] Overall test accuracy is: 72.9 %
+[2025-07-06 23:20:07,579][VNodeRealSimulation][INFO] Starting training iteration: 221
+[2025-07-06 23:20:07,581][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:20:23,486][VNodeRealSimulation][INFO] Starting training iteration: 222
+[2025-07-06 23:20:23,488][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:20:36,394][VNodeRealSimulation][INFO] Starting training iteration: 223
+[2025-07-06 23:20:36,395][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:20:49,542][VNodeRealSimulation][INFO] Starting training iteration: 224
+[2025-07-06 23:20:49,544][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:21:05,191][VNodeRealSimulation][INFO] Starting training iteration: 225
+[2025-07-06 23:21:05,193][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:21:19,491][VNodeRealSimulation][INFO] Starting training iteration: 226
+[2025-07-06 23:21:19,494][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:21:33,468][VNodeRealSimulation][INFO] Starting training iteration: 227
+[2025-07-06 23:21:33,470][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:21:48,059][VNodeRealSimulation][INFO] Starting training iteration: 228
+[2025-07-06 23:21:48,060][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:22:00,806][VNodeRealSimulation][INFO] Starting training iteration: 229
+[2025-07-06 23:22:00,808][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:22:13,860][VNodeRealSimulation][INFO] Starting training iteration: 230
+[2025-07-06 23:22:13,862][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:22:26,585][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:22:27,848][Training][INFO] Loss after iteration: 0.282540887594223
+[2025-07-06 23:22:27,848][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:22:38,439][CIFAR10][INFO] Overall test accuracy is: 73.0 %
+[2025-07-06 23:22:38,442][VNodeRealSimulation][INFO] Starting training iteration: 231
+[2025-07-06 23:22:38,443][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:22:51,540][VNodeRealSimulation][INFO] Starting training iteration: 232
+[2025-07-06 23:22:51,542][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:23:04,381][VNodeRealSimulation][INFO] Starting training iteration: 233
+[2025-07-06 23:23:04,382][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:23:20,705][VNodeRealSimulation][INFO] Starting training iteration: 234
+[2025-07-06 23:23:20,707][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:23:33,188][VNodeRealSimulation][INFO] Starting training iteration: 235
+[2025-07-06 23:23:33,189][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:23:49,553][VNodeRealSimulation][INFO] Starting training iteration: 236
+[2025-07-06 23:23:49,555][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:24:02,092][VNodeRealSimulation][INFO] Starting training iteration: 237
+[2025-07-06 23:24:02,094][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:24:15,246][VNodeRealSimulation][INFO] Starting training iteration: 238
+[2025-07-06 23:24:15,248][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:24:30,415][VNodeRealSimulation][INFO] Starting training iteration: 239
+[2025-07-06 23:24:30,417][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:24:43,213][VNodeRealSimulation][INFO] Starting training iteration: 240
+[2025-07-06 23:24:43,215][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:24:58,532][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:24:59,798][Training][INFO] Loss after iteration: 0.2899044156074524
+[2025-07-06 23:24:59,798][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:25:10,491][CIFAR10][INFO] Overall test accuracy is: 73.2 %
+[2025-07-06 23:25:10,494][VNodeRealSimulation][INFO] Starting training iteration: 241
+[2025-07-06 23:25:10,496][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:25:24,885][VNodeRealSimulation][INFO] Starting training iteration: 242
+[2025-07-06 23:25:24,887][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:25:38,932][VNodeRealSimulation][INFO] Starting training iteration: 243
+[2025-07-06 23:25:38,934][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:25:53,075][VNodeRealSimulation][INFO] Starting training iteration: 244
+[2025-07-06 23:25:53,077][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:26:06,205][VNodeRealSimulation][INFO] Starting training iteration: 245
+[2025-07-06 23:26:06,207][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:26:19,842][VNodeRealSimulation][INFO] Starting training iteration: 246
+[2025-07-06 23:26:19,844][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:26:32,707][VNodeRealSimulation][INFO] Starting training iteration: 247
+[2025-07-06 23:26:32,709][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:26:48,301][VNodeRealSimulation][INFO] Starting training iteration: 248
+[2025-07-06 23:26:48,303][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:27:02,534][VNodeRealSimulation][INFO] Starting training iteration: 249
+[2025-07-06 23:27:02,536][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:27:15,989][VNodeRealSimulation][INFO] Starting training iteration: 250
+[2025-07-06 23:27:15,990][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:27:28,683][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:27:29,928][Training][INFO] Loss after iteration: 0.24199384450912476
+[2025-07-06 23:27:29,928][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:27:40,514][CIFAR10][INFO] Overall test accuracy is: 73.0 %
+[2025-07-06 23:27:40,517][VNodeRealSimulation][INFO] Starting training iteration: 251
+[2025-07-06 23:27:40,519][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:27:53,409][VNodeRealSimulation][INFO] Starting training iteration: 252
+[2025-07-06 23:27:53,410][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:28:09,862][VNodeRealSimulation][INFO] Starting training iteration: 253
+[2025-07-06 23:28:09,864][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:28:24,231][VNodeRealSimulation][INFO] Starting training iteration: 254
+[2025-07-06 23:28:24,233][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:28:38,478][VNodeRealSimulation][INFO] Starting training iteration: 255
+[2025-07-06 23:28:38,481][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:28:51,591][VNodeRealSimulation][INFO] Starting training iteration: 256
+[2025-07-06 23:28:51,593][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:29:04,292][VNodeRealSimulation][INFO] Starting training iteration: 257
+[2025-07-06 23:29:04,293][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:29:17,105][VNodeRealSimulation][INFO] Starting training iteration: 258
+[2025-07-06 23:29:17,107][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:29:32,810][VNodeRealSimulation][INFO] Starting training iteration: 259
+[2025-07-06 23:29:32,812][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:29:46,343][VNodeRealSimulation][INFO] Starting training iteration: 260
+[2025-07-06 23:29:46,345][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:29:59,150][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:30:00,371][Training][INFO] Loss after iteration: 0.23610004782676697
+[2025-07-06 23:30:00,372][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:30:11,017][CIFAR10][INFO] Overall test accuracy is: 72.8 %
+[2025-07-06 23:30:11,020][VNodeRealSimulation][INFO] Starting training iteration: 261
+[2025-07-06 23:30:11,022][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:30:24,037][VNodeRealSimulation][INFO] Starting training iteration: 262
+[2025-07-06 23:30:24,038][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:30:40,961][VNodeRealSimulation][INFO] Starting training iteration: 263
+[2025-07-06 23:30:40,963][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:30:53,785][VNodeRealSimulation][INFO] Starting training iteration: 264
+[2025-07-06 23:30:53,786][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:31:06,765][VNodeRealSimulation][INFO] Starting training iteration: 265
+[2025-07-06 23:31:06,767][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:31:23,188][VNodeRealSimulation][INFO] Starting training iteration: 266
+[2025-07-06 23:31:23,190][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:31:37,351][VNodeRealSimulation][INFO] Starting training iteration: 267
+[2025-07-06 23:31:37,353][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:31:49,870][VNodeRealSimulation][INFO] Starting training iteration: 268
+[2025-07-06 23:31:49,871][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:32:03,886][VNodeRealSimulation][INFO] Starting training iteration: 269
+[2025-07-06 23:32:03,887][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:32:17,277][VNodeRealSimulation][INFO] Starting training iteration: 270
+[2025-07-06 23:32:17,278][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:32:31,740][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:32:33,040][Training][INFO] Loss after iteration: 0.2362050563097
+[2025-07-06 23:32:33,040][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:32:43,611][CIFAR10][INFO] Overall test accuracy is: 73.0 %
+[2025-07-06 23:32:43,615][VNodeRealSimulation][INFO] Starting training iteration: 271
+[2025-07-06 23:32:43,617][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:32:58,352][VNodeRealSimulation][INFO] Starting training iteration: 272
+[2025-07-06 23:32:58,354][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:33:11,404][VNodeRealSimulation][INFO] Starting training iteration: 273
+[2025-07-06 23:33:11,406][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:33:25,636][VNodeRealSimulation][INFO] Starting training iteration: 274
+[2025-07-06 23:33:25,638][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:33:40,115][VNodeRealSimulation][INFO] Starting training iteration: 275
+[2025-07-06 23:33:40,117][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:33:53,758][VNodeRealSimulation][INFO] Starting training iteration: 276
+[2025-07-06 23:33:53,760][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:34:07,001][VNodeRealSimulation][INFO] Starting training iteration: 277
+[2025-07-06 23:34:07,002][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:34:21,571][VNodeRealSimulation][INFO] Starting training iteration: 278
+[2025-07-06 23:34:21,574][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:34:35,653][VNodeRealSimulation][INFO] Starting training iteration: 279
+[2025-07-06 23:34:35,654][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:34:48,262][VNodeRealSimulation][INFO] Starting training iteration: 280
+[2025-07-06 23:34:48,264][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:35:03,640][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:35:04,918][Training][INFO] Loss after iteration: 0.2349856197834015
+[2025-07-06 23:35:04,919][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:35:15,530][CIFAR10][INFO] Overall test accuracy is: 72.8 %
+[2025-07-06 23:35:15,534][VNodeRealSimulation][INFO] Starting training iteration: 281
+[2025-07-06 23:35:15,536][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:35:28,011][VNodeRealSimulation][INFO] Starting training iteration: 282
+[2025-07-06 23:35:28,012][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:35:43,298][VNodeRealSimulation][INFO] Starting training iteration: 283
+[2025-07-06 23:35:43,299][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:35:56,178][VNodeRealSimulation][INFO] Starting training iteration: 284
+[2025-07-06 23:35:56,179][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:36:11,134][VNodeRealSimulation][INFO] Starting training iteration: 285
+[2025-07-06 23:36:11,135][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:36:24,693][VNodeRealSimulation][INFO] Starting training iteration: 286
+[2025-07-06 23:36:24,694][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:36:37,371][VNodeRealSimulation][INFO] Starting training iteration: 287
+[2025-07-06 23:36:37,373][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:36:50,792][VNodeRealSimulation][INFO] Starting training iteration: 288
+[2025-07-06 23:36:50,794][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:37:07,570][VNodeRealSimulation][INFO] Starting training iteration: 289
+[2025-07-06 23:37:07,571][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:37:20,159][VNodeRealSimulation][INFO] Starting training iteration: 290
+[2025-07-06 23:37:20,161][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:37:33,658][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:37:34,869][Training][INFO] Loss after iteration: 0.23099105060100555
+[2025-07-06 23:37:34,869][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:37:45,425][CIFAR10][INFO] Overall test accuracy is: 73.0 %
+[2025-07-06 23:37:45,428][VNodeRealSimulation][INFO] Starting training iteration: 291
+[2025-07-06 23:37:45,430][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:37:59,474][VNodeRealSimulation][INFO] Starting training iteration: 292
+[2025-07-06 23:37:59,475][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:38:15,898][VNodeRealSimulation][INFO] Starting training iteration: 293
+[2025-07-06 23:38:15,899][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:38:30,084][VNodeRealSimulation][INFO] Starting training iteration: 294
+[2025-07-06 23:38:30,085][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:38:42,824][VNodeRealSimulation][INFO] Starting training iteration: 295
+[2025-07-06 23:38:42,826][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:38:56,124][VNodeRealSimulation][INFO] Starting training iteration: 296
+[2025-07-06 23:38:56,126][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:39:10,251][VNodeRealSimulation][INFO] Starting training iteration: 297
+[2025-07-06 23:39:10,253][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:39:23,358][VNodeRealSimulation][INFO] Starting training iteration: 298
+[2025-07-06 23:39:23,360][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:39:37,749][VNodeRealSimulation][INFO] Starting training iteration: 299
+[2025-07-06 23:39:37,751][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:39:51,988][VNodeRealSimulation][INFO] Starting training iteration: 300
+[2025-07-06 23:39:51,989][VNodeRealSimulation][INFO] Training this round.
+[2025-07-06 23:40:06,341][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-06 23:40:07,606][Training][INFO] Loss after iteration: 0.180307075381279
+[2025-07-06 23:40:07,606][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-06 23:40:18,079][CIFAR10][INFO] Overall test accuracy is: 72.9 %
+[2025-07-06 23:40:18,081][VNodeRealSimulation][INFO] Disconnecting neighbors
+[2025-07-06 23:40:18,081][VNodeRealSimulation][INFO] All iterations complete. Process complete! Sleeping for 2 minutes before disconnecting to ensure all messages are delivered.
+[2025-07-06 23:42:18,081][VNodeRealSimulation][INFO] Disconnecting...
