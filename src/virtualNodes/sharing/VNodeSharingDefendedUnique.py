@@ -367,6 +367,9 @@ class VNodeSharingPoison(VNodeSharing):
         iteration = data["iteration"]
         sender_node = data.get("real_node", data.get("vSource", "unknown"))  # Get sender info
         real_node_id = data.get("real_node", None)
+
+        #diagnostics
+        print(f"Node {self.uid} received data from {sender_node} (real node: {real_node_id}) at iteration {iteration}")
         
         # Check if we already received data from this real node
         if real_node_id is not None and real_node_id in self.received_real_nodes:

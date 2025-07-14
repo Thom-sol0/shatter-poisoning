@@ -10,8 +10,11 @@ import warnings
 
 class VNodeSharingPoison(VNodeSharing):
     """
-    Poisoned model sharing class that sends malicious gradients
-    Implements various poisoning strategies for adversarial attacks
+    Poisoned model sharing class with clipping-based defense mechanism.
+    
+    This class implements a gradient clipping defense that identifies and clips
+    outlier gradients based on statistical measures to prevent large deviations
+    from reasonable parameter updates.
     """
 
     def _parse_adversarial_nodes(self, adversarial_nodes):
@@ -49,10 +52,13 @@ class VNodeSharingPoison(VNodeSharing):
         attack_type='zero',
         adversarial_nodes=None,   # List of uids of adversarial nodes
         poison_after=None,
+        clipping_factor=2.0,     # How many std deviations to allow before clipping
+        percentile_threshold=75,  # Percentile for determining reasonable range
+        adaptive_clipping=True,   # Whether to adapt clipping bounds over time
         # log_poisoning_metrics=True,
     ):
         """
-        Constructor for poisoning class
+        Constructor for clipping-based defense class
         
         Parameters
         ----------
@@ -61,10 +67,14 @@ class VNodeSharingPoison(VNodeSharing):
             Poisoning strategy ('zero', 'flip', 'noise', 'scale')
         adversarial_nodes : list
             List of node IDs that will perform the attack
-        poison_period : int
+        poison_after : int
             Number of rounds between poisonings
-        log_poisoning_metrics : bool
-            Whether to log poisoning metrics
+        clipping_factor : float
+            Number of standard deviations to allow before clipping
+        percentile_threshold : int
+            Percentile threshold for determining reasonable parameter ranges
+        adaptive_clipping : bool
+            Whether to adapt clipping bounds based on historical data
         """
         super().__init__(
             rank,
@@ -85,17 +95,29 @@ class VNodeSharingPoison(VNodeSharing):
         self.poison_after = int(poison_after) if poison_after is not None else 1
         self.adversarial_nodes = self._parse_adversarial_nodes(adversarial_nodes)
 
-        self.param_values = None
+        # Clipping defense parameters
+        self.clipping_factor = clipping_factor
+        self.percentile_threshold = percentile_threshold
+        self.adaptive_clipping = adaptive_clipping
         
-        # Add diagnostic tracking for NaN/Inf issues
+        # Data structures for collecting parameter values for clipping analysis
+        self.param_values = None
+        self.param_adversarial_sources = None
+        
+        # Historical statistics for adaptive clipping
+        self.param_history = defaultdict(list)  # Store recent parameter values for each position
+        self.history_window = 10  # Number of rounds to keep for statistics
+        
+        # Clipping statistics
+        self.clipped_weights_count = 0
+        self.total_weights_processed = 0
+        self.clipping_bounds_history = {}
+        
+        # Diagnostic tracking
         self.nan_inf_detection_count = 0
         self.corrupted_weights_received = 0
         self.corrupted_weights_rejected = 0
-        
-        # Track adversarial proportion for each weight position
-        # param_adversarial_sources[weight_index] = list of (sender_node, is_adversarial) tuples
-        self.param_adversarial_sources = None
-        self.max_adversarial_proportion = 0.0  # Track the maximum proportion across all weights
+        self.max_adversarial_proportion = 0.0
 
     def _detect_and_sanitize_nan_inf(self, tensor, tensor_name="tensor", sender_node="unknown", default_value=0.0):
         """
@@ -165,7 +187,108 @@ class VNodeSharingPoison(VNodeSharing):
         
         return state_dict, len(corrupted_layers) > 0
 
-    
+    def _compute_clipping_bounds(self, param_values_list):
+        """
+        Compute clipping bounds for a list of parameter values using statistical measures.
+        
+        Parameters
+        ----------
+        param_values_list : list
+            List of parameter values for a specific weight position
+            
+        Returns
+        -------
+        tuple
+            (lower_bound, upper_bound) for clipping
+        """
+        if len(param_values_list) < 3:
+            # Not enough data for meaningful statistics, use simple bounds
+            return -1e6, 1e6
+        
+        values = np.array(param_values_list)
+        
+        # Method 1: Use standard deviation-based clipping
+        mean_val = np.mean(values)
+        std_val = np.std(values)
+        
+        # Prevent division by zero
+        if std_val < 1e-10:
+            std_val = 1e-6
+        
+        std_lower = mean_val - self.clipping_factor * std_val
+        std_upper = mean_val + self.clipping_factor * std_val
+        
+        # Method 2: Use percentile-based clipping for robustness
+        lower_percentile = (100 - self.percentile_threshold) / 2
+        upper_percentile = 100 - lower_percentile
+        
+        percentile_lower = np.percentile(values, lower_percentile)
+        percentile_upper = np.percentile(values, upper_percentile)
+        
+        # Method 3: Use IQR-based outlier detection
+        q25 = np.percentile(values, 25)
+        q75 = np.percentile(values, 75)
+        iqr = q75 - q25
+        
+        # Use a factor of 1.5 * IQR for outlier detection (standard approach)
+        iqr_lower = q25 - 1.5 * iqr
+        iqr_upper = q75 + 1.5 * iqr
+        
+        # Combine all methods - use the most restrictive bounds
+        final_lower = max(std_lower, percentile_lower, iqr_lower)
+        final_upper = min(std_upper, percentile_upper, iqr_upper)
+        
+        # Ensure bounds are reasonable and not too restrictive
+        if final_upper - final_lower < 1e-6:
+            # Bounds are too tight, fallback to std-based with larger factor
+            final_lower = mean_val - 3.0 * std_val
+            final_upper = mean_val + 3.0 * std_val
+        
+        return final_lower, final_upper
+
+    def _update_parameter_history(self, param_idx, value):
+        """
+        Update historical parameter values for adaptive clipping.
+        
+        Parameters
+        ----------
+        param_idx : int
+            Parameter index
+        value : float
+            Parameter value to add to history
+        """
+        if self.adaptive_clipping:
+            self.param_history[param_idx].append(value)
+            
+            # Keep only recent history
+            if len(self.param_history[param_idx]) > self.history_window:
+                self.param_history[param_idx].pop(0)
+
+    def _get_adaptive_clipping_bounds(self, param_idx, current_values):
+        """
+        Get adaptive clipping bounds considering historical data.
+        
+        Parameters
+        ----------
+        param_idx : int
+            Parameter index
+        current_values : list
+            Current round parameter values
+            
+        Returns
+        -------
+        tuple
+            (lower_bound, upper_bound) for clipping
+        """
+        if not self.adaptive_clipping or param_idx not in self.param_history:
+            return self._compute_clipping_bounds(current_values)
+        
+        # Combine historical and current values
+        historical_values = self.param_history[param_idx]
+        combined_values = historical_values + current_values
+        
+        return self._compute_clipping_bounds(combined_values)
+
     def _apply_model_poisoning(self):
         """
         Apply poisoning strategy for adversarial nodes
@@ -251,11 +374,8 @@ class VNodeSharingPoison(VNodeSharing):
     def _apply_defense(self):
         """
         Apply defense mechanisms against poisoning attacks
-
-        This function should be implemented with defense strategies
-        to mitigate the effects of poisoning attacks
         """
-        # TODO: Implement defense mechanisms here
+        # This will be implemented in the clipping-based defense mechanism
         pass
 
     def forward_averaging(self, data):
@@ -266,17 +386,7 @@ class VNodeSharingPoison(VNodeSharing):
 
     def adversarial_forward_averaging(self, data):
         """
-        Computes the sum for the average in a state based manner.
-
-        Parameters
-        ----------
-        data : dict
-            Received data
-
-        Returns
-        -------
-        None
-
+        Computes the sum for the average in a state based manner for adversarial nodes.
         """
         if self.current_sum == None:
             # First time take model of self
@@ -336,8 +446,7 @@ class VNodeSharingPoison(VNodeSharing):
 
     def defender_forward_averaging(self, data):
         """
-        Computes and collects parameter values for median-based aggregation.
-        param_values is a dictionary with the weight index as key and the list of received weights as value.
+        Computes and collects parameter values for clipping-based aggregation.
         """
         if self.param_values is None:
             # First time, initialize param_values dictionary
@@ -362,7 +471,6 @@ class VNodeSharingPoison(VNodeSharing):
         iteration = data["iteration"]
         sender_node = data.get("real_node", data.get("vSource", "unknown"))  # Get sender info
         real_node_id = data.get("real_node", None)
-    
         if "degree" in data:
             del data["degree"]
         del data["iteration"]
@@ -398,14 +506,9 @@ class VNodeSharingPoison(VNodeSharing):
             # Track the source and whether it's adversarial
             self.param_adversarial_sources[idx].append((sender_node, sender_is_adversarial))
         
-    
     def adversarial_finish_forward_averaging(self, peer_deques):
         """
         Finishes the forward averaging for adversarial nodes.
-
-        This method is called after all peer deques have been processed.
-        It applies the model poisoning strategy if the node is adversarial.
-
         """
         for _, n in enumerate(peer_deques):
             for data in peer_deques[n]:
@@ -466,68 +569,110 @@ class VNodeSharingPoison(VNodeSharing):
         self.current_weights = None
         self.current_sum = None
 
-    def get_medgrad_model(self):
+    def get_clipped_model(self):
         """
-        Computes the element-wise median of collected weight values
-        and returns a model state dictionary with these medians.
+        Computes parameter values with clipping-based defense and returns a model state dictionary.
+        
+        This method:
+        1. Analyzes the distribution of received parameter values
+        2. Computes reasonable clipping bounds based on statistical measures
+        3. Clips outlier values to prevent malicious influence
+        4. Computes the mean of clipped values
         """
-        # Create a tensor to hold the median values
-        median_weights = torch.zeros(self.total_length, dtype=torch.float32, device=self.device)
-    
-        # Calculate the median for each weight position
-        corrupted_indices = []
+        # Create a tensor to hold the clipped and averaged values
+        clipped_weights = torch.zeros(self.total_length, dtype=torch.float32, device=self.device)
+        
+        clipped_count = 0
+        total_processed = 0
+        
+        # Process each parameter position
         for idx in range(self.total_length):
             if idx in self.param_values and len(self.param_values[idx]) > 0:
-                # Filter out any remaining NaN/Inf values before computing median
+                # Get values for this parameter position
                 values = self.param_values[idx]
                 filtered_values = [v for v in values if not (np.isnan(v) or np.isinf(v))]
                 
                 if len(filtered_values) > 0:
-                    median_val = np.median(filtered_values)
-                    if np.isnan(median_val) or np.isinf(median_val):
-                        median_val = 0.0
-                        corrupted_indices.append(idx)
-                    median_weights[idx] = torch.tensor(
-                        median_val,
+                    total_processed += len(filtered_values)
+                    
+                    # Compute clipping bounds
+                    lower_bound, upper_bound = self._get_adaptive_clipping_bounds(idx, filtered_values)
+                    
+                    # Store bounds for analysis
+                    self.clipping_bounds_history[idx] = (lower_bound, upper_bound)
+                    
+                    # Apply clipping
+                    clipped_values = []
+                    for val in filtered_values:
+                        if val < lower_bound:
+                            clipped_values.append(lower_bound)
+                            clipped_count += 1
+                        elif val > upper_bound:
+                            clipped_values.append(upper_bound)
+                            clipped_count += 1
+                        else:
+                            clipped_values.append(val)
+                    
+                    # Compute mean of clipped values
+                    mean_val = np.mean(clipped_values)
+                    
+                    # Update parameter history for adaptive clipping
+                    self._update_parameter_history(idx, mean_val)
+                    
+                    # Ensure the result is valid
+                    if np.isnan(mean_val) or np.isinf(mean_val):
+                        mean_val = 0.0
+                    
+                    clipped_weights[idx] = torch.tensor(
+                        mean_val,
                         dtype=torch.float32,
                         device=self.device
                     )
                 else:
-                    corrupted_indices.append(idx)
-                    median_weights[idx] = 0.0
-    
-        # Final validation of median weights
-        if torch.any(torch.isnan(median_weights)) or torch.any(torch.isinf(median_weights)):
-            median_weights = self._detect_and_sanitize_nan_inf(
-                median_weights, 
-                "median_weights", 
+                    clipped_weights[idx] = 0.0
+            else:
+                clipped_weights[idx] = 0.0
+        
+        # Update clipping statistics
+        self.clipped_weights_count = clipped_count
+        self.total_weights_processed = total_processed
+        
+        # Final validation of clipped weights
+        if torch.any(torch.isnan(clipped_weights)) or torch.any(torch.isinf(clipped_weights)):
+            clipped_weights = self._detect_and_sanitize_nan_inf(
+                clipped_weights, 
+                "clipped_weights", 
                 f"node_{self.uid}"
             )
-    
+        
         # Convert flat tensor back to model state dict
-        state_dict = self._post_step(median_weights)
+        state_dict = self._post_step(clipped_weights)
         
         # Final validation of the state dict
-        state_dict, was_corrupted = self._validate_model_state(state_dict, f"median_model_node_{self.uid}")
+        state_dict, was_corrupted = self._validate_model_state(state_dict, f"clipped_model_node_{self.uid}")
         
         return state_dict
 
     def defender_finish_forward_averaging(self, peer_deques):
         """
         Finishes the forward averaging for defender nodes.
-        Applies median-based defense against poisoning attacks.
+        Applies clipping-based defense against poisoning attacks.
         """
         # Process all incoming data
         for _, n in enumerate(peer_deques):
             for data in peer_deques[n]:
                 self.forward_averaging(data)
 
-        # Calculate the weight-wise median and update model
-        medgrad_model = self.get_medgrad_model()
-        self.model.load_state_dict(medgrad_model)
+        # Compute adversarial proportion statistics
+        max_adv_prop, adv_stats = self.compute_max_adversarial_proportion()
+        self.max_adversarial_proportion = max_adv_prop
+
+        # Calculate the clipped parameter values and update model
+        clipped_model = self.get_clipped_model()
+        self.model.load_state_dict(clipped_model)
     
-        # Save corruption metrics to file
-        self._save_corruption_metrics()
+        # Save clipping metrics to file
+        self._save_clipping_metrics()
     
         # Clean up for the next round
         self.communication_round += 1
@@ -541,7 +686,6 @@ class VNodeSharingPoison(VNodeSharing):
     def finish_forward_averaging(self, peer_deques):
         """
         Finishes the forward averaging.
-
         """
         if self.uid in self.adversarial_nodes:
             self.adversarial_finish_forward_averaging(peer_deques)
@@ -563,24 +707,43 @@ class VNodeSharingPoison(VNodeSharing):
                 "total_corrupted_weights_sanitized": self.corrupted_weights_rejected,
                 "corruption_rate": self.corrupted_weights_received / max(1, self.total_weights_count) if hasattr(self, 'total_weights_count') else 0.0
             },
+            "clipping_stats": {
+                "clipped_weights_count": self.clipped_weights_count,
+                "total_weights_processed": self.total_weights_processed,
+                "clipping_rate": self.clipped_weights_count / max(1, self.total_weights_processed),
+                "clipping_factor": self.clipping_factor,
+                "percentile_threshold": self.percentile_threshold,
+                "adaptive_clipping": self.adaptive_clipping
+            },
             "adversarial_influence": {
                 "max_adversarial_proportion": getattr(self, 'max_adversarial_proportion', 0.0),
                 "adversarial_nodes_in_network": self.adversarial_nodes
             }
         }
 
-    def _save_corruption_metrics(self):
+    def _save_clipping_metrics(self):
         """
-        Save simple corruption metrics: node_id - iteration - max_adversarial_prop - value
-        If the same iteration exists, take the max value.
+        Save clipping metrics and adversarial proportion data.
         """
         try:
             # Compute adversarial proportion statistics
             max_adv_prop, adv_stats = self.compute_max_adversarial_proportion()
             self.max_adversarial_proportion = max_adv_prop
             
-            metrics_file = os.path.join(self.log_dir, f"corruption_metrics_{self.uid}.json")
-            current_max_adv_prop = getattr(self, 'max_adversarial_proportion', 0.0)
+            metrics_file = os.path.join(self.log_dir, f"clipping_metrics_{self.uid}.json")
+            
+            # Prepare metrics data
+            metrics_data = {
+                "round": self.communication_round,
+                "max_adversarial_proportion": max_adv_prop,
+                "clipping_stats": {
+                    "clipped_weights": self.clipped_weights_count,
+                    "total_weights": self.total_weights_processed,
+                    "clipping_rate": self.clipped_weights_count / max(1, self.total_weights_processed),
+                    "clipping_factor": self.clipping_factor,
+                    "percentile_threshold": self.percentile_threshold
+                }
+            }
             
             # Load existing data if file exists
             existing_data = {}
@@ -589,21 +752,10 @@ class VNodeSharingPoison(VNodeSharing):
                     with open(metrics_file, 'r') as f:
                         existing_data = json.load(f)
                 except (json.JSONDecodeError, IOError):
-                    # If file is corrupted, start fresh
                     existing_data = {}
             
-            # Key format: iteration number as string
-            iteration_key = str(self.communication_round)
-            
-            # If this iteration already exists, take the max value
-            if iteration_key in existing_data:
-                existing_value = existing_data[iteration_key]
-                new_value = max(existing_value, current_max_adv_prop)
-            else:
-                new_value = current_max_adv_prop
-            
-            # Update with new value
-            existing_data[iteration_key] = new_value
+            # Update with new data
+            existing_data[str(self.communication_round)] = metrics_data
             
             # Save back to file
             with open(metrics_file, 'w') as f:
@@ -664,7 +816,6 @@ class VNodeSharingPoison(VNodeSharing):
     def get_adversarial_proportion_stats(self):
         """
         Get detailed statistics about adversarial proportions for external analysis.
-        Returns comprehensive information about adversarial influence per weight.
         """
         if self.param_adversarial_sources is None:
             return {
@@ -690,9 +841,32 @@ class VNodeSharingPoison(VNodeSharing):
         
         return result
 
-
-
-
-
-
-
+    def get_clipping_bounds_summary(self):
+        """
+        Get a summary of current clipping bounds for analysis.
+        """
+        if not self.clipping_bounds_history:
+            return {}
+        
+        bounds_summary = {}
+        for param_idx, (lower, upper) in self.clipping_bounds_history.items():
+            bounds_summary[param_idx] = {
+                "lower_bound": lower,
+                "upper_bound": upper,
+                "range": upper - lower
+            }
+        
+        # Compute overall statistics
+        ranges = [bounds["range"] for bounds in bounds_summary.values()]
+        overall_stats = {
+            "mean_range": np.mean(ranges) if ranges else 0.0,
+            "median_range": np.median(ranges) if ranges else 0.0,
+            "min_range": np.min(ranges) if ranges else 0.0,
+            "max_range": np.max(ranges) if ranges else 0.0,
+            "total_parameters": len(bounds_summary)
+        }
+        
+        return {
+            "individual_bounds": bounds_summary,
+            "overall_stats": overall_stats
+        }
