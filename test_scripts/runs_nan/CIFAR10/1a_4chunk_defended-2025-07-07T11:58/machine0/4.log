@@ -1,0 +1,854 @@
+[2025-07-07 11:58:05,755][VNodeRealSimulation][INFO] Started process.
+[2025-07-07 11:58:07,540][CIFAR10][INFO] Loading training set.
+[2025-07-07 11:58:09,075][CIFAR10][INFO] Data: 1562
+[2025-07-07 11:58:09,075][CIFAR10][INFO] Index: 1562
+[2025-07-07 11:58:09,075][CIFAR10][INFO] [44946, 12444, 6399, 3694, 33219, 9367, 38171, 6890, 44323, 19734, 43976, 11205, 15885, 46741, 27714, 27346, 14526, 4861, 44471, 8445, 49044, 43167, 34751, 49810, 25342, 4602, 41304, 49778, 34585, 9969, 21138, 39101, 30874, 23644, 24973, 27645, 26769, 21826, 10438, 44263, 45451, 25747, 4986, 36264, 38501, 18341, 12483, 3213, 25375, 25708, 23642, 8748, 49338, 30604, 2516, 23887, 40839, 6428, 18242, 43004, 12731, 6432, 24729, 27179, 9089, 3998, 24749, 49381, 1501, 13342, 24460, 6769, 13313, 47448, 9946, 2673, 44042, 5242, 3233, 5244, 29185, 8056, 36640, 19237, 22057, 22657, 48211, 11568, 43151, 18426, 28787, 12339, 7267, 38168, 37195, 7993, 15851, 11521, 34611, 17331, 21371, 17161, 19116, 25657, 15071, 49553, 33206, 26465, 10287, 32713, 34408, 35989, 49673, 16445, 3070, 25155, 15816, 39722, 37877, 28297, 3408, 33135, 26694, 11232, 10458, 16156, 1625, 20022, 48125, 8997, 28351, 10214, 25788, 9554, 20167, 20561, 10025, 14731, 49904, 20074, 33869, 30521, 27280, 22201, 42736, 11856, 46984, 24418, 35835, 13529, 14525, 736, 29093, 44114, 20829, 36571, 28568, 21983, 25118, 11581, 21311, 40950, 18667, 39127, 4504, 15921, 49000, 26089, 11234, 17247, 27604, 45593, 19976, 29363, 33831, 40439, 693, 27333, 14346, 14965, 20560, 41823, 18875, 41279, 16617, 41070, 9970, 9587, 31225, 13448, 22643, 28790, 16432, 26799, 42072, 1072, 43656, 46332, 48679, 22561, 26204, 23981, 27188, 43856, 18416, 33213, 28503, 2148, 26795, 8679, 46894, 46507, 13397, 30507, 24731, 41404, 5971, 28387, 2400, 15718, 30435, 40959, 48674, 27901, 29281, 47638, 37896, 43027, 1335, 2725, 762, 33896, 6450, 35811, 13681, 16619, 42008, 25936, 23429, 42866, 14953, 18406, 18716, 45847, 25271, 46885, 32428, 16212, 42810, 37366, 5366, 37441, 48354, 38629, 27595, 32423, 6879, 33266, 46898, 37309, 3342, 24871, 11986, 30104, 43157, 20231, 36269, 36837, 41331, 44841, 16327, 27620, 21067, 17819, 9796, 9326, 19001, 29794, 46395, 17988, 12030, 35684, 2860, 33432, 19255, 45446, 39724, 14920, 25207, 4795, 3757, 44685, 42049, 10212, 42766, 48708, 29981, 21769, 48672, 49728, 44968, 36128, 13772, 31839, 29168, 42752, 15570, 11644, 46063, 383, 5334, 13452, 47395, 47922, 8796, 13605, 16526, 49271, 30175, 35894, 46357, 47953, 34498, 8124, 28403, 6305, 7671, 7114, 40010, 6531, 15, 42252, 23240, 17560, 49985, 44359, 3238, 30247, 20885, 14176, 13104, 26653, 24443, 28056, 34658, 36853, 37391, 41612, 46280, 12932, 33652, 48339, 36386, 2070, 4422, 37315, 10807, 4985, 43904, 6919, 27769, 27852, 42636, 49948, 27207, 9204, 21797, 3904, 38834, 34672, 21697, 39399, 6157, 44172, 26438, 24660, 765, 47788, 31881, 30473, 11167, 6706, 16543, 28008, 14209, 13713, 6511, 43235, 29270, 34117, 20324, 37505, 40970, 32514, 6520, 14098, 43084, 35874, 6646, 46642, 8122, 8435, 20173, 49154, 43574, 12657, 9932, 9114, 26618, 37212, 47229, 22039, 20040, 27393, 15541, 47052, 3628, 14056, 34896, 26529, 931, 21572, 25027, 31628, 40039, 25921, 31942, 13490, 14878, 43564, 14841, 3913, 21396, 10447, 5346, 28362, 45315, 30023, 12357, 46995, 29238, 15767, 42758, 6297, 1392, 8700, 29742, 16195, 39773, 30792, 22225, 10995, 15081, 40287, 29245, 7645, 12989, 19701, 20701, 4179, 32872, 21881, 11345, 5192, 13539, 25421, 29863, 46485, 1129, 19728, 3468, 35105, 15542, 23877, 27956, 34930, 14632, 1915, 45605, 6311, 5840, 16382, 14643, 44606, 8479, 9561, 35931, 13550, 10244, 16277, 41429, 40121, 28761, 19273, 21550, 3804, 17849, 13026, 25347, 23896, 26476, 27682, 49969, 8256, 4353, 926, 25173, 12335, 26340, 1784, 47969, 14386, 46868, 7358, 19464, 19402, 42694, 12839, 38673, 44365, 31842, 28913, 32770, 48418, 38323, 5470, 27036, 33072, 8685, 225, 9688, 4703, 7917, 39756, 35279, 32522, 726, 1007, 28044, 15631, 20304, 7565, 23777, 18506, 14143, 12197, 22883, 13432, 22703, 39315, 12644, 30211, 14790, 46441, 7748, 44046, 30189, 28911, 43039, 39497, 4598, 40009, 17706, 1618, 34480, 39325, 44757, 10763, 47328, 46523, 48231, 28824, 9276, 837, 22976, 36495, 20072, 31359, 42356, 2546, 44805, 14491, 41014, 47195, 27340, 17944, 23412, 16040, 14555, 28289, 22017, 10063, 14094, 31934, 42727, 35602, 15411, 18915, 46329, 13292, 32594, 2512, 5710, 39199, 33176, 40415, 43727, 27389, 24244, 23778, 5250, 37153, 20309, 6113, 18351, 5481, 19009, 48057, 49853, 26138, 45431, 45066, 42444, 37002, 20963, 3679, 14289, 23147, 43454, 20222, 43191, 39820, 39904, 22769, 46439, 2164, 34109, 11274, 28566, 27632, 30948, 46540, 35534, 17206, 22373, 48186, 47449, 22595, 10134, 20159, 11196, 18690, 3926, 8083, 33148, 33709, 2855, 13346, 477, 8215, 20978, 3276, 12870, 47000, 28629, 33852, 18331, 15019, 46097, 18741, 7582, 49839, 32902, 15509, 31350, 44804, 25540, 18815, 44839, 28257, 35843, 49663, 19438, 42223, 6267, 14356, 24710, 10235, 14439, 20921, 11032, 24672, 18258, 5529, 41968, 22710, 47436, 40926, 28230, 32030, 12740, 40933, 42441, 7311, 35234, 28832, 36699, 16719, 31594, 28857, 35784, 13072, 28841, 14619, 13265, 46919, 704, 22940, 29786, 29671, 10194, 36599, 19219, 12869, 42271, 38573, 33909, 39766, 6149, 36057, 22483, 36638, 22622, 7744, 8759, 36631, 10186, 7148, 11341, 48568, 12334, 20240, 33874, 40225, 16810, 36598, 39585, 18373, 15493, 42557, 15841, 14749, 9228, 8171, 29517, 22741, 35079, 16765, 34199, 13528, 43586, 17198, 5499, 1522, 41533, 15886, 12503, 6571, 45545, 9414, 44760, 20350, 22173, 30962, 24974, 11847, 13438, 38653, 41077, 47340, 12587, 1591, 48312, 31958, 24412, 38536, 4420, 23003, 5675, 7202, 47470, 27033, 26988, 22238, 46518, 49315, 34969, 26110, 46722, 23053, 5779, 34173, 25684, 45911, 41266, 42195, 31820, 22944, 3091, 4491, 2212, 47329, 27580, 31635, 47848, 38395, 29964, 28279, 40203, 31822, 21832, 27429, 43215, 43529, 36425, 2517, 15915, 33459, 47797, 6065, 38093, 42922, 38426, 19535, 15466, 29956, 18846, 30455, 14957, 26498, 534, 10476, 341, 48939, 41955, 30253, 48764, 2577, 18717, 21106, 15425, 9779, 40956, 44670, 17257, 34695, 3641, 8360, 22962, 8737, 15167, 29613, 40165, 45611, 1103, 46460, 37973, 38548, 15650, 14336, 19898, 28786, 339, 19238, 10574, 23124, 36876, 1032, 47709, 34247, 40935, 33564, 16809, 19864, 15166, 5527, 12571, 41660, 21953, 31183, 35592, 42599, 29526, 1822, 5568, 45959, 9207, 44041, 6756, 583, 37866, 21949, 40507, 7397, 25208, 12296, 48298, 6632, 25075, 11204, 5898, 16892, 8804, 32509, 40963, 44756, 32992, 7227, 39528, 23007, 5473, 10578, 42261, 10156, 41254, 43624, 1137, 41648, 45597, 1064, 49608, 39055, 6678, 12747, 39601, 40905, 41474, 39394, 2008, 9579, 40732, 14361, 44931, 27661, 28752, 13961, 36493, 1366, 5663, 22721, 29566, 37454, 21651, 48416, 28755, 8452, 18921, 18476, 49771, 8265, 12394, 4171, 22608, 15412, 26453, 9171, 24558, 45846, 30974, 48177, 21080, 34072, 11658, 206, 35677, 11569, 31157, 21978, 38165, 22900, 15813, 31781, 8380, 33369, 15389, 28509, 44893, 43267, 3157, 37154, 9598, 38515, 22735, 15555, 37907, 33299, 38335, 38464, 12414, 4833, 6145, 15623, 38303, 8952, 39732, 32916, 3490, 29626, 6205, 18420, 2699, 15870, 7869, 22639, 7587, 19233, 25890, 29480, 34086, 7962, 24218, 40901, 49491, 27193, 3781, 33093, 18963, 1611, 22305, 48179, 16021, 33233, 10831, 20036, 38181, 41703, 48497, 12600, 47772, 37402, 34823, 35809, 2353, 33825, 14740, 49312, 26578, 25839, 30304, 15569, 32079, 2495, 38681, 10851, 49925, 22206, 34296, 45179, 26267, 14605, 13706, 32118, 16323, 7762, 17053, 1847, 36287, 19731, 32258, 3581, 48370, 37482, 26581, 28057, 13228, 40876, 23180, 42477, 14693, 18293, 40065, 4034, 4077, 9795, 35921, 39914, 36104, 17812, 2775, 38173, 15807, 12087, 47048, 9250, 27472, 17636, 7061, 32447, 37535, 12517, 43035, 31333, 35875, 37151, 5383, 40270, 3527, 21287, 34690, 32445, 1138, 43637, 44023, 30251, 48436, 29297, 35386, 17691, 20256, 35951, 17593, 6791, 21303, 29449, 13719, 23583, 35343, 7680, 43702, 43613, 28974, 45652, 28024, 40843, 8277, 999, 42068, 46270, 42463, 22069, 25451, 28020, 2414, 4039, 44419, 14982, 6772, 33416, 15938, 12368, 6102, 7858, 2042, 46649, 8953, 45737, 8652, 19848, 15047, 43363, 15585, 18983, 38610, 33815, 29413, 9805, 11118, 19047, 1394, 1521, 16425, 3011, 49195, 36753, 6517, 42629, 18628, 9578, 39053, 43825, 40996, 19189, 27753, 28632, 5293, 33974, 25949, 45590, 17005, 30298, 18768, 42350, 27997, 49977, 5837, 11226, 5825, 23509, 40568, 23107, 11083, 36245, 49882, 33726, 20087, 785, 28157, 39312, 45599, 513, 30752, 46121, 7241, 48324, 10624, 23274, 23654, 38997, 16058, 26670, 45584, 23734, 18233, 33543, 35867, 19692, 29378, 42303, 5674, 35148, 16554, 8226, 39518, 36527, 48287, 22936, 13666, 11664, 24663, 16202, 5374, 43129, 43699, 4001, 32374, 35319, 41830, 35227, 34855, 44571, 24281, 14927, 40528, 47428, 21513, 40016, 27276, 26915, 4192, 38419, 19476, 18439, 21911, 30864, 13232, 29553, 44939, 36669, 23819, 32129, 45001, 27639, 17415, 28070, 22673, 22145, 718, 10525, 17474, 48507, 49876, 32583, 7463, 13596, 20248, 46770, 46681, 26262, 16242, 11517, 39308, 31275, 8623, 4888, 26977, 29781, 39552, 423, 8659, 8791, 17188, 7304, 28796, 31376, 35433, 36377, 22106, 37683, 25108, 42606, 11965, 49092, 33707, 4601, 12223, 27666, 30022, 42290, 23123, 19633, 44061, 25034, 22117, 19764, 4428, 37215, 30699, 8019, 27238, 35983, 7100, 31339, 34096, 14220, 12323, 42979, 4297, 30890, 8740, 7964, 11913, 22367, 6186, 28035, 32730, 15764, 48831, 24569, 5721, 47759, 33029, 48637, 11588, 15120, 39815, 44976, 43187, 11620, 23185, 1562, 916, 42132, 29495, 21634, 24402, 15798, 2997, 35257, 26794, 6659, 41797, 5808, 13633, 8466, 15835, 40872, 36373, 39978, 46641, 47301, 20134, 9075, 32040, 20097, 39568, 37112, 17268, 18361, 43984, 45131, 26025, 49287, 6719, 42461, 31141, 2062, 19373, 17713, 33657, 41694, 19979, 10799, 26414, 16852, 26117, 29325, 2787, 39708, 10732, 43719, 48956, 9327, 32976, 72, 36869, 49006, 16060, 12674, 43798, 17291, 42505, 23029, 23307, 10981, 34368, 1061, 8406, 33147, 31859, 46738, 16670, 43710, 41397, 11082, 45230, 30118, 14477, 40501, 42196, 15691, 43293, 25289, 48075, 30241, 5239, 7222, 34543, 49657, 14493, 44979, 23904, 29947, 37246, 43994, 48524, 26836, 34961, 40661, 9836, 21345, 19758, 26873, 2601, 8907, 34039, 34293, 9374, 13278, 39239, 29562, 6587, 31546, 48639, 21665, 47070, 35833, 12501, 15927, 26906, 36677, 6558, 27052, 44686, 8368, 20860, 42907, 20605, 21557, 42153, 37914, 6831, 45128, 4375, 21274, 12113, 1486, 31371, 3612, 37883, 6753, 38210, 7266, 13743, 49360, 22161, 3803, 48513, 20300, 44332, 12167, 37068, 40215, 1553, 37469, 35169, 10580, 17072, 27588, 39039, 46457, 8157, 7602, 22545, 35469, 13825, 19269, 8401, 19981, 11482, 49399, 20361, 27211, 3084, 22510, 40052, 29010, 13462, 24502, 41963, 14937, 39230, 36671, 32943, 1466, 8205, 3561, 40493, 46900, 7210, 30829, 44974, 32700, 32000, 15257, 24938, 45035, 27255, 17016, 1698, 6177, 15861, 30084]
+[2025-07-07 11:58:09,075][CIFAR10][INFO] Trainset Loaded
+[2025-07-07 11:58:09,075][CIFAR10][INFO] Loading testing set.
+[2025-07-07 11:58:09,910][Node][INFO] Dataset instantiation complete.
+[2025-07-07 11:58:10,842][VNodeRealSimulation][INFO] Perturbing model
+[2025-07-07 11:58:10,850][VNodeRealSimulation][INFO] Starting training iteration: 0
+[2025-07-07 11:58:10,856][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 11:58:16,441][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 11:58:25,064][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 11:58:26,341][Training][INFO] Loss after iteration: 2.0532491207122803
+[2025-07-07 11:58:26,342][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 11:58:36,948][CIFAR10][INFO] Overall test accuracy is: 25.6 %
+[2025-07-07 11:58:36,955][VNodeRealSimulation][INFO] Starting training iteration: 1
+[2025-07-07 11:58:36,956][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 11:58:43,163][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 11:58:51,785][VNodeRealSimulation][INFO] Starting training iteration: 2
+[2025-07-07 11:58:51,787][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 11:58:56,882][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 11:59:06,406][VNodeRealSimulation][INFO] Starting training iteration: 3
+[2025-07-07 11:59:06,407][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 11:59:12,303][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 11:59:21,019][VNodeRealSimulation][INFO] Starting training iteration: 4
+[2025-07-07 11:59:21,020][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 11:59:27,789][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 11:59:36,474][VNodeRealSimulation][INFO] Starting training iteration: 5
+[2025-07-07 11:59:36,476][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 11:59:41,425][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 11:59:49,947][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 11:59:51,190][Training][INFO] Loss after iteration: 1.489105463027954
+[2025-07-07 11:59:51,190][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:00:01,882][CIFAR10][INFO] Overall test accuracy is: 46.9 %
+[2025-07-07 12:00:01,886][VNodeRealSimulation][INFO] Starting training iteration: 6
+[2025-07-07 12:00:01,887][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:00:08,981][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1111, avg = 0.0278, weights with max: 22458
+[2025-07-07 12:00:08,982][VNodeSharingPoisonDefended][WARNING] Node 4 Round 6: Max adversarial proportion = 0.1111
+[2025-07-07 12:00:17,502][VNodeRealSimulation][INFO] Starting training iteration: 7
+[2025-07-07 12:00:17,504][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:00:23,660][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:00:32,218][VNodeRealSimulation][INFO] Starting training iteration: 8
+[2025-07-07 12:00:32,219][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:00:38,280][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22458
+[2025-07-07 12:00:38,281][VNodeSharingPoisonDefended][WARNING] Node 4 Round 8: Max adversarial proportion = 0.2500
+[2025-07-07 12:00:46,880][VNodeRealSimulation][INFO] Starting training iteration: 9
+[2025-07-07 12:00:46,881][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:00:53,451][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:01:02,081][VNodeRealSimulation][INFO] Starting training iteration: 10
+[2025-07-07 12:01:02,082][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:01:08,959][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.1125, weights with max: 22458
+[2025-07-07 12:01:08,960][VNodeSharingPoisonDefended][WARNING] Node 4 Round 10: Max adversarial proportion = 0.2500
+[2025-07-07 12:01:17,647][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:01:18,936][Training][INFO] Loss after iteration: 1.2983057498931885
+[2025-07-07 12:01:18,936][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:01:29,700][CIFAR10][INFO] Overall test accuracy is: 52.5 %
+[2025-07-07 12:01:29,703][VNodeRealSimulation][INFO] Starting training iteration: 11
+[2025-07-07 12:01:29,705][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:01:34,658][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:01:43,129][VNodeRealSimulation][INFO] Starting training iteration: 12
+[2025-07-07 12:01:43,130][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:01:49,513][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22460
+[2025-07-07 12:01:49,513][VNodeSharingPoisonDefended][WARNING] Node 4 Round 12: Max adversarial proportion = 0.1667
+[2025-07-07 12:01:57,922][VNodeRealSimulation][INFO] Starting training iteration: 13
+[2025-07-07 12:01:57,924][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:02:04,762][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22458
+[2025-07-07 12:02:04,763][VNodeSharingPoisonDefended][WARNING] Node 4 Round 13: Max adversarial proportion = 0.2000
+[2025-07-07 12:02:13,193][VNodeRealSimulation][INFO] Starting training iteration: 14
+[2025-07-07 12:02:13,194][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:02:21,137][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:02:29,732][VNodeRealSimulation][INFO] Starting training iteration: 15
+[2025-07-07 12:02:29,734][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:02:35,949][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:02:44,619][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:02:45,887][Training][INFO] Loss after iteration: 1.1768107414245605
+[2025-07-07 12:02:45,887][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:02:56,535][CIFAR10][INFO] Overall test accuracy is: 56.4 %
+[2025-07-07 12:02:56,537][VNodeRealSimulation][INFO] Starting training iteration: 16
+[2025-07-07 12:02:56,539][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:03:03,102][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:03:11,724][VNodeRealSimulation][INFO] Starting training iteration: 17
+[2025-07-07 12:03:11,725][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:03:18,151][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2857, avg = 0.0714, weights with max: 22458
+[2025-07-07 12:03:18,152][VNodeSharingPoisonDefended][WARNING] Node 4 Round 17: Max adversarial proportion = 0.2857
+[2025-07-07 12:03:28,141][VNodeRealSimulation][INFO] Starting training iteration: 18
+[2025-07-07 12:03:28,143][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:03:33,276][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:03:33,277][VNodeSharingPoisonDefended][WARNING] Node 4 Round 18: Max adversarial proportion = 0.1429
+[2025-07-07 12:03:43,293][VNodeRealSimulation][INFO] Starting training iteration: 19
+[2025-07-07 12:03:43,296][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:03:48,577][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:03:58,553][VNodeRealSimulation][INFO] Starting training iteration: 20
+[2025-07-07 12:03:58,556][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:04:03,414][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:04:03,414][VNodeSharingPoisonDefended][WARNING] Node 4 Round 20: Max adversarial proportion = 0.1429
+[2025-07-07 12:04:12,072][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:04:13,345][Training][INFO] Loss after iteration: 1.0912622213363647
+[2025-07-07 12:04:13,346][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:04:24,141][CIFAR10][INFO] Overall test accuracy is: 59.2 %
+[2025-07-07 12:04:24,144][VNodeRealSimulation][INFO] Starting training iteration: 21
+[2025-07-07 12:04:24,146][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:04:30,772][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:04:39,360][VNodeRealSimulation][INFO] Starting training iteration: 22
+[2025-07-07 12:04:39,362][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:04:44,603][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22458
+[2025-07-07 12:04:44,604][VNodeSharingPoisonDefended][WARNING] Node 4 Round 22: Max adversarial proportion = 0.2500
+[2025-07-07 12:04:53,240][VNodeRealSimulation][INFO] Starting training iteration: 23
+[2025-07-07 12:04:53,242][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:04:58,091][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.3333, avg = 0.0833, weights with max: 22458
+[2025-07-07 12:04:58,092][VNodeSharingPoisonDefended][WARNING] Node 4 Round 23: Max adversarial proportion = 0.3333
+[2025-07-07 12:05:06,728][VNodeRealSimulation][INFO] Starting training iteration: 24
+[2025-07-07 12:05:06,731][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:05:11,863][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:05:20,369][VNodeRealSimulation][INFO] Starting training iteration: 25
+[2025-07-07 12:05:20,370][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:05:26,235][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:05:26,236][VNodeSharingPoisonDefended][WARNING] Node 4 Round 25: Max adversarial proportion = 0.1667
+[2025-07-07 12:05:34,853][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:05:36,112][Training][INFO] Loss after iteration: 1.0453964471817017
+[2025-07-07 12:05:36,112][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:05:46,756][CIFAR10][INFO] Overall test accuracy is: 61.2 %
+[2025-07-07 12:05:46,759][VNodeRealSimulation][INFO] Starting training iteration: 26
+[2025-07-07 12:05:46,761][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:05:55,501][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22460
+[2025-07-07 12:05:55,502][VNodeSharingPoisonDefended][WARNING] Node 4 Round 26: Max adversarial proportion = 0.2000
+[2025-07-07 12:06:04,184][VNodeRealSimulation][INFO] Starting training iteration: 27
+[2025-07-07 12:06:04,186][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:06:09,010][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:06:17,552][VNodeRealSimulation][INFO] Starting training iteration: 28
+[2025-07-07 12:06:17,554][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:06:25,654][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:06:34,276][VNodeRealSimulation][INFO] Starting training iteration: 29
+[2025-07-07 12:06:34,278][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:06:39,215][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:06:47,869][VNodeRealSimulation][INFO] Starting training iteration: 30
+[2025-07-07 12:06:47,871][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:06:52,985][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:07:01,572][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:07:02,823][Training][INFO] Loss after iteration: 0.9805476069450378
+[2025-07-07 12:07:02,824][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:07:13,486][CIFAR10][INFO] Overall test accuracy is: 61.7 %
+[2025-07-07 12:07:13,488][VNodeRealSimulation][INFO] Starting training iteration: 31
+[2025-07-07 12:07:13,489][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:07:19,275][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22460
+[2025-07-07 12:07:19,276][VNodeSharingPoisonDefended][WARNING] Node 4 Round 31: Max adversarial proportion = 0.2000
+[2025-07-07 12:07:27,792][VNodeRealSimulation][INFO] Starting training iteration: 32
+[2025-07-07 12:07:27,793][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:07:35,111][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:07:43,756][VNodeRealSimulation][INFO] Starting training iteration: 33
+[2025-07-07 12:07:43,758][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:07:50,100][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:07:58,594][VNodeRealSimulation][INFO] Starting training iteration: 34
+[2025-07-07 12:07:58,595][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:08:06,357][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:08:15,007][VNodeRealSimulation][INFO] Starting training iteration: 35
+[2025-07-07 12:08:15,009][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:08:21,196][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:08:29,797][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:08:31,008][Training][INFO] Loss after iteration: 0.9361364245414734
+[2025-07-07 12:08:31,008][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:08:41,625][CIFAR10][INFO] Overall test accuracy is: 63.6 %
+[2025-07-07 12:08:41,628][VNodeRealSimulation][INFO] Starting training iteration: 36
+[2025-07-07 12:08:41,630][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:08:49,135][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:08:49,136][VNodeSharingPoisonDefended][WARNING] Node 4 Round 36: Max adversarial proportion = 0.1429
+[2025-07-07 12:08:57,776][VNodeRealSimulation][INFO] Starting training iteration: 37
+[2025-07-07 12:08:57,777][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:09:04,934][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22458
+[2025-07-07 12:09:04,935][VNodeSharingPoisonDefended][WARNING] Node 4 Round 37: Max adversarial proportion = 0.2500
+[2025-07-07 12:09:13,572][VNodeRealSimulation][INFO] Starting training iteration: 38
+[2025-07-07 12:09:13,573][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:09:20,231][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:09:28,876][VNodeRealSimulation][INFO] Starting training iteration: 39
+[2025-07-07 12:09:28,878][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:09:34,118][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:09:42,809][VNodeRealSimulation][INFO] Starting training iteration: 40
+[2025-07-07 12:09:42,811][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:09:47,985][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.3333, avg = 0.0833, weights with max: 22458
+[2025-07-07 12:09:47,986][VNodeSharingPoisonDefended][WARNING] Node 4 Round 40: Max adversarial proportion = 0.3333
+[2025-07-07 12:09:56,658][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:09:57,926][Training][INFO] Loss after iteration: 0.8674991726875305
+[2025-07-07 12:09:57,926][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:10:08,567][CIFAR10][INFO] Overall test accuracy is: 65.0 %
+[2025-07-07 12:10:08,570][VNodeRealSimulation][INFO] Starting training iteration: 41
+[2025-07-07 12:10:08,572][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:10:16,628][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:10:25,330][VNodeRealSimulation][INFO] Starting training iteration: 42
+[2025-07-07 12:10:25,332][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:10:31,210][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:10:39,859][VNodeRealSimulation][INFO] Starting training iteration: 43
+[2025-07-07 12:10:39,860][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:10:44,717][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:10:53,334][VNodeRealSimulation][INFO] Starting training iteration: 44
+[2025-07-07 12:10:53,336][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:11:01,320][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:11:01,321][VNodeSharingPoisonDefended][WARNING] Node 4 Round 44: Max adversarial proportion = 0.1429
+[2025-07-07 12:11:10,016][VNodeRealSimulation][INFO] Starting training iteration: 45
+[2025-07-07 12:11:10,017][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:11:16,532][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1250, avg = 0.0312, weights with max: 22458
+[2025-07-07 12:11:16,533][VNodeSharingPoisonDefended][WARNING] Node 4 Round 45: Max adversarial proportion = 0.1250
+[2025-07-07 12:11:25,222][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:11:26,507][Training][INFO] Loss after iteration: 0.848186194896698
+[2025-07-07 12:11:26,507][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:11:37,147][CIFAR10][INFO] Overall test accuracy is: 65.5 %
+[2025-07-07 12:11:37,148][VNodeRealSimulation][INFO] Starting training iteration: 46
+[2025-07-07 12:11:37,151][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:11:42,172][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22458
+[2025-07-07 12:11:42,173][VNodeSharingPoisonDefended][WARNING] Node 4 Round 46: Max adversarial proportion = 0.2500
+[2025-07-07 12:11:50,817][VNodeRealSimulation][INFO] Starting training iteration: 47
+[2025-07-07 12:11:50,818][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:11:55,954][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:12:04,556][VNodeRealSimulation][INFO] Starting training iteration: 48
+[2025-07-07 12:12:04,558][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:12:10,775][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22458
+[2025-07-07 12:12:10,776][VNodeSharingPoisonDefended][WARNING] Node 4 Round 48: Max adversarial proportion = 0.2500
+[2025-07-07 12:12:19,454][VNodeRealSimulation][INFO] Starting training iteration: 49
+[2025-07-07 12:12:19,455][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:12:25,697][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:12:34,338][VNodeRealSimulation][INFO] Starting training iteration: 50
+[2025-07-07 12:12:34,339][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:12:39,369][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:12:48,089][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:12:49,361][Training][INFO] Loss after iteration: 0.8109196424484253
+[2025-07-07 12:12:49,361][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:13:00,101][CIFAR10][INFO] Overall test accuracy is: 66.4 %
+[2025-07-07 12:13:00,103][VNodeRealSimulation][INFO] Starting training iteration: 51
+[2025-07-07 12:13:00,105][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:13:05,358][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:13:05,359][VNodeSharingPoisonDefended][WARNING] Node 4 Round 51: Max adversarial proportion = 0.1667
+[2025-07-07 12:13:13,941][VNodeRealSimulation][INFO] Starting training iteration: 52
+[2025-07-07 12:13:13,942][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:13:22,814][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:13:31,680][VNodeRealSimulation][INFO] Starting training iteration: 53
+[2025-07-07 12:13:31,681][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:13:38,081][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:13:38,082][VNodeSharingPoisonDefended][WARNING] Node 4 Round 53: Max adversarial proportion = 0.1429
+[2025-07-07 12:13:46,726][VNodeRealSimulation][INFO] Starting training iteration: 54
+[2025-07-07 12:13:46,727][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:13:53,485][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:14:02,081][VNodeRealSimulation][INFO] Starting training iteration: 55
+[2025-07-07 12:14:02,082][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:14:06,834][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:14:15,397][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:14:16,656][Training][INFO] Loss after iteration: 0.7786658406257629
+[2025-07-07 12:14:16,656][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:14:27,289][CIFAR10][INFO] Overall test accuracy is: 67.8 %
+[2025-07-07 12:14:27,292][VNodeRealSimulation][INFO] Starting training iteration: 56
+[2025-07-07 12:14:27,294][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:14:36,286][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.1542, weights with max: 22458
+[2025-07-07 12:14:36,287][VNodeSharingPoisonDefended][WARNING] Node 4 Round 56: Max adversarial proportion = 0.2500
+[2025-07-07 12:14:45,145][VNodeRealSimulation][INFO] Starting training iteration: 57
+[2025-07-07 12:14:45,147][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:14:51,859][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:15:00,477][VNodeRealSimulation][INFO] Starting training iteration: 58
+[2025-07-07 12:15:00,478][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:15:05,932][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:15:15,972][VNodeRealSimulation][INFO] Starting training iteration: 59
+[2025-07-07 12:15:15,973][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:15:21,333][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:15:31,290][VNodeRealSimulation][INFO] Starting training iteration: 60
+[2025-07-07 12:15:31,293][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:15:36,376][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:15:36,377][VNodeSharingPoisonDefended][WARNING] Node 4 Round 60: Max adversarial proportion = 0.1667
+[2025-07-07 12:15:45,144][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:15:46,430][Training][INFO] Loss after iteration: 0.7598209381103516
+[2025-07-07 12:15:46,431][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:15:57,127][CIFAR10][INFO] Overall test accuracy is: 68.0 %
+[2025-07-07 12:15:57,130][VNodeRealSimulation][INFO] Starting training iteration: 61
+[2025-07-07 12:15:57,132][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:16:02,048][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:16:10,705][VNodeRealSimulation][INFO] Starting training iteration: 62
+[2025-07-07 12:16:10,707][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:16:15,673][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22460
+[2025-07-07 12:16:15,674][VNodeSharingPoisonDefended][WARNING] Node 4 Round 62: Max adversarial proportion = 0.2000
+[2025-07-07 12:16:24,330][VNodeRealSimulation][INFO] Starting training iteration: 63
+[2025-07-07 12:16:24,332][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:16:29,285][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1250, avg = 0.0312, weights with max: 22458
+[2025-07-07 12:16:29,286][VNodeSharingPoisonDefended][WARNING] Node 4 Round 63: Max adversarial proportion = 0.1250
+[2025-07-07 12:16:37,989][VNodeRealSimulation][INFO] Starting training iteration: 64
+[2025-07-07 12:16:37,990][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:16:43,323][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22458
+[2025-07-07 12:16:43,323][VNodeSharingPoisonDefended][WARNING] Node 4 Round 64: Max adversarial proportion = 0.2000
+[2025-07-07 12:16:51,941][VNodeRealSimulation][INFO] Starting training iteration: 65
+[2025-07-07 12:16:51,942][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:16:58,815][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22460
+[2025-07-07 12:16:58,816][VNodeSharingPoisonDefended][WARNING] Node 4 Round 65: Max adversarial proportion = 0.1667
+[2025-07-07 12:17:07,452][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:17:08,744][Training][INFO] Loss after iteration: 0.7009196281433105
+[2025-07-07 12:17:08,744][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:17:19,357][CIFAR10][INFO] Overall test accuracy is: 67.6 %
+[2025-07-07 12:17:19,360][VNodeRealSimulation][INFO] Starting training iteration: 66
+[2025-07-07 12:17:19,362][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:17:25,012][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:17:25,013][VNodeSharingPoisonDefended][WARNING] Node 4 Round 66: Max adversarial proportion = 0.1667
+[2025-07-07 12:17:33,588][VNodeRealSimulation][INFO] Starting training iteration: 67
+[2025-07-07 12:17:33,590][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:17:39,977][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:17:48,588][VNodeRealSimulation][INFO] Starting training iteration: 68
+[2025-07-07 12:17:48,590][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:17:54,533][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:18:03,138][VNodeRealSimulation][INFO] Starting training iteration: 69
+[2025-07-07 12:18:03,139][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:18:11,034][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.4000, avg = 0.1000, weights with max: 22458
+[2025-07-07 12:18:11,035][VNodeSharingPoisonDefended][WARNING] Node 4 Round 69: Max adversarial proportion = 0.4000
+[2025-07-07 12:18:19,622][VNodeRealSimulation][INFO] Starting training iteration: 70
+[2025-07-07 12:18:19,624][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:18:24,441][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:18:33,049][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:18:34,290][Training][INFO] Loss after iteration: 0.7024604082107544
+[2025-07-07 12:18:34,291][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:18:44,969][CIFAR10][INFO] Overall test accuracy is: 68.9 %
+[2025-07-07 12:18:44,971][VNodeRealSimulation][INFO] Starting training iteration: 71
+[2025-07-07 12:18:44,973][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:18:51,879][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:19:00,534][VNodeRealSimulation][INFO] Starting training iteration: 72
+[2025-07-07 12:19:00,536][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:19:05,476][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:19:13,934][VNodeRealSimulation][INFO] Starting training iteration: 73
+[2025-07-07 12:19:13,935][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:19:23,363][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:19:23,364][VNodeSharingPoisonDefended][WARNING] Node 4 Round 73: Max adversarial proportion = 0.1429
+[2025-07-07 12:19:31,989][VNodeRealSimulation][INFO] Starting training iteration: 74
+[2025-07-07 12:19:31,991][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:19:36,892][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1000, avg = 0.0250, weights with max: 22460
+[2025-07-07 12:19:45,453][VNodeRealSimulation][INFO] Starting training iteration: 75
+[2025-07-07 12:19:45,454][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:19:52,634][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:20:02,571][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:20:03,857][Training][INFO] Loss after iteration: 0.6937045454978943
+[2025-07-07 12:20:03,858][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:20:14,968][CIFAR10][INFO] Overall test accuracy is: 69.6 %
+[2025-07-07 12:20:14,971][VNodeRealSimulation][INFO] Starting training iteration: 76
+[2025-07-07 12:20:14,972][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:20:20,421][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:20:30,407][VNodeRealSimulation][INFO] Starting training iteration: 77
+[2025-07-07 12:20:30,413][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:20:35,247][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22460
+[2025-07-07 12:20:35,248][VNodeSharingPoisonDefended][WARNING] Node 4 Round 77: Max adversarial proportion = 0.1667
+[2025-07-07 12:20:45,183][VNodeRealSimulation][INFO] Starting training iteration: 78
+[2025-07-07 12:20:45,187][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:20:50,472][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:21:00,505][VNodeRealSimulation][INFO] Starting training iteration: 79
+[2025-07-07 12:21:00,510][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:21:05,681][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:21:14,334][VNodeRealSimulation][INFO] Starting training iteration: 80
+[2025-07-07 12:21:14,336][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:21:19,289][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1250, avg = 0.0312, weights with max: 22458
+[2025-07-07 12:21:19,290][VNodeSharingPoisonDefended][WARNING] Node 4 Round 80: Max adversarial proportion = 0.1250
+[2025-07-07 12:21:27,905][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:21:29,195][Training][INFO] Loss after iteration: 0.670742928981781
+[2025-07-07 12:21:29,196][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:21:39,808][CIFAR10][INFO] Overall test accuracy is: 69.3 %
+[2025-07-07 12:21:39,810][VNodeRealSimulation][INFO] Starting training iteration: 81
+[2025-07-07 12:21:39,812][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:21:44,810][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:21:44,811][VNodeSharingPoisonDefended][WARNING] Node 4 Round 81: Max adversarial proportion = 0.1429
+[2025-07-07 12:21:53,519][VNodeRealSimulation][INFO] Starting training iteration: 82
+[2025-07-07 12:21:53,520][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:21:59,356][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:22:07,996][VNodeRealSimulation][INFO] Starting training iteration: 83
+[2025-07-07 12:22:07,997][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:22:12,922][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22460
+[2025-07-07 12:22:12,923][VNodeSharingPoisonDefended][WARNING] Node 4 Round 83: Max adversarial proportion = 0.2000
+[2025-07-07 12:22:21,471][VNodeRealSimulation][INFO] Starting training iteration: 84
+[2025-07-07 12:22:21,472][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:22:28,062][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:22:36,734][VNodeRealSimulation][INFO] Starting training iteration: 85
+[2025-07-07 12:22:36,735][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:22:41,807][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22458
+[2025-07-07 12:22:41,808][VNodeSharingPoisonDefended][WARNING] Node 4 Round 85: Max adversarial proportion = 0.2000
+[2025-07-07 12:22:50,347][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:22:51,565][Training][INFO] Loss after iteration: 0.6455572247505188
+[2025-07-07 12:22:51,565][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:23:02,178][CIFAR10][INFO] Overall test accuracy is: 70.6 %
+[2025-07-07 12:23:02,180][VNodeRealSimulation][INFO] Starting training iteration: 86
+[2025-07-07 12:23:02,182][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:23:09,330][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:23:17,920][VNodeRealSimulation][INFO] Starting training iteration: 87
+[2025-07-07 12:23:17,921][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:23:23,054][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.3333, avg = 0.0833, weights with max: 22458
+[2025-07-07 12:23:23,055][VNodeSharingPoisonDefended][WARNING] Node 4 Round 87: Max adversarial proportion = 0.3333
+[2025-07-07 12:23:31,687][VNodeRealSimulation][INFO] Starting training iteration: 88
+[2025-07-07 12:23:31,689][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:23:39,083][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:23:47,798][VNodeRealSimulation][INFO] Starting training iteration: 89
+[2025-07-07 12:23:47,800][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:23:52,737][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.3333, avg = 0.1607, weights with max: 22458
+[2025-07-07 12:23:52,738][VNodeSharingPoisonDefended][WARNING] Node 4 Round 89: Max adversarial proportion = 0.3333
+[2025-07-07 12:24:01,323][VNodeRealSimulation][INFO] Starting training iteration: 90
+[2025-07-07 12:24:01,324][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:24:08,035][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22458
+[2025-07-07 12:24:08,036][VNodeSharingPoisonDefended][WARNING] Node 4 Round 90: Max adversarial proportion = 0.2500
+[2025-07-07 12:24:16,733][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:24:17,992][Training][INFO] Loss after iteration: 0.5649245381355286
+[2025-07-07 12:24:17,992][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:24:28,576][CIFAR10][INFO] Overall test accuracy is: 70.3 %
+[2025-07-07 12:24:28,578][VNodeRealSimulation][INFO] Starting training iteration: 91
+[2025-07-07 12:24:28,579][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:24:33,772][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:24:42,333][VNodeRealSimulation][INFO] Starting training iteration: 92
+[2025-07-07 12:24:42,334][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:24:48,733][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:24:57,344][VNodeRealSimulation][INFO] Starting training iteration: 93
+[2025-07-07 12:24:57,346][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:25:02,486][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:25:11,037][VNodeRealSimulation][INFO] Starting training iteration: 94
+[2025-07-07 12:25:11,039][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:25:16,450][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:25:25,024][VNodeRealSimulation][INFO] Starting training iteration: 95
+[2025-07-07 12:25:25,025][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:25:31,678][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:25:40,299][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:25:41,533][Training][INFO] Loss after iteration: 0.622423529624939
+[2025-07-07 12:25:41,534][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:25:52,116][CIFAR10][INFO] Overall test accuracy is: 70.6 %
+[2025-07-07 12:25:52,119][VNodeRealSimulation][INFO] Starting training iteration: 96
+[2025-07-07 12:25:52,121][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:25:58,693][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:26:07,235][VNodeRealSimulation][INFO] Starting training iteration: 97
+[2025-07-07 12:26:07,237][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:26:13,208][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:26:13,209][VNodeSharingPoisonDefended][WARNING] Node 4 Round 97: Max adversarial proportion = 0.1429
+[2025-07-07 12:26:21,893][VNodeRealSimulation][INFO] Starting training iteration: 98
+[2025-07-07 12:26:21,895][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:26:29,471][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:26:38,128][VNodeRealSimulation][INFO] Starting training iteration: 99
+[2025-07-07 12:26:38,130][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:26:44,284][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:26:52,948][VNodeRealSimulation][INFO] Starting training iteration: 100
+[2025-07-07 12:26:52,949][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:26:59,914][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:27:08,654][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:27:09,928][Training][INFO] Loss after iteration: 0.5862808227539062
+[2025-07-07 12:27:09,929][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:27:20,593][CIFAR10][INFO] Overall test accuracy is: 71.1 %
+[2025-07-07 12:27:20,596][VNodeRealSimulation][INFO] Starting training iteration: 101
+[2025-07-07 12:27:20,598][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:27:27,674][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:27:36,321][VNodeRealSimulation][INFO] Starting training iteration: 102
+[2025-07-07 12:27:36,322][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:27:41,953][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:27:50,604][VNodeRealSimulation][INFO] Starting training iteration: 103
+[2025-07-07 12:27:50,605][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:27:55,595][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22458
+[2025-07-07 12:27:55,596][VNodeSharingPoisonDefended][WARNING] Node 4 Round 103: Max adversarial proportion = 0.2500
+[2025-07-07 12:28:04,193][VNodeRealSimulation][INFO] Starting training iteration: 104
+[2025-07-07 12:28:04,194][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:28:11,879][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:28:11,880][VNodeSharingPoisonDefended][WARNING] Node 4 Round 104: Max adversarial proportion = 0.1429
+[2025-07-07 12:28:20,528][VNodeRealSimulation][INFO] Starting training iteration: 105
+[2025-07-07 12:28:20,530][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:28:26,181][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:28:34,793][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:28:36,067][Training][INFO] Loss after iteration: 0.5719197392463684
+[2025-07-07 12:28:36,067][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:28:46,709][CIFAR10][INFO] Overall test accuracy is: 71.6 %
+[2025-07-07 12:28:46,711][VNodeRealSimulation][INFO] Starting training iteration: 106
+[2025-07-07 12:28:46,712][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:28:54,111][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:29:02,761][VNodeRealSimulation][INFO] Starting training iteration: 107
+[2025-07-07 12:29:02,762][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:29:08,100][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:29:08,100][VNodeSharingPoisonDefended][WARNING] Node 4 Round 107: Max adversarial proportion = 0.1667
+[2025-07-07 12:29:16,748][VNodeRealSimulation][INFO] Starting training iteration: 108
+[2025-07-07 12:29:16,749][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:29:23,184][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:29:23,185][VNodeSharingPoisonDefended][WARNING] Node 4 Round 108: Max adversarial proportion = 0.1429
+[2025-07-07 12:29:31,785][VNodeRealSimulation][INFO] Starting training iteration: 109
+[2025-07-07 12:29:31,786][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:29:36,611][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:29:36,612][VNodeSharingPoisonDefended][WARNING] Node 4 Round 109: Max adversarial proportion = 0.1667
+[2025-07-07 12:29:45,213][VNodeRealSimulation][INFO] Starting training iteration: 110
+[2025-07-07 12:29:45,214][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:29:52,179][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1250, avg = 0.0312, weights with max: 22458
+[2025-07-07 12:29:52,179][VNodeSharingPoisonDefended][WARNING] Node 4 Round 110: Max adversarial proportion = 0.1250
+[2025-07-07 12:30:00,779][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:30:02,043][Training][INFO] Loss after iteration: 0.5176787972450256
+[2025-07-07 12:30:02,043][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:30:12,613][CIFAR10][INFO] Overall test accuracy is: 70.9 %
+[2025-07-07 12:30:12,616][VNodeRealSimulation][INFO] Starting training iteration: 111
+[2025-07-07 12:30:12,617][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:30:18,342][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1250, avg = 0.0312, weights with max: 22458
+[2025-07-07 12:30:18,343][VNodeSharingPoisonDefended][WARNING] Node 4 Round 111: Max adversarial proportion = 0.1250
+[2025-07-07 12:30:26,953][VNodeRealSimulation][INFO] Starting training iteration: 112
+[2025-07-07 12:30:26,954][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:30:35,654][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:30:44,309][VNodeRealSimulation][INFO] Starting training iteration: 113
+[2025-07-07 12:30:44,311][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:30:49,193][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:30:57,848][VNodeRealSimulation][INFO] Starting training iteration: 114
+[2025-07-07 12:30:57,849][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:31:03,075][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.3333, avg = 0.1458, weights with max: 22458
+[2025-07-07 12:31:03,076][VNodeSharingPoisonDefended][WARNING] Node 4 Round 114: Max adversarial proportion = 0.3333
+[2025-07-07 12:31:11,672][VNodeRealSimulation][INFO] Starting training iteration: 115
+[2025-07-07 12:31:11,674][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:31:17,065][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:31:25,661][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:31:26,902][Training][INFO] Loss after iteration: 0.5427976250648499
+[2025-07-07 12:31:26,903][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:31:37,461][CIFAR10][INFO] Overall test accuracy is: 71.7 %
+[2025-07-07 12:31:37,463][VNodeRealSimulation][INFO] Starting training iteration: 116
+[2025-07-07 12:31:37,465][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:31:43,570][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.1042, weights with max: 22460
+[2025-07-07 12:31:43,571][VNodeSharingPoisonDefended][WARNING] Node 4 Round 116: Max adversarial proportion = 0.2500
+[2025-07-07 12:31:52,068][VNodeRealSimulation][INFO] Starting training iteration: 117
+[2025-07-07 12:31:52,069][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:32:01,077][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:32:09,714][VNodeRealSimulation][INFO] Starting training iteration: 118
+[2025-07-07 12:32:09,716][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:32:14,592][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:32:23,249][VNodeRealSimulation][INFO] Starting training iteration: 119
+[2025-07-07 12:32:23,250][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:32:28,543][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:32:28,544][VNodeSharingPoisonDefended][WARNING] Node 4 Round 119: Max adversarial proportion = 0.1429
+[2025-07-07 12:32:37,074][VNodeRealSimulation][INFO] Starting training iteration: 120
+[2025-07-07 12:32:37,076][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:32:44,284][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:32:52,751][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:32:53,990][Training][INFO] Loss after iteration: 0.5311962366104126
+[2025-07-07 12:32:53,990][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:33:04,583][CIFAR10][INFO] Overall test accuracy is: 70.9 %
+[2025-07-07 12:33:04,585][VNodeRealSimulation][INFO] Starting training iteration: 121
+[2025-07-07 12:33:04,587][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:33:11,431][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:33:19,935][VNodeRealSimulation][INFO] Starting training iteration: 122
+[2025-07-07 12:33:19,937][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:33:29,845][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:33:38,488][VNodeRealSimulation][INFO] Starting training iteration: 123
+[2025-07-07 12:33:38,490][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:33:43,213][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:33:51,836][VNodeRealSimulation][INFO] Starting training iteration: 124
+[2025-07-07 12:33:51,837][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:33:56,639][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:34:05,266][VNodeRealSimulation][INFO] Starting training iteration: 125
+[2025-07-07 12:34:05,267][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:34:12,732][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:34:21,393][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:34:22,664][Training][INFO] Loss after iteration: 0.5135967135429382
+[2025-07-07 12:34:22,664][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:34:33,216][CIFAR10][INFO] Overall test accuracy is: 71.6 %
+[2025-07-07 12:34:33,218][VNodeRealSimulation][INFO] Starting training iteration: 126
+[2025-07-07 12:34:33,220][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:34:38,176][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:34:46,740][VNodeRealSimulation][INFO] Starting training iteration: 127
+[2025-07-07 12:34:46,742][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:34:52,626][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0729, weights with max: 22458
+[2025-07-07 12:34:52,627][VNodeSharingPoisonDefended][WARNING] Node 4 Round 127: Max adversarial proportion = 0.1667
+[2025-07-07 12:35:01,309][VNodeRealSimulation][INFO] Starting training iteration: 128
+[2025-07-07 12:35:01,311][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:35:07,924][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:35:16,545][VNodeRealSimulation][INFO] Starting training iteration: 129
+[2025-07-07 12:35:16,546][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:35:23,278][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:35:31,982][VNodeRealSimulation][INFO] Starting training iteration: 130
+[2025-07-07 12:35:31,983][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:35:38,767][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:35:47,430][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:35:48,708][Training][INFO] Loss after iteration: 0.4970986545085907
+[2025-07-07 12:35:48,708][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:35:59,295][CIFAR10][INFO] Overall test accuracy is: 72.2 %
+[2025-07-07 12:35:59,297][VNodeRealSimulation][INFO] Starting training iteration: 131
+[2025-07-07 12:35:59,299][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:36:04,958][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22458
+[2025-07-07 12:36:04,958][VNodeSharingPoisonDefended][WARNING] Node 4 Round 131: Max adversarial proportion = 0.2000
+[2025-07-07 12:36:13,520][VNodeRealSimulation][INFO] Starting training iteration: 132
+[2025-07-07 12:36:13,522][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:36:18,835][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:36:18,836][VNodeSharingPoisonDefended][WARNING] Node 4 Round 132: Max adversarial proportion = 0.1667
+[2025-07-07 12:36:27,461][VNodeRealSimulation][INFO] Starting training iteration: 133
+[2025-07-07 12:36:27,462][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:36:35,720][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22458
+[2025-07-07 12:36:35,721][VNodeSharingPoisonDefended][WARNING] Node 4 Round 133: Max adversarial proportion = 0.2500
+[2025-07-07 12:36:44,403][VNodeRealSimulation][INFO] Starting training iteration: 134
+[2025-07-07 12:36:44,404][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:36:51,555][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:36:51,556][VNodeSharingPoisonDefended][WARNING] Node 4 Round 134: Max adversarial proportion = 0.1667
+[2025-07-07 12:37:00,249][VNodeRealSimulation][INFO] Starting training iteration: 135
+[2025-07-07 12:37:00,251][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:37:04,917][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:37:13,488][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:37:14,723][Training][INFO] Loss after iteration: 0.48827293515205383
+[2025-07-07 12:37:14,723][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:37:25,279][CIFAR10][INFO] Overall test accuracy is: 72.6 %
+[2025-07-07 12:37:25,281][VNodeRealSimulation][INFO] Starting training iteration: 136
+[2025-07-07 12:37:25,283][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:37:31,946][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22460
+[2025-07-07 12:37:31,947][VNodeSharingPoisonDefended][WARNING] Node 4 Round 136: Max adversarial proportion = 0.2000
+[2025-07-07 12:37:40,538][VNodeRealSimulation][INFO] Starting training iteration: 137
+[2025-07-07 12:37:40,539][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:37:48,141][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:37:56,819][VNodeRealSimulation][INFO] Starting training iteration: 138
+[2025-07-07 12:37:56,821][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:38:04,530][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:38:13,182][VNodeRealSimulation][INFO] Starting training iteration: 139
+[2025-07-07 12:38:13,184][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:38:18,855][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:38:28,841][VNodeRealSimulation][INFO] Starting training iteration: 140
+[2025-07-07 12:38:28,843][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:38:33,846][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:38:42,526][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:38:43,803][Training][INFO] Loss after iteration: 0.48289674520492554
+[2025-07-07 12:38:43,803][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:38:54,385][CIFAR10][INFO] Overall test accuracy is: 71.9 %
+[2025-07-07 12:38:54,387][VNodeRealSimulation][INFO] Starting training iteration: 141
+[2025-07-07 12:38:54,388][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:38:59,416][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:39:08,046][VNodeRealSimulation][INFO] Starting training iteration: 142
+[2025-07-07 12:39:08,047][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:39:12,895][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:39:21,401][VNodeRealSimulation][INFO] Starting training iteration: 143
+[2025-07-07 12:39:21,403][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:39:30,831][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0729, weights with max: 22460
+[2025-07-07 12:39:30,832][VNodeSharingPoisonDefended][WARNING] Node 4 Round 143: Max adversarial proportion = 0.1667
+[2025-07-07 12:39:39,499][VNodeRealSimulation][INFO] Starting training iteration: 144
+[2025-07-07 12:39:39,500][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:39:44,180][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1111, avg = 0.0278, weights with max: 22458
+[2025-07-07 12:39:44,180][VNodeSharingPoisonDefended][WARNING] Node 4 Round 144: Max adversarial proportion = 0.1111
+[2025-07-07 12:39:52,776][VNodeRealSimulation][INFO] Starting training iteration: 145
+[2025-07-07 12:39:52,778][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:40:00,043][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0857, weights with max: 22458
+[2025-07-07 12:40:00,044][VNodeSharingPoisonDefended][WARNING] Node 4 Round 145: Max adversarial proportion = 0.2000
+[2025-07-07 12:40:08,691][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:40:09,944][Training][INFO] Loss after iteration: 0.43086671829223633
+[2025-07-07 12:40:09,944][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:40:20,548][CIFAR10][INFO] Overall test accuracy is: 72.5 %
+[2025-07-07 12:40:20,550][VNodeRealSimulation][INFO] Starting training iteration: 146
+[2025-07-07 12:40:20,552][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:40:27,884][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:40:27,885][VNodeSharingPoisonDefended][WARNING] Node 4 Round 146: Max adversarial proportion = 0.1429
+[2025-07-07 12:40:36,496][VNodeRealSimulation][INFO] Starting training iteration: 147
+[2025-07-07 12:40:36,498][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:40:41,159][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:40:49,644][VNodeRealSimulation][INFO] Starting training iteration: 148
+[2025-07-07 12:40:49,645][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:40:55,552][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:41:03,990][VNodeRealSimulation][INFO] Starting training iteration: 149
+[2025-07-07 12:41:03,991][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:41:11,303][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:41:19,766][VNodeRealSimulation][INFO] Starting training iteration: 150
+[2025-07-07 12:41:19,768][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:41:29,234][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:41:37,973][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:41:39,248][Training][INFO] Loss after iteration: 0.519496738910675
+[2025-07-07 12:41:39,248][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:41:49,811][CIFAR10][INFO] Overall test accuracy is: 72.3 %
+[2025-07-07 12:41:49,814][VNodeRealSimulation][INFO] Starting training iteration: 151
+[2025-07-07 12:41:49,816][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:41:54,475][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:42:02,895][VNodeRealSimulation][INFO] Starting training iteration: 152
+[2025-07-07 12:42:02,896][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:42:09,540][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:42:17,937][VNodeRealSimulation][INFO] Starting training iteration: 153
+[2025-07-07 12:42:17,939][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:42:24,385][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:42:32,901][VNodeRealSimulation][INFO] Starting training iteration: 154
+[2025-07-07 12:42:32,902][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:42:43,485][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:42:52,095][VNodeRealSimulation][INFO] Starting training iteration: 155
+[2025-07-07 12:42:52,098][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:42:56,961][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:42:56,962][VNodeSharingPoisonDefended][WARNING] Node 4 Round 155: Max adversarial proportion = 0.1429
+[2025-07-07 12:43:05,612][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:43:06,870][Training][INFO] Loss after iteration: 0.44480207562446594
+[2025-07-07 12:43:06,870][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:43:17,398][CIFAR10][INFO] Overall test accuracy is: 72.6 %
+[2025-07-07 12:43:17,400][VNodeRealSimulation][INFO] Starting training iteration: 156
+[2025-07-07 12:43:17,402][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:43:22,507][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.3333, avg = 0.0833, weights with max: 22460
+[2025-07-07 12:43:22,508][VNodeSharingPoisonDefended][WARNING] Node 4 Round 156: Max adversarial proportion = 0.3333
+[2025-07-07 12:43:31,065][VNodeRealSimulation][INFO] Starting training iteration: 157
+[2025-07-07 12:43:31,067][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:43:38,662][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:43:47,398][VNodeRealSimulation][INFO] Starting training iteration: 158
+[2025-07-07 12:43:47,400][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:43:52,391][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:44:00,988][VNodeRealSimulation][INFO] Starting training iteration: 159
+[2025-07-07 12:44:00,990][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:44:07,492][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:44:16,160][VNodeRealSimulation][INFO] Starting training iteration: 160
+[2025-07-07 12:44:16,162][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:44:23,057][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:44:31,758][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:44:33,040][Training][INFO] Loss after iteration: 0.4073224663734436
+[2025-07-07 12:44:33,041][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:44:43,612][CIFAR10][INFO] Overall test accuracy is: 72.8 %
+[2025-07-07 12:44:43,615][VNodeRealSimulation][INFO] Starting training iteration: 161
+[2025-07-07 12:44:43,616][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:44:51,278][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:44:59,927][VNodeRealSimulation][INFO] Starting training iteration: 162
+[2025-07-07 12:44:59,930][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:45:04,598][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:45:13,244][VNodeRealSimulation][INFO] Starting training iteration: 163
+[2025-07-07 12:45:13,246][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:45:18,229][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0500, weights with max: 22458
+[2025-07-07 12:45:18,230][VNodeSharingPoisonDefended][WARNING] Node 4 Round 163: Max adversarial proportion = 0.2000
+[2025-07-07 12:45:26,891][VNodeRealSimulation][INFO] Starting training iteration: 164
+[2025-07-07 12:45:26,892][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:45:32,087][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:45:40,660][VNodeRealSimulation][INFO] Starting training iteration: 165
+[2025-07-07 12:45:40,662][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:45:47,462][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:45:56,094][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:45:57,382][Training][INFO] Loss after iteration: 0.39596131443977356
+[2025-07-07 12:45:57,383][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:46:07,951][CIFAR10][INFO] Overall test accuracy is: 72.8 %
+[2025-07-07 12:46:07,953][VNodeRealSimulation][INFO] Starting training iteration: 166
+[2025-07-07 12:46:07,955][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:46:13,634][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22460
+[2025-07-07 12:46:13,635][VNodeSharingPoisonDefended][WARNING] Node 4 Round 166: Max adversarial proportion = 0.1667
+[2025-07-07 12:46:22,284][VNodeRealSimulation][INFO] Starting training iteration: 167
+[2025-07-07 12:46:22,285][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:46:27,270][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:46:35,784][VNodeRealSimulation][INFO] Starting training iteration: 168
+[2025-07-07 12:46:35,785][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:46:41,166][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0917, weights with max: 22458
+[2025-07-07 12:46:41,167][VNodeSharingPoisonDefended][WARNING] Node 4 Round 168: Max adversarial proportion = 0.2000
+[2025-07-07 12:46:49,593][VNodeRealSimulation][INFO] Starting training iteration: 169
+[2025-07-07 12:46:49,594][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:46:57,760][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:46:57,761][VNodeSharingPoisonDefended][WARNING] Node 4 Round 169: Max adversarial proportion = 0.1429
+[2025-07-07 12:47:07,657][VNodeRealSimulation][INFO] Starting training iteration: 170
+[2025-07-07 12:47:07,659][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:47:13,044][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:47:13,045][VNodeSharingPoisonDefended][WARNING] Node 4 Round 170: Max adversarial proportion = 0.1667
+[2025-07-07 12:47:21,808][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:47:23,099][Training][INFO] Loss after iteration: 0.3905937671661377
+[2025-07-07 12:47:23,099][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:47:33,701][CIFAR10][INFO] Overall test accuracy is: 73.0 %
+[2025-07-07 12:47:33,704][VNodeRealSimulation][INFO] Starting training iteration: 171
+[2025-07-07 12:47:33,705][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:47:38,745][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:47:47,349][VNodeRealSimulation][INFO] Starting training iteration: 172
+[2025-07-07 12:47:47,350][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:47:52,962][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:48:02,307][VNodeRealSimulation][INFO] Starting training iteration: 173
+[2025-07-07 12:48:02,309][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:48:08,304][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1250, avg = 0.0312, weights with max: 22458
+[2025-07-07 12:48:08,305][VNodeSharingPoisonDefended][WARNING] Node 4 Round 173: Max adversarial proportion = 0.1250
+[2025-07-07 12:48:16,874][VNodeRealSimulation][INFO] Starting training iteration: 174
+[2025-07-07 12:48:16,876][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:48:24,327][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2000, avg = 0.0857, weights with max: 22458
+[2025-07-07 12:48:24,327][VNodeSharingPoisonDefended][WARNING] Node 4 Round 174: Max adversarial proportion = 0.2000
+[2025-07-07 12:48:34,206][VNodeRealSimulation][INFO] Starting training iteration: 175
+[2025-07-07 12:48:34,208][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:48:39,575][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:48:49,124][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:48:50,412][Training][INFO] Loss after iteration: 0.3474367558956146
+[2025-07-07 12:48:50,413][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:49:01,581][CIFAR10][INFO] Overall test accuracy is: 72.5 %
+[2025-07-07 12:49:01,584][VNodeRealSimulation][INFO] Starting training iteration: 176
+[2025-07-07 12:49:01,586][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:49:06,858][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:49:16,784][VNodeRealSimulation][INFO] Starting training iteration: 177
+[2025-07-07 12:49:16,786][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:49:22,048][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:49:32,034][VNodeRealSimulation][INFO] Starting training iteration: 178
+[2025-07-07 12:49:32,036][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:49:37,162][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:49:47,225][VNodeRealSimulation][INFO] Starting training iteration: 179
+[2025-07-07 12:49:47,228][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:49:52,348][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:50:02,315][VNodeRealSimulation][INFO] Starting training iteration: 180
+[2025-07-07 12:50:02,317][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:50:07,480][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1667, avg = 0.0417, weights with max: 22458
+[2025-07-07 12:50:07,481][VNodeSharingPoisonDefended][WARNING] Node 4 Round 180: Max adversarial proportion = 0.1667
+[2025-07-07 12:50:17,620][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:50:18,916][Training][INFO] Loss after iteration: 0.3192003071308136
+[2025-07-07 12:50:18,917][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:50:29,971][CIFAR10][INFO] Overall test accuracy is: 72.3 %
+[2025-07-07 12:50:29,974][VNodeRealSimulation][INFO] Starting training iteration: 181
+[2025-07-07 12:50:29,977][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:50:34,737][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.3333, avg = 0.0833, weights with max: 22458
+[2025-07-07 12:50:34,737][VNodeSharingPoisonDefended][WARNING] Node 4 Round 181: Max adversarial proportion = 0.3333
+[2025-07-07 12:50:43,539][VNodeRealSimulation][INFO] Starting training iteration: 182
+[2025-07-07 12:50:43,542][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:50:48,451][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:50:57,156][VNodeRealSimulation][INFO] Starting training iteration: 183
+[2025-07-07 12:50:57,159][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:51:03,137][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:51:11,821][VNodeRealSimulation][INFO] Starting training iteration: 184
+[2025-07-07 12:51:11,823][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:51:16,805][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:51:25,499][VNodeRealSimulation][INFO] Starting training iteration: 185
+[2025-07-07 12:51:25,500][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:51:30,461][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1111, avg = 0.0278, weights with max: 22458
+[2025-07-07 12:51:30,461][VNodeSharingPoisonDefended][WARNING] Node 4 Round 185: Max adversarial proportion = 0.1111
+[2025-07-07 12:51:39,115][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:51:40,368][Training][INFO] Loss after iteration: 0.32311397790908813
+[2025-07-07 12:51:40,368][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:51:50,938][CIFAR10][INFO] Overall test accuracy is: 72.3 %
+[2025-07-07 12:51:50,941][VNodeRealSimulation][INFO] Starting training iteration: 186
+[2025-07-07 12:51:50,942][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:51:58,918][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:52:07,710][VNodeRealSimulation][INFO] Starting training iteration: 187
+[2025-07-07 12:52:07,712][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:52:12,734][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:52:21,412][VNodeRealSimulation][INFO] Starting training iteration: 188
+[2025-07-07 12:52:21,414][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:52:28,371][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:52:37,041][VNodeRealSimulation][INFO] Starting training iteration: 189
+[2025-07-07 12:52:37,043][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:52:41,817][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:52:50,382][VNodeRealSimulation][INFO] Starting training iteration: 190
+[2025-07-07 12:52:50,383][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:52:55,606][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:53:04,194][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:53:05,385][Training][INFO] Loss after iteration: 0.3319483995437622
+[2025-07-07 12:53:05,386][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:53:16,381][CIFAR10][INFO] Overall test accuracy is: 73.0 %
+[2025-07-07 12:53:16,382][VNodeRealSimulation][INFO] Starting training iteration: 191
+[2025-07-07 12:53:16,384][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:53:23,521][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:53:32,192][VNodeRealSimulation][INFO] Starting training iteration: 192
+[2025-07-07 12:53:32,194][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:53:39,795][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:53:48,415][VNodeRealSimulation][INFO] Starting training iteration: 193
+[2025-07-07 12:53:48,417][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:53:53,618][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1250, avg = 0.0312, weights with max: 22458
+[2025-07-07 12:53:53,619][VNodeSharingPoisonDefended][WARNING] Node 4 Round 193: Max adversarial proportion = 0.1250
+[2025-07-07 12:54:02,244][VNodeRealSimulation][INFO] Starting training iteration: 194
+[2025-07-07 12:54:02,246][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:54:08,516][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:54:17,135][VNodeRealSimulation][INFO] Starting training iteration: 195
+[2025-07-07 12:54:17,136][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:54:22,380][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.1429, avg = 0.0357, weights with max: 22458
+[2025-07-07 12:54:22,381][VNodeSharingPoisonDefended][WARNING] Node 4 Round 195: Max adversarial proportion = 0.1429
+[2025-07-07 12:54:30,993][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:54:32,245][Training][INFO] Loss after iteration: 0.3338783383369446
+[2025-07-07 12:54:32,246][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:54:42,792][CIFAR10][INFO] Overall test accuracy is: 73.0 %
+[2025-07-07 12:54:42,794][VNodeRealSimulation][INFO] Starting training iteration: 196
+[2025-07-07 12:54:42,796][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:54:48,445][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:54:56,878][VNodeRealSimulation][INFO] Starting training iteration: 197
+[2025-07-07 12:54:56,880][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:55:03,584][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:55:12,173][VNodeRealSimulation][INFO] Starting training iteration: 198
+[2025-07-07 12:55:12,174][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:55:19,169][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.2500, avg = 0.0625, weights with max: 22460
+[2025-07-07 12:55:19,170][VNodeSharingPoisonDefended][WARNING] Node 4 Round 198: Max adversarial proportion = 0.2500
+[2025-07-07 12:55:27,803][VNodeRealSimulation][INFO] Starting training iteration: 199
+[2025-07-07 12:55:27,805][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:55:32,808][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:55:41,390][VNodeRealSimulation][INFO] Starting training iteration: 200
+[2025-07-07 12:55:41,391][VNodeRealSimulation][INFO] Training this round.
+[2025-07-07 12:55:49,142][VNodeSharingPoisonDefended][INFO] Node 4: Max adversarial proportion = 0.0000, avg = 0.0000, weights with max: 89834
+[2025-07-07 12:55:57,761][VNodeRealSimulation][INFO] Evaluating on train set.
+[2025-07-07 12:55:59,030][Training][INFO] Loss after iteration: 0.3408845067024231
+[2025-07-07 12:55:59,031][VNodeRealSimulation][INFO] Evaluating on test set.
+[2025-07-07 12:56:09,464][CIFAR10][INFO] Overall test accuracy is: 73.1 %
+[2025-07-07 12:56:09,466][VNodeRealSimulation][INFO] Disconnecting neighbors
+[2025-07-07 12:56:09,466][VNodeRealSimulation][INFO] All iterations complete. Process complete! Sleeping for 2 minutes before disconnecting to ensure all messages are delivered.
+[2025-07-07 12:58:09,466][VNodeRealSimulation][INFO] Disconnecting...

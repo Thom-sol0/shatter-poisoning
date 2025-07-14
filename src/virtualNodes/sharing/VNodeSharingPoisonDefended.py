@@ -100,14 +100,9 @@ class VNodeSharingPoison(VNodeSharing):
     def _detect_and_sanitize_nan_inf(self, tensor, tensor_name="tensor", sender_node="unknown", default_value=0.0):
         """
         Detect and sanitize NaN/Inf values in tensors.
-        Returns sanitized tensor and logs detailed diagnostics.
         """
         if tensor is None:
-            logging.error(f"Node {self.uid}: Received None tensor from {sender_node} for {tensor_name}")
             return torch.zeros_like(tensor) if tensor is not None else None
-        
-        original_shape = tensor.shape
-        original_dtype = tensor.dtype
         
         # Check for NaN values
         nan_mask = torch.isnan(tensor)
@@ -127,44 +122,23 @@ class VNodeSharingPoison(VNodeSharing):
             self.nan_inf_detection_count += 1
             self.corrupted_weights_received += total_corrupted
             
-            # Log detailed diagnostics
-            logging.warning(f"Node {self.uid}: CORRUPTION DETECTED in {tensor_name} from {sender_node}:")
-            logging.warning(f"  - Tensor shape: {original_shape}, dtype: {original_dtype}")
-            logging.warning(f"  - NaN count: {nan_count}")
-            logging.warning(f"  - Inf count: {inf_count}")
-            logging.warning(f"  - Large values (>1e10): {large_count}")
-            logging.warning(f"  - Total corrupted: {total_corrupted}/{tensor.numel()}")
-            
-            if tensor.numel() > 0:
-                # Get statistics of non-corrupted values
-                valid_mask = ~(nan_mask | inf_mask)
-                if torch.any(valid_mask):
-                    valid_values = tensor[valid_mask]
-                    logging.warning(f"  - Valid values stats: min={valid_values.min():.6f}, max={valid_values.max():.6f}, mean={valid_values.mean():.6f}, std={valid_values.std():.6f}")
-                else:
-                    logging.warning(f"  - NO VALID VALUES FOUND - all values are NaN/Inf!")
-            
             # Sanitize the tensor
             sanitized_tensor = tensor.clone()
             
             # Replace NaN with default value
             if nan_count > 0:
                 sanitized_tensor[nan_mask] = default_value
-                logging.warning(f"  - Replaced {nan_count} NaN values with {default_value}")
             
             # Replace Inf with clamped values
             if inf_count > 0:
-                # Replace positive inf with large positive value, negative inf with large negative value
                 pos_inf_mask = torch.isposinf(tensor)
                 neg_inf_mask = torch.isneginf(tensor)
-                sanitized_tensor[pos_inf_mask] = 1e6  # Large but finite positive value
-                sanitized_tensor[neg_inf_mask] = -1e6  # Large but finite negative value
-                logging.warning(f"  - Replaced {torch.sum(pos_inf_mask).item()} +Inf and {torch.sum(neg_inf_mask).item()} -Inf values")
+                sanitized_tensor[pos_inf_mask] = 1e6
+                sanitized_tensor[neg_inf_mask] = -1e6
             
-            # Optionally clamp extremely large values
+            # Clamp extremely large values
             if large_count > 0:
                 sanitized_tensor = torch.clamp(sanitized_tensor, min=-1e8, max=1e8)
-                logging.warning(f"  - Clamped {large_count} extremely large values to [-1e8, 1e8] range")
             
             self.corrupted_weights_rejected += total_corrupted
             return sanitized_tensor
@@ -185,15 +159,9 @@ class VNodeSharingPoison(VNodeSharing):
                 inf_count = torch.sum(torch.isinf(tensor)).item()
                 total_corrupted += nan_count + inf_count
                 
-                logging.error(f"Node {self.uid}: Corrupted layer '{layer_name}' from {source}: {nan_count} NaNs, {inf_count} Infs")
-                
                 # Sanitize this layer
                 sanitized_tensor = self._detect_and_sanitize_nan_inf(tensor, f"layer_{layer_name}", source)
                 state_dict[layer_name] = sanitized_tensor
-        
-        if corrupted_layers:
-            logging.error(f"Node {self.uid}: Total corruption in model from {source}: {len(corrupted_layers)} layers, {total_corrupted} corrupted values")
-            logging.error(f"Node {self.uid}: Corrupted layers: {corrupted_layers}")
         
         return state_dict, len(corrupted_layers) > 0
 
@@ -204,26 +172,17 @@ class VNodeSharingPoison(VNodeSharing):
         """
         # Check if we should poison in this round (based on poison_after)
         if self.poison_after > 1 and self.communication_round % self.poison_after != 0:
-            logging.debug(f"Node {self.uid} skipping poisoning in round {self.communication_round}")
             # Just apply the averaged model when poisoning is skipped
             mean_state_dict = self._post_step(self.current_sum)
-            # Validate and sanitize before applying
             mean_state_dict, was_corrupted = self._validate_model_state(mean_state_dict, f"mean_averaging_node_{self.uid}")
-            if was_corrupted:
-                logging.warning(f"Node {self.uid}: Detected and fixed corruption in mean state during skip-poisoning")
             self.model.load_state_dict(mean_state_dict)
             return
-        
-        logging.info(f"Node {self.uid} applying {self.attack_type} poisoning in round {self.communication_round}")
     
         if self.attack_type == 'zero':
             # Zero out all parameters
             self.current_sum.zero_()
             zero_state_dict = self._post_step(self.current_sum)
-            # Validate the zero state (should be clean but let's check)
             zero_state_dict, was_corrupted = self._validate_model_state(zero_state_dict, f"zero_attack_node_{self.uid}")
-            if was_corrupted:
-                logging.error(f"Node {self.uid}: Unexpected corruption in zero attack state!")
             self.model.load_state_dict(zero_state_dict)
         
         elif self.attack_type == 'flip_grad':
@@ -231,17 +190,11 @@ class VNodeSharingPoison(VNodeSharing):
             mean_state_dict = self._post_step(self.current_sum)
             init_state_dict = copy.deepcopy(self.model.state_dict())
             
-            # First validate input states
+            # Validate input states
             mean_state_dict, mean_corrupted = self._validate_model_state(mean_state_dict, f"mean_state_node_{self.uid}")
             init_state_dict, init_corrupted = self._validate_model_state(init_state_dict, f"init_state_node_{self.uid}")
             
-            if mean_corrupted:
-                logging.warning(f"Node {self.uid}: Fixed corruption in mean state before flip_grad")
-            if init_corrupted:
-                logging.warning(f"Node {self.uid}: Fixed corruption in init state before flip_grad")
-            
             final_state_dict = {}
-            corrupted_keys = []
             
             for key in init_state_dict:
                 # Perform flip operation: new = 2 * init - mean
@@ -250,10 +203,7 @@ class VNodeSharingPoison(VNodeSharing):
                     
                     # Check for NaN/Inf in the result
                     if torch.any(torch.isnan(flipped_update)) or torch.any(torch.isinf(flipped_update)):
-                        corrupted_keys.append(key)
-                        logging.warning(f"Node {self.uid}: NaN/Inf detected in {key} during flip_grad calculation")
-                        
-                        # Try alternative: use sanitized version
+                        # Try sanitized version
                         flipped_update = self._detect_and_sanitize_nan_inf(
                             flipped_update, 
                             f"flip_grad_{key}", 
@@ -263,38 +213,26 @@ class VNodeSharingPoison(VNodeSharing):
                         
                         # If still problematic, fallback to mean state
                         if torch.any(torch.isnan(flipped_update)) or torch.any(torch.isinf(flipped_update)):
-                            logging.error(f"Node {self.uid}: Failed to sanitize {key}, using mean state as fallback")
                             final_state_dict[key] = mean_state_dict[key]
                         else:
                             final_state_dict[key] = flipped_update
                     else:
                         # Check for extremely large values that might become problematic
                         if torch.max(torch.abs(flipped_update)) > 1e8:
-                            logging.warning(f"Node {self.uid}: Very large values detected in {key} during flip_grad, clamping")
                             flipped_update = torch.clamp(flipped_update, min=-1e8, max=1e8)
                         final_state_dict[key] = flipped_update
                         
                 except Exception as e:
-                    logging.error(f"Node {self.uid}: Exception during flip_grad for {key}: {e}")
                     final_state_dict[key] = mean_state_dict[key]
-            
-            if corrupted_keys:
-                logging.warning(f"Node {self.uid}: Handled corruption in {len(corrupted_keys)} layers during flip_grad: {corrupted_keys}")
             
             # Final validation before loading
             final_state_dict, final_corrupted = self._validate_model_state(final_state_dict, f"final_flip_grad_node_{self.uid}")
-            if final_corrupted:
-                logging.error(f"Node {self.uid}: Still found corruption after flip_grad sanitization!")
-            
             self.model.load_state_dict(final_state_dict)
         
         else:
-            logging.warning(f"Unknown attack type: {self.attack_type}")
             # Use normal averaged model for unknown attack types
             mean_state_dict = self._post_step(self.current_sum)
             mean_state_dict, was_corrupted = self._validate_model_state(mean_state_dict, f"fallback_node_{self.uid}")
-            if was_corrupted:
-                logging.warning(f"Node {self.uid}: Fixed corruption in fallback mean state")
             self.model.load_state_dict(mean_state_dict)
 
     def get_data_to_send(self, vnodes_per_node=1, degree=None, sparsity=0.0):
@@ -362,22 +300,15 @@ class VNodeSharingPoison(VNodeSharing):
         del data["CHANNEL"]
         if "real_node" in data:
             del data["real_node"]
-        logging.debug(
-            "Forward Averaging model from neighbor {} of iteration {}".format(
-                sender_node, iteration
-            )
-        )
+        
         try:
             deserializedT, indices = self.deserialized_model(data)
         except Exception as e:
             print("uid: {} | Exception: {}".format(self.uid, e))
             raise e
         
-        logging.debug("Deserialized model from neighbor {}".format(sender_node))
-        
         # Validate received weights for NaN/Inf before adding them
         if torch.any(torch.isnan(deserializedT)) or torch.any(torch.isinf(deserializedT)):
-            logging.warning(f"Node {self.uid}: Corrupted weights received from {sender_node}, sanitizing...")
             deserializedT = self._detect_and_sanitize_nan_inf(
                 deserializedT, 
                 f"received_weights_from_{sender_node}", 
@@ -386,7 +317,6 @@ class VNodeSharingPoison(VNodeSharing):
         
         # Also validate current_sum before updating
         if torch.any(torch.isnan(self.current_sum)) or torch.any(torch.isinf(self.current_sum)):
-            logging.error(f"Node {self.uid}: Corruption detected in current_sum before update, sanitizing...")
             self.current_sum = self._detect_and_sanitize_nan_inf(
                 self.current_sum, 
                 "current_sum_before_update", 
@@ -398,7 +328,6 @@ class VNodeSharingPoison(VNodeSharing):
         
         # Validate current_sum after update
         if torch.any(torch.isnan(self.current_sum)) or torch.any(torch.isinf(self.current_sum)):
-            logging.error(f"Node {self.uid}: Corruption detected in current_sum after update from {sender_node}, sanitizing...")
             self.current_sum = self._detect_and_sanitize_nan_inf(
                 self.current_sum, 
                 "current_sum_after_update", 
@@ -433,7 +362,6 @@ class VNodeSharingPoison(VNodeSharing):
         iteration = data["iteration"]
         sender_node = data.get("real_node", data.get("vSource", "unknown"))  # Get sender info
         real_node_id = data.get("real_node", None)
-        print(f"Node {self.uid} received data from real node {real_node_id} (virtual: {sender_node}) for iteration {iteration}")
         if "degree" in data:
             del data["degree"]
         del data["iteration"]
@@ -442,12 +370,6 @@ class VNodeSharingPoison(VNodeSharing):
         # Remove real_node from data if it exists (after extracting it)
         if "real_node" in data:
             del data["real_node"]
-            
-        logging.debug(
-            "Forward Averaging model from neighbor {} of iteration {}".format(
-                sender_node, iteration
-            )
-        )
     
         # Deserialize received model data
         try:
@@ -455,12 +377,9 @@ class VNodeSharingPoison(VNodeSharing):
         except Exception as e:
             print("uid: {} | Exception: {}".format(self.uid, e))
             raise e
-    
-        logging.debug("Deserialized model from neighbor {}".format(sender_node))
         
         # Validate received weights for NaN/Inf before processing
         if torch.any(torch.isnan(deserializedT)) or torch.any(torch.isinf(deserializedT)):
-            logging.warning(f"Node {self.uid}: Corrupted weights received from {sender_node}, sanitizing...")
             deserializedT = self._detect_and_sanitize_nan_inf(
                 deserializedT, 
                 f"received_weights_from_{sender_node}", 
@@ -473,7 +392,6 @@ class VNodeSharingPoison(VNodeSharing):
         for idx, value in zip(indices.tolist(), deserializedT.tolist()):
             # Additional check for individual values
             if np.isnan(value) or np.isinf(value):
-                logging.warning(f"Node {self.uid}: Skipping corrupted value {value} at index {idx} from {sender_node}")
                 value = 0.0  # Replace with safe default
             self.param_values[idx].append(value)
             # Track the source and whether it's adversarial
@@ -497,7 +415,6 @@ class VNodeSharingPoison(VNodeSharing):
 
         # Validate current_sum and current_weights before final processing
         if torch.any(torch.isnan(self.current_sum)) or torch.any(torch.isinf(self.current_sum)):
-            logging.error(f"Node {self.uid}: Corruption in current_sum before final processing, sanitizing...")
             self.current_sum = self._detect_and_sanitize_nan_inf(
                 self.current_sum, 
                 "current_sum_final", 
@@ -505,7 +422,6 @@ class VNodeSharingPoison(VNodeSharing):
             )
         
         if torch.any(torch.isnan(self.current_weights)) or torch.any(torch.isinf(self.current_weights)):
-            logging.error(f"Node {self.uid}: Corruption in current_weights before final processing, sanitizing...")
             self.current_weights = self._detect_and_sanitize_nan_inf(
                 self.current_weights, 
                 "current_weights_final", 
@@ -518,14 +434,12 @@ class VNodeSharingPoison(VNodeSharing):
         # Prevent division by zero and validate weights
         zero_weights_mask = self.current_weights == 0
         if torch.any(zero_weights_mask):
-            logging.warning(f"Node {self.uid}: Found {torch.sum(zero_weights_mask).item()} zero weights, replacing with 1.0")
             self.current_weights[zero_weights_mask] = 1.0
         
         self.current_weights = 1.0 / self.current_weights
         
         # Check for NaN/Inf after division
         if torch.any(torch.isnan(self.current_weights)) or torch.any(torch.isinf(self.current_weights)):
-            logging.error(f"Node {self.uid}: Corruption in current_weights after division, sanitizing...")
             self.current_weights = self._detect_and_sanitize_nan_inf(
                 self.current_weights, 
                 "current_weights_after_division", 
@@ -537,24 +451,15 @@ class VNodeSharingPoison(VNodeSharing):
         
         # Final validation of current_sum
         if torch.any(torch.isnan(self.current_sum)) or torch.any(torch.isinf(self.current_sum)):
-            logging.error(f"Node {self.uid}: Corruption in current_sum after multiplication, sanitizing...")
             self.current_sum = self._detect_and_sanitize_nan_inf(
                 self.current_sum, 
                 "current_sum_after_multiplication", 
                 f"node_{self.uid}"
             )
         
-        logging.debug("Finished averaging")
         self.current_sum = self.current_sum.cpu()
 
         self._apply_model_poisoning()
-        
-        # Log corruption summary for adversarial nodes if there was corruption
-        if self.nan_inf_detection_count > 0:
-            logging.warning(f"Adversarial Node {self.uid} Round {self.communication_round}: "
-                          f"Detected {self.nan_inf_detection_count} corruption events during poisoning")
-            if self.communication_round % 10 == 0 or self.nan_inf_detection_count > 5:
-                self.log_corruption_summary()
         
         self.communication_round += 1
         self.current_weights = None
@@ -579,7 +484,6 @@ class VNodeSharingPoison(VNodeSharing):
                 if len(filtered_values) > 0:
                     median_val = np.median(filtered_values)
                     if np.isnan(median_val) or np.isinf(median_val):
-                        logging.warning(f"Node {self.uid}: Computed median is corrupted at index {idx}, using 0.0")
                         median_val = 0.0
                         corrupted_indices.append(idx)
                     median_weights[idx] = torch.tensor(
@@ -588,16 +492,11 @@ class VNodeSharingPoison(VNodeSharing):
                         device=self.device
                     )
                 else:
-                    logging.warning(f"Node {self.uid}: No valid values for index {idx}, using 0.0")
                     corrupted_indices.append(idx)
                     median_weights[idx] = 0.0
-        
-        if corrupted_indices:
-            logging.warning(f"Node {self.uid}: Found {len(corrupted_indices)} corrupted indices in median computation")
     
         # Final validation of median weights
         if torch.any(torch.isnan(median_weights)) or torch.any(torch.isinf(median_weights)):
-            logging.error(f"Node {self.uid}: Corruption in median_weights, sanitizing...")
             median_weights = self._detect_and_sanitize_nan_inf(
                 median_weights, 
                 "median_weights", 
@@ -609,8 +508,6 @@ class VNodeSharingPoison(VNodeSharing):
         
         # Final validation of the state dict
         state_dict, was_corrupted = self._validate_model_state(state_dict, f"median_model_node_{self.uid}")
-        if was_corrupted:
-            logging.error(f"Node {self.uid}: Fixed corruption in final median model state")
         
         return state_dict
 
@@ -624,36 +521,9 @@ class VNodeSharingPoison(VNodeSharing):
             for data in peer_deques[n]:
                 self.forward_averaging(data)
 
-        # Log corruption statistics
-        if self.nan_inf_detection_count > 0:
-            logging.warning(f"Node {self.uid} Round {self.communication_round}: "
-                          f"Detected {self.nan_inf_detection_count} corruption events, "
-                          f"received {self.corrupted_weights_received} corrupted weights, "
-                          f"rejected/sanitized {self.corrupted_weights_rejected} values")
-            # Log detailed corruption summary every 10 rounds or when there's significant corruption
-            if self.communication_round % 10 == 0 or self.nan_inf_detection_count > 5:
-                self.log_corruption_summary()
-
-        # Compute adversarial proportion statistics
-        max_adv_prop, adv_stats = self.compute_max_adversarial_proportion()
-        self.max_adversarial_proportion = max_adv_prop
-        
-        # Log adversarial proportion details if significant
-        if max_adv_prop > 0.1:  # Log if more than 10% adversarial
-            logging.warning(f"Node {self.uid} Round {self.communication_round}: "
-                          f"Max adversarial proportion = {max_adv_prop:.4f}")
-            if max_adv_prop > 0.5:  # Detailed logging if majority adversarial
-                logging.warning(f"Node {self.uid}: High adversarial influence detected!")
-                for weight_idx in adv_stats.get('weights_with_max_proportion', []):
-                    details = adv_stats['weight_details'][weight_idx]
-                    logging.warning(f"  Weight {weight_idx}: {details['adversarial_count']}/{details['total_values']} "
-                                  f"from adversarial nodes: {details['adversarial_sources']}")
-
         # Calculate the weight-wise median and update model
         medgrad_model = self.get_medgrad_model()
         self.model.load_state_dict(medgrad_model)
-    
-        logging.debug("Finished median-based averaging")
     
         # Save corruption metrics to file
         self._save_corruption_metrics()
@@ -698,30 +568,16 @@ class VNodeSharingPoison(VNodeSharing):
             }
         }
 
-    def log_corruption_summary(self):
-        """
-        Log a comprehensive summary of corruption events for diagnostic purposes.
-        """
-        diagnostics = self.get_corruption_diagnostics()
-        logging.info(f"=== CORRUPTION SUMMARY for Node {self.uid} ===")
-        logging.info(f"  Node Type: {diagnostics['node_type']}")
-        logging.info(f"  Attack Type: {diagnostics['attack_type']}")
-        logging.info(f"  Round: {diagnostics['communication_round']}")
-        logging.info(f"  Total Corruption Events: {diagnostics['corruption_stats']['total_corruption_events']}")
-        logging.info(f"  Corrupted Weights Received: {diagnostics['corruption_stats']['total_corrupted_weights_received']}")
-        logging.info(f"  Corrupted Weights Sanitized: {diagnostics['corruption_stats']['total_corrupted_weights_sanitized']}")
-        logging.info(f"  Corruption Rate: {diagnostics['corruption_stats']['corruption_rate']:.4f}")
-        logging.info(f"  Max Adversarial Proportion: {diagnostics['adversarial_influence']['max_adversarial_proportion']:.4f}")
-        logging.info(f"  Known Adversarial Nodes: {diagnostics['adversarial_influence']['adversarial_nodes_in_network']}")
-        logging.info("=== END CORRUPTION SUMMARY ===")
-        
-
     def _save_corruption_metrics(self):
         """
         Save simple corruption metrics: node_id - iteration - max_adversarial_prop - value
         If the same iteration exists, take the max value.
         """
         try:
+            # Compute adversarial proportion statistics
+            max_adv_prop, adv_stats = self.compute_max_adversarial_proportion()
+            self.max_adversarial_proportion = max_adv_prop
+            
             metrics_file = os.path.join(self.log_dir, f"corruption_metrics_{self.uid}.json")
             current_max_adv_prop = getattr(self, 'max_adversarial_proportion', 0.0)
             
@@ -753,7 +609,7 @@ class VNodeSharingPoison(VNodeSharing):
                 json.dump(existing_data, f, indent=2)
                 
         except Exception as e:
-            logging.warning(f"Failed to save corruption metrics for node {self.uid}: {e}")
+            pass
     
     def compute_max_adversarial_proportion(self):
         """
@@ -799,9 +655,6 @@ class VNodeSharingPoison(VNodeSharing):
                 'total_weights_tracked': len(adversarial_proportions),
                 'weight_details': weight_stats
             }
-            
-            logging.info(f"Node {self.uid}: Max adversarial proportion = {max_proportion:.4f}, "
-                        f"avg = {avg_proportion:.4f}, weights with max: {len(max_weights)}")
             
             return max_proportion, detailed_stats
         else:
