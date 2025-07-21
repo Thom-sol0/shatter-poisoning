@@ -92,7 +92,9 @@ class VNodeSharingPoison(VNodeSharingDefenseBase):
             
         # Process received data
         sender_node = data.get("real_node", data.get("vSource", "unknown"))
-        
+
+        self.neighbor_list.append(sender_node)
+
         try:
             deserializedT, indices = self.deserialized_model(data)
         except Exception as e:
@@ -119,9 +121,8 @@ class VNodeSharingPoison(VNodeSharingDefenseBase):
 
             # Compute norm of the difference and clip if needed
             norm = torch.norm(weight_diff, p=2)
-            #print(f"Norm of weight difference from {sender_node}: {norm.item()}")
+
             if norm > self.tau_nbr:
-                print(f"Clipping weight difference from {sender_node} with norm {norm.item()} to tau_nbr {self.tau_nbr}")
                 # Scale down the difference to have norm = tau_nbr
                 scale_factor = self.tau_nbr / norm
                 weight_diff = weight_diff * scale_factor

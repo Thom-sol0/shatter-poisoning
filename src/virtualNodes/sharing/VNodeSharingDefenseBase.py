@@ -77,6 +77,10 @@ class VNodeSharingDefenseBase(VNodeSharing, ABC):
         self.corrupted_weights_received = 0
         self.corrupted_weights_rejected = 0
 
+        # Logging neighbors
+        self.neighbor_record_file = os.path.join(self.log_dir, "neighbor_record.json")
+        self.neighbor_list = []
+
     def _detect_and_sanitize_nan_inf(self, tensor, tensor_name="tensor", sender_node="unknown", default_value=0.0):
         """
         Detect and sanitize NaN/Inf values in tensors.
@@ -233,7 +237,9 @@ class VNodeSharingDefenseBase(VNodeSharing, ABC):
         iteration = data["iteration"]
         sender_node = data.get("vSource", "unknown")
         real_node_id = data.get("real_node", None)
-        
+
+        self.neighbor_list.append(real_node_id)
+
         # Clean up data
         for key in ["degree", "iteration", "CHANNEL", "real_node"]:
             if key in data:
@@ -294,7 +300,7 @@ class VNodeSharingDefenseBase(VNodeSharing, ABC):
     def adversarial_finish_forward_averaging(self, peer_deques):
         """
         Standard finish for adversarial nodes (same for all defenses)
-        """
+        """          
         for _, n in enumerate(peer_deques):
             for data in peer_deques[n]:
                 self.forward_averaging(data)
@@ -376,11 +382,60 @@ class VNodeSharingDefenseBase(VNodeSharing, ABC):
         """
         pass
 
+    def update_neighbor_records(self):
+        # Create a node-specific JSON file path
+        node_file = os.path.join(
+            os.path.dirname(self.neighbor_record_file),
+            f"{self.uid}_neighbors.json"
+        )
+    
+        # Initialize an empty dictionary if file doesn't exist
+        node_data = {}
+    
+        # Try to read existing node file, or start with empty dict
+        try:
+            with open(node_file, "r") as f:
+                node_data = json.load(f)
+        except FileNotFoundError:
+            node_data = {}
+
+        # Convert current neighbor list to strings for consistency
+        current_neighbors = [str(n) for n in self.neighbor_list]
+    
+        # Get existing neighbors for this round (if any)
+        round_key = str(self.communication_round)
+        existing_neighbors = node_data.get(round_key, [])
+    
+        # Combine and remove duplicates (handling both string and int formats)
+        combined_neighbors = list(set(
+            [str(n) for n in existing_neighbors] + 
+            current_neighbors
+        ))
+    
+        # Convert back to integers if possible
+        try:
+            combined_neighbors = [int(n) for n in combined_neighbors]
+        except ValueError:
+            pass  # keep as strings if conversion fails
+    
+        # Update the node's data
+        node_data[round_key] = combined_neighbors
+    
+        # Save the node-specific file
+        os.makedirs(os.path.dirname(node_file), exist_ok=True)
+        with open(node_file, "w") as f:
+            json.dump(node_data, f, indent=2)
+
     def finish_forward_averaging(self, peer_deques):
         """
-        Route to appropriate finish method based on node type
+        Route to appropriate finish method based on node type.
         """
         if self.uid in self.adversarial_nodes:
             self.adversarial_finish_forward_averaging(peer_deques)
         else:
             self.defender_finish_forward_averaging(peer_deques)
+
+        # Save neighbor records to file
+        self.update_neighbor_records()
+        # Clear the neighbor list after saving
+        self.neighbor_list.clear() 
