@@ -277,58 +277,6 @@ def extract_node_ids(filepaths):
     return node_ids
 
 
-def extract_corruption_metrics(folder_path):
-    """
-    Extract and aggregate max adversarial proportion from corruption metrics JSON files.
-    Returns a dictionary with iteration -> sum of max_adversarial_proportion values.
-    """
-    aggregated_metrics = {}
-    
-    # Search for corruption_metrics_*.json files in all machine subfolders
-    machine_folders = os.listdir(folder_path)
-    for machine_folder in machine_folders:
-        mf_path = os.path.join(folder_path, machine_folder)
-        if not os.path.isdir(mf_path):
-            continue
-            
-        files = os.listdir(mf_path)
-        corruption_files = [f for f in files if f.startswith("corruption_metrics_") and f.endswith(".json")]
-        
-        for corruption_file in corruption_files:
-            filepath = os.path.join(mf_path, corruption_file)
-            try:
-                with open(filepath, 'r') as f:
-                    data = json.load(f)
-                
-                # Handle both old and new format
-                if isinstance(data, dict):
-                    if "adversarial_influence" in data:
-                        # Old format - single entry
-                        max_adv_prop = data["adversarial_influence"]["max_adversarial_proportion"]
-                        current_round = data["current_round"]
-                        
-                        if current_round not in aggregated_metrics:
-                            aggregated_metrics[current_round] = 0.0
-                        aggregated_metrics[current_round] += max_adv_prop
-                        
-                    else:
-                        # New format - iteration -> value mapping
-                        for iteration_str, value in data.items():
-                            try:
-                                iteration = int(iteration_str)
-                                if iteration not in aggregated_metrics:
-                                    aggregated_metrics[iteration] = 0.0
-                                aggregated_metrics[iteration] += value
-                            except (ValueError, TypeError):
-                                continue
-                                
-            except (json.JSONDecodeError, FileNotFoundError, KeyError) as e:
-                print(f"Warning: Could not read corruption metrics from {filepath}: {e}")
-                continue
-    
-    return aggregated_metrics
-
-
 def plot_results(results_path, config_path=None):
     folders = os.listdir(results_path)
     folders.sort()
@@ -372,14 +320,6 @@ def plot_results(results_path, config_path=None):
 
         # Extract node IDs from filenames
         node_ids = extract_node_ids(filepaths)
-        
-        # Extract and plot adversarial proportion metrics
-        adversarial_metrics = extract_corruption_metrics(folder_path)
-        if adversarial_metrics:
-            print(f"Extracted adversarial metrics for {folder}: {len(adversarial_metrics)} iterations")
-            plot_adversarial_proportion(adversarial_metrics, folder)
-        else:
-            print(f"No adversarial metrics found for {folder}")
         
         # Plot normal statistics (all nodes)
         plt.figure(1)
@@ -528,8 +468,6 @@ def plot_results(results_path, config_path=None):
     plt.savefig(os.path.join(results_path, "test_loss.pdf"), dpi=600)
     plt.figure(3)
     plt.savefig(os.path.join(results_path, "test_acc.pdf"), dpi=600)
-    plt.figure(7)
-    plt.savefig(os.path.join(results_path, "adversarial_proportion.pdf"), dpi=600)
     
     if adversarial_nodes:
         plt.figure(4)
@@ -538,30 +476,6 @@ def plot_results(results_path, config_path=None):
         plt.savefig(os.path.join(results_path, "test_loss_defenders.pdf"), dpi=600)
         plt.figure(6)
         plt.savefig(os.path.join(results_path, "test_acc_defenders.pdf"), dpi=600)
-
-
-def plot_adversarial_proportion(adversarial_metrics, folder, figure_num=7):
-    """
-    Plot adversarial proportion values as a separate graph.
-    """
-    if not adversarial_metrics:
-        print(f"No adversarial metrics data for {folder}")
-        return
-    
-    plt.figure(figure_num)
-    
-    iterations = sorted(adversarial_metrics.keys())
-    values = [adversarial_metrics[it] for it in iterations]
-    
-    plt.plot(iterations, values, label=f'{folder} - Sum of Max Adversarial Proportion', 
-             marker='o', linewidth=2, markersize=4)
-    
-    plt.title('Sum of Max Adversarial Proportion Over Iterations')
-    plt.xlabel('Training Iterations')
-    plt.ylabel('Sum of Max Adversarial Proportion')
-    plt.grid(True, alpha=0.3)
-    plt.legend()
-    plt.tight_layout()
 
 
 if __name__ == "__main__":

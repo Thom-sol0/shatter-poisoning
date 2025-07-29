@@ -382,6 +382,7 @@ class VNodeSharingDefenseBase(VNodeSharing, ABC):
         """
         pass
 
+
     def update_neighbor_records(self):
         # Create a node-specific JSON file path
         node_file = os.path.join(
