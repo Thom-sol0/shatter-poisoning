@@ -99,7 +99,18 @@ class VNodeSharingDefenseWeightTracker(VNodeSharingDefenseBase):
             "timestamp": datetime.now().isoformat(),
         }
         
-        metadata_file = os.path.join(self.weights_dir, f"metadata_node{self.uid}.json")
+        # Use versioned filename to avoid conflicts
+        base_filename = f"metadata_node{self.uid}.json"
+        base_path = os.path.join(self.weights_dir, base_filename)
+        
+        # Check for existing files with same name pattern and append version numbers
+        version = 1
+        metadata_file = base_path
+        
+        while os.path.exists(metadata_file):
+            metadata_file = os.path.join(self.weights_dir, f"metadata_node{self.uid}_v{version}.json")
+            version += 1
+            
         with open(metadata_file, "w") as f:
             json.dump(metadata, f, indent=2)
 
@@ -114,18 +125,30 @@ class VNodeSharingDefenseWeightTracker(VNodeSharingDefenseBase):
             # Convert model weights to CPU for consistent storage
             cpu_state_dict = {k: v.cpu() for k, v in state_dict.items()}
             
-            # Save to file
-            weights_file = os.path.join(
-                self.weights_dir, 
-                f"node{self.uid}_round{self.communication_round}.pt"
-            )
+            # Basic filename pattern
+            base_filename = f"node{self.uid}_round{self.communication_round}.pt"
+            base_path = os.path.join(self.weights_dir, base_filename)
+            
+            # Check for existing files with same name pattern and append version numbers
+            version = 1
+            weights_file = base_path
+            
+            # Keep incrementing version until we find a filename that doesn't exist
+            while os.path.exists(weights_file):
+                weights_file = os.path.join(
+                    self.weights_dir, 
+                    f"node{self.uid}_round{self.communication_round}_v{version}.pt"
+                )
+                version += 1
             
             torch.save(cpu_state_dict, weights_file)
             
             # Also store in memory (for quick access during the run)
             self.weight_history[self.communication_round] = cpu_state_dict
             
-            logging.info(f"Node {self.uid}: Saved weights at round {self.communication_round}")
+            # Extract the filename only (without path) for logging
+            filename = os.path.basename(weights_file)
+            logging.info(f"Node {self.uid}: Saved weights at round {self.communication_round} as {filename}")
             
     def compute_weight_diff_l2_norm(self, other_weights_dir, round_num):
         """
@@ -142,15 +165,28 @@ class VNodeSharingDefenseWeightTracker(VNodeSharingDefenseBase):
         --------
         dict : Dictionary of L2 norms per layer and total L2 norm
         """
-        current_weights_file = os.path.join(
-            self.weights_dir, 
-            f"node{self.uid}_round{round_num}.pt"
-        )
+        # Find the current weights file, which might have a version suffix
+        current_weights_pattern = f"node{self.uid}_round{round_num}*.pt"
+        current_files = list(Path(self.weights_dir).glob(current_weights_pattern))
         
-        other_weights_file = os.path.join(
-            other_weights_dir, 
-            f"node{self.uid}_round{round_num}.pt"
-        )
+        if not current_files:
+            return {"error": f"No weight files found for node {self.uid} at round {round_num} in current experiment"}
+        
+        # Use the first matching file (if there are multiple versions)
+        current_weights_file = str(current_files[0])
+        
+        # Find the other weights file
+        other_weights_pattern = f"node{self.uid}_round{round_num}*.pt"
+        other_files = list(Path(other_weights_dir).glob(other_weights_pattern))
+        
+        if not other_files:
+            return {"error": f"No weight files found for node {self.uid} at round {round_num} in other experiment"}
+        
+        # Use the first matching file
+        other_weights_file = str(other_files[0])
+        
+        # Log which specific files we're comparing
+        logging.info(f"Comparing weights: {os.path.basename(current_weights_file)} vs {os.path.basename(other_weights_file)}")
         
         if not os.path.exists(current_weights_file) or not os.path.exists(other_weights_file):
             return {"error": "Weight files not found for comparison"}
@@ -201,24 +237,43 @@ class VNodeSharingDefenseWeightTracker(VNodeSharingDefenseBase):
         if interval is None:
             interval = self.save_interval
             
-        max_round = max([
-            int(f.name.split("_round")[1].split(".pt")[0])
-            for f in Path(self.weights_dir).glob(f"node{self.uid}_round*.pt")
-        ])
+        # Find all saved rounds by parsing filenames
+        # This pattern will match any versioned files too
+        all_files = list(Path(self.weights_dir).glob(f"node{self.uid}_round*.pt"))
         
+        if not all_files:
+            raise ValueError(f"No weight files found for node {self.uid}")
+            
+        # Extract round numbers from filenames (handling versioned files)
+        rounds = set()
+        for f in all_files:
+            # Extract round number from filename like "node5_round10.pt" or "node5_round10_v2.pt"
+            parts = f.name.split("_round")[1].split("_v")[0].split(".pt")[0]
+            try:
+                round_num = int(parts)
+                rounds.add(round_num)
+            except ValueError:
+                logging.warning(f"Couldn't parse round number from filename: {f.name}")
+        
+        # Sort rounds and filter by interval
+        sorted_rounds = sorted(rounds)
+        if not sorted_rounds:
+            raise ValueError("No valid round numbers found in weight files")
+            
+        max_round = sorted_rounds[-1]
         rounds_to_analyze = list(range(0, max_round + 1, interval))
         
         # Compute differences
         results = []
         for round_num in rounds_to_analyze:
-            weights_file = os.path.join(
-                self.weights_dir, 
-                f"node{self.uid}_round{round_num}.pt"
-            )
-            
-            if not os.path.exists(weights_file):
-                continue
-                
+            # We'll find the appropriate files in compute_weight_diff_l2_norm
+            diff_norms = self.compute_weight_diff_l2_norm(other_weights_dir, round_num)
+            if "error" not in diff_norms:
+                diff_norms["round"] = round_num
+                results.append(diff_norms)
+            else:
+                # Log the error but continue processing other rounds
+                logging.warning(f"Round {round_num}: {diff_norms.get('error', 'Unknown error')}")
             diff_norms = self.compute_weight_diff_l2_norm(other_weights_dir, round_num)
             if "error" not in diff_norms:
                 diff_norms["round"] = round_num
