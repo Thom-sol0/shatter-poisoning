@@ -7,6 +7,7 @@ import json
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
+import seaborn as sns
 
 MAX_ITERATION = None
 MUFFLIATO_ROUNDS = 10
@@ -258,6 +259,43 @@ def get_min_max_test_acc(results):
     return min_of_maxes_row_idx, min_of_maxes_acc
 
 
+def create_final_accuracy_boxplot(exp_data, results_path):
+    """
+    Create a box plot showing the final test accuracy values for defending nodes.
+    
+    Args:
+        exp_data: Dictionary with experiment names as keys and lists of final accuracy values as values
+        results_path: Path to save the output plot
+    """
+    # Create figure for box plot
+    plt.figure(figsize=(10, 6))
+    
+    # Prepare data in format for box plot
+    data_to_plot = []
+    labels = []
+    
+    for exp_name, values in exp_data.items():
+        if values:  # Only include experiments with data
+            data_to_plot.append(values)
+            labels.append(exp_name)
+    
+    # Create the box plot
+    if data_to_plot:
+        plt.boxplot(data_to_plot, labels=labels)
+        plt.title('Final Test Accuracy of Defending Nodes')
+        plt.ylabel('Test Accuracy (%)')
+        plt.xlabel('Experiments')
+        plt.xticks(rotation=45, ha='right')  # Rotate experiment names for better visibility
+        plt.tight_layout()
+        plt.grid(True, axis='y', linestyle='--', alpha=0.7)
+        
+        # Save the figure
+        plt.savefig(os.path.join(results_path, "final_test_acc_boxplot.pdf"), dpi=600)
+        print(f"Box plot saved to {os.path.join(results_path, 'final_test_acc_boxplot.pdf')}")
+    else:
+        print("No valid data for box plot")
+
+
 def extract_node_ids(filepaths):
     """Extract node IDs from CSV filenames"""
     node_ids = []
@@ -295,6 +333,9 @@ def plot_results(results_path, config_path=None):
     bytes_means, bytes_stdevs = {}, {}
     meta_means, meta_stdevs = {}, {}
     data_means, data_stdevs = {}, {}
+    
+    # Dictionary to store final test accuracy values for each experiment
+    final_test_acc_values = {}
     
     for folder in folders:
         folder_path = Path(os.path.join(results_path, folder))
@@ -460,6 +501,27 @@ def plot_results(results_path, config_path=None):
                 columns=["mean", "std", "nr_nodes"],
             )
             df.to_csv(os.path.join(results_path, f"{folder}_test_acc_defenders.csv"), index_label="rounds")
+            
+            # Collect final test accuracy values for defending nodes (for box plot)
+            final_values = []
+            for idx, result_df in enumerate(results):
+                # Skip adversarial nodes
+                if node_ids[idx] in adversarial_nodes:
+                    continue
+                    
+                # Skip if test_acc column doesn't exist
+                if "test_acc" not in result_df.columns:
+                    continue
+                
+                # Get the last valid test accuracy value
+                test_acc_series = result_df["test_acc"].dropna()
+                if not test_acc_series.empty:
+                    final_value = test_acc_series.iloc[-1]  # Get the last value
+                    final_values.append(final_value)
+                    
+            # Store the final values for this experiment
+            if final_values:
+                final_test_acc_values[folder] = final_values
 
     # Save all figures
     plt.figure(1)
@@ -476,6 +538,10 @@ def plot_results(results_path, config_path=None):
         plt.savefig(os.path.join(results_path, "test_loss_defenders.pdf"), dpi=600)
         plt.figure(6)
         plt.savefig(os.path.join(results_path, "test_acc_defenders.pdf"), dpi=600)
+        
+        # Create box plot of final test accuracy values for defenders
+        if final_test_acc_values:
+            create_final_accuracy_boxplot(final_test_acc_values, results_path)
 
 
 if __name__ == "__main__":

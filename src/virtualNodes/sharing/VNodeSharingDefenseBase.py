@@ -165,7 +165,7 @@ class VNodeSharingDefenseBase(VNodeSharing, ABC):
             init_state_dict, init_corrupted = self._validate_model_state(init_state_dict, f"init_state_node_{self.uid}")
             
             final_state_dict = {}
-            
+
             for key in init_state_dict:
                 try:
                     flipped_update = 2 * init_state_dict[key] - mean_state_dict[key]
@@ -177,7 +177,6 @@ class VNodeSharingDefenseBase(VNodeSharing, ABC):
                             f"node_{self.uid}",
                             default_value=0.0
                         )
-                        
                         if torch.any(torch.isnan(flipped_update)) or torch.any(torch.isinf(flipped_update)):
                             final_state_dict[key] = mean_state_dict[key]
                         else:
@@ -186,10 +185,10 @@ class VNodeSharingDefenseBase(VNodeSharing, ABC):
                         if torch.max(torch.abs(flipped_update)) > 1e8:
                             flipped_update = torch.clamp(flipped_update, min=-1e8, max=1e8)
                         final_state_dict[key] = flipped_update
-                        
+
                 except Exception as e:
                     final_state_dict[key] = mean_state_dict[key]
-            
+
             final_state_dict, final_corrupted = self._validate_model_state(final_state_dict, f"final_flip_grad_node_{self.uid}")
             self.model.load_state_dict(final_state_dict)
         

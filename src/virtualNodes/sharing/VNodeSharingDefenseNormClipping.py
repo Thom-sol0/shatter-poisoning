@@ -1,8 +1,8 @@
 import torch
 import numpy as np
 from collections import defaultdict
-#from virtualNodes.sharing.VNodeSharingDefenseBase import VNodeSharingDefenseBase
-from virtualNodes.sharing.VNodeSharingDefenseWeightTracker import VNodeSharingDefenseWeightTracker as VNodeSharingDefenseBase
+from virtualNodes.sharing.VNodeSharingDefenseBase import VNodeSharingDefenseBase
+#from virtualNodes.sharing.VNodeSharingDefenseWeightTracker import VNodeSharingDefenseWeightTracker as VNodeSharingDefenseBase
 
 class VNodeSharingPoison(VNodeSharingDefenseBase):
     """
@@ -31,8 +31,8 @@ class VNodeSharingPoison(VNodeSharingDefenseBase):
         attack_type='zero',
         adversarial_nodes=None,
         poison_after=None,
-        save_interval=10,  # Save weights every N communication rounds
-        experiment_id=None,  # Unique identifier for this experiment run
+        #save_interval=10,  # Save weights every N communication rounds
+        #experiment_id=None,  # Unique identifier for this experiment run
         tau_own=1.0,  # Norm threshold for own model update 
         tau_nbr=0.1,  # Norm threshold for neighbor updates
     ):
@@ -63,8 +63,8 @@ class VNodeSharingPoison(VNodeSharingDefenseBase):
             attack_type=attack_type,
             adversarial_nodes=adversarial_nodes,
             poison_after=poison_after,
-            save_interval=save_interval,
-            experiment_id=experiment_id
+            #save_interval=save_interval,
+            #experiment_id=experiment_id
         )
         
         self.tau_own = tau_own
@@ -126,6 +126,8 @@ class VNodeSharingPoison(VNodeSharingDefenseBase):
 
             # Compute norm of the difference and clip if needed
             norm = torch.norm(weight_diff, p=2)
+
+            print(f"Node {self.uid} received update from {sender_node} with norm {norm.item()}")
 
             if norm > self.tau_nbr:
                 # Scale down the difference to have norm = tau_nbr
