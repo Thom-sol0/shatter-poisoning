@@ -128,6 +128,8 @@ def plot(
     xlabel="Training Epochs",
     ylabel="Top-1 Test Accuracy (%)",
     use_log=False,
+    y_min=None,
+    y_max=None
 ):
     plt.title(title)
     plt.xlabel(xlabel)
@@ -216,6 +218,12 @@ def plot(
     else:
         plt.plot([], [], label=f"{label} (all NaN)")
         
+    if y_min is not None or y_max is not None:
+        current_ymin, current_ymax = plt.ylim()
+        new_ymin = y_min if y_min is not None else current_ymin
+        new_ymax = y_max if y_max is not None else current_ymax
+        plt.ylim(new_ymin, new_ymax)
+
     plt.grid(True)
     plt.tight_layout()
     plt.legend(loc=loc)
@@ -259,13 +267,15 @@ def get_min_max_test_acc(results):
     return min_of_maxes_row_idx, min_of_maxes_acc
 
 
-def create_final_accuracy_boxplot(exp_data, results_path):
+def create_final_accuracy_boxplot(exp_data, results_path, y_min=None, y_max=None):
     """
     Create a box plot showing the final test accuracy values for defending nodes.
     
     Args:
         exp_data: Dictionary with experiment names as keys and lists of final accuracy values as values
         results_path: Path to save the output plot
+        y_min: Optional minimum value for y-axis (accuracy)
+        y_max: Optional maximum value for y-axis (accuracy)
     """
     # Create figure for box plot
     plt.figure(figsize=(10, 6))
@@ -281,17 +291,36 @@ def create_final_accuracy_boxplot(exp_data, results_path):
     
     # Create the box plot
     if data_to_plot:
-        plt.boxplot(data_to_plot, labels=labels)
+        # Use patch_artist to allow coloring
+        bp = plt.boxplot(data_to_plot, labels=labels, patch_artist=True)
+        
+        # Define a color palette (you can expand this if you have many pairs)
+        colors = plt.cm.tab10.colors  # 10 distinct colors
+        
+        # Assign same color for each pair
+        for i, box in enumerate(bp['boxes']):
+            color_idx = i // 2  # group every 2 experiments
+            box.set_facecolor(colors[color_idx % len(colors)])
+            box.set_alpha(0.6)  # semi-transparent for nice look
+        
         plt.title('Final Test Accuracy of Defending Nodes')
         plt.ylabel('Test Accuracy (%)')
         plt.xlabel('Experiments')
-        plt.xticks(rotation=45, ha='right')  # Rotate experiment names for better visibility
+        plt.xticks(rotation=45, ha='right')
+        
+        # Axis limits
+        if y_min is not None or y_max is not None:
+            current_ymin, current_ymax = plt.ylim()
+            new_ymin = y_min if y_min is not None else current_ymin
+            new_ymax = y_max if y_max is not None else current_ymax
+            plt.ylim(new_ymin, new_ymax)
+            
         plt.tight_layout()
         plt.grid(True, axis='y', linestyle='--', alpha=0.7)
         
-        # Save the figure
-        plt.savefig(os.path.join(results_path, "final_test_acc_boxplot.pdf"), dpi=600)
-        print(f"Box plot saved to {os.path.join(results_path, 'final_test_acc_boxplot.pdf')}")
+        outpath = os.path.join(results_path, "final_test_acc_boxplot.pdf")
+        plt.savefig(outpath, dpi=600)
+        print(f"Box plot saved to {outpath}")
     else:
         print("No valid data for box plot")
 
@@ -315,7 +344,7 @@ def extract_node_ids(filepaths):
     return node_ids
 
 
-def plot_results(results_path, config_path=None):
+def plot_results(results_path, config_path=None, boxplot_y_min=None, boxplot_y_max=None):
     folders = os.listdir(results_path)
     folders.sort()
     
@@ -329,6 +358,9 @@ def plot_results(results_path, config_path=None):
     print("Folders: ", folders)
     if adversarial_nodes:
         print(f"Excluding adversarial nodes from metric computation: {adversarial_nodes}")
+    
+    if boxplot_y_min is not None or boxplot_y_max is not None:
+        print(f"Box plot y-axis limits: min={boxplot_y_min}, max={boxplot_y_max}")
     
     bytes_means, bytes_stdevs = {}, {}
     meta_means, meta_stdevs = {}, {}
@@ -419,6 +451,8 @@ def plot_results(results_path, config_path=None):
             "Convergence (Test Accuracy)",
             folder,
             "lower right",
+            y_min=boxplot_y_min,
+            y_max=boxplot_y_max,
         )
         df = pd.DataFrame(
             {
@@ -490,6 +524,8 @@ def plot_results(results_path, config_path=None):
                 "Convergence (Test Accuracy - Defenders Only)",
                 folder,
                 "lower right",
+                y_min=boxplot_y_min,
+                y_max=boxplot_y_max,
             )
             df = pd.DataFrame(
                 {
@@ -541,15 +577,18 @@ def plot_results(results_path, config_path=None):
         
         # Create box plot of final test accuracy values for defenders
         if final_test_acc_values:
-            create_final_accuracy_boxplot(final_test_acc_values, results_path)
+            create_final_accuracy_boxplot(final_test_acc_values, results_path, y_min=boxplot_y_min, y_max=boxplot_y_max)
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print("Usage: python plot_csv_acc_defenders.py <results_path> [config_path]")
-        sys.exit(1)
-        
-    results_path = sys.argv[1]
-    config_path = sys.argv[2] if len(sys.argv) == 3 else None
+    import argparse
     
-    plot_results(results_path, config_path)
+    parser = argparse.ArgumentParser(description='Plot CSV accuracy results with defender focus')
+    parser.add_argument('results_path', type=str, help='Path to the results directory')
+    parser.add_argument('--config_path', type=str, help='Path to the config file (optional)')
+    parser.add_argument('--boxplot_y_min', type=float, help='Minimum value for box plot y-axis (accuracy)')
+    parser.add_argument('--boxplot_y_max', type=float, help='Maximum value for box plot y-axis (accuracy)')
+    
+    args = parser.parse_args()
+    
+    plot_results(args.results_path, args.config_path, args.boxplot_y_min, args.boxplot_y_max)
